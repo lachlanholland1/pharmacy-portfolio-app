@@ -1,78 +1,30 @@
 version: "3.9"
 services:
-  brisbanegateway:
-    platform: linux/amd64
-    container_name: brisbanegateway
-    image: 324074223388.dkr.ecr.ap-southeast-2.amazonaws.com/brisbanegateway:latest
-    build: ./brisbanegateway
-    ports:
-      - "80:80"
-    environment:
-      - NODE_ENV=production
-      - HTTPS=false
-      - PORT=80
-      - BROWSER=none
-      - NEXT_PUBLIC_REACT_APP_API_URL=http://api-lb-342817089.ap-southeast-2.elb.amazonaws.com/
-      - API_URL=http://api-lb-342817089.ap-southeast-2.elb.amazonaws.com/
-      - WP_API_URL=http://localhost:3000/
-      - DB_PORT=3306
-      - DB_HOST=brisbanegateway.cnrg6mcehtid.ap-southeast-2.rds.amazonaws.com
-      - DB_PASSWORD=V3ZWSQTyFnqbpQ2dWR2dG3rGT
-      - DB_USER=admin
-      - DB=brisbanegateway
-    networks:
-      brisbanegateway:
-        ipv4_address: 172.20.0.10
   admin:
     platform: linux/amd64
     container_name: admin
-    image: 324074223388.dkr.ecr.ap-southeast-2.amazonaws.com/admin:latest
+   #Need to update
+    image: .dkr.ecr.ap-southeast-2.amazonaws.com/admin:latest
     build: ./admin
     ports:
       - "80:80"
     networks:
-      brisbanegateway:
+      pharmacy_app:
         ipv4_address: 172.20.0.11
   api:
     platform: linux/amd64
-    image: 324074223388.dkr.ecr.ap-southeast-2.amazonaws.com/api:latest
+    #Need to update
+    image: .dkr.ecr.ap-southeast-2.amazonaws.com/api:latest
     container_name: api
     ports:
       - "80:80"
     build: ./api
     environment:
-      - NODE_ENV=development
-      - PORT=80
-      - DB_PORT=3306
-      - MAILER_PORT=587
-      - API_URL=http://api-lb-342817089.ap-southeast-2.elb.amazonaws.com/
-      - DB_HOST=brisbanegateway.cnrg6mcehtid.ap-southeast-2.rds.amazonaws.com
-      - DB_PASSWORD=V3ZWSQTyFnqbpQ2dWR2dG3rGT
-      - DB_USER=admin
-      - DB=brisbanegateway
-      - MAILER_HOST=smtp.gmail.com
-      - MAILER_USER=brisbanegatewayform@gmail.com
-      - MAILER_PASSWORD=jbwcjkmotkijgflb
-      - MAILER_TO=brisbanegatewayform@gmail.com
-      - ACCESS_TOKEN_SECRET=032feed2f309b896c978fe9c4cc605e241f37ff063d34996036bb142b82ba8d336b8dba80cc7059b153f98b126f1f7db258e819ef976767868b66bc467a325f2
-      - REFRESH_TOKEN_SECRET=159522ea8c776dca0c94b85e7294c3fe5f7f64de8f851f4892014a9f34d982084e0535b09722f5e8b069d3bcb97c92100cb3fd2db0ed405d2a2848007e10d6cf
-      - NEWBOOK_AUTH=brisbanegateway:)W^aHqU0nYENN^au
-      - NEWBOOK_API_KEY=instances_0f6267d38b10c40665ea80fcf4a6fcc8
     networks:
-      brisbanegateway:
+      pharmacy_app:
         ipv4_address: 172.20.0.12
-  blog:
-    platform: linux/amd64
-    container_name: blog
-    image: 324074223388.dkr.ecr.ap-southeast-2.amazonaws.com/blog:latest
-    build: ./blog
-    ports:
-      - "80:80"
-    networks:
-      brisbanegateway:
-        ipv4_address: 172.20.0.14
 networks:
-  brisbanegateway:
+  pharmacy_app:
     ipam:
       config:
         - subnet: 172.20.0.0/16
