@@ -10,10 +10,10 @@ const fs = require("fs");
 const path = require("path");
 
 //Auth
-const loginRouter = require("./admin_routes/authenticate/auth_routes/login.js");
-const logoutRouter = require("./admin_routes/authenticate/auth_routes/logout.js");
-const tokenRouter = require("./admin_routes/authenticate/auth_routes/token.js");
-const authenticateRouter = require("./admin_routes/authenticate/auth_routes/authenticate.js");
+const loginRouter = require("./pharmacy_routes/authenticate/auth_routes/login.js");
+const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.js");
+const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
+const authenticateRouter = require("./pharmacy_routes/authenticate/auth_routes/authenticate.js");
 
 dotEnv.config();
 
