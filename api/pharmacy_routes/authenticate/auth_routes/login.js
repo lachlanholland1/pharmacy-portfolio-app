@@ -12,7 +12,7 @@ router.post("/", function (req, res, next) {
   const reqEmail = req.body.email;
   const reqPassword = req.body.password;
   db.query(
-    "select * from accounts where email = ? and password = ?",
+    "select * from users where email = ? and password = ?",
     [reqEmail, reqPassword],
     (err, result) => {
       if (err) {
@@ -27,9 +27,9 @@ router.post("/", function (req, res, next) {
       }
       const user = result[0];
       if (user.password === reqPassword) {
-        const accessToken = generateAccessToken(user.id);
+        const accessToken = generateAccessToken(user.user_id);
         const refreshToken = jwt.sign(
-          { id: user.id },
+          { id: user.user_id },
           process.env.REFRESH_TOKEN_SECRET
         );
         refreshTokens.push(refreshToken);
