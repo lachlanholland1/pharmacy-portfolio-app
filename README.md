@@ -1,2 +1,2 @@
-# brisbanegateway
-Website for Brisbane Gateway Resort
+# Pharmacy App
+Capstone project
