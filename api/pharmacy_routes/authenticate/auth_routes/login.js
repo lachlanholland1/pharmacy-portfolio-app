@@ -12,7 +12,7 @@ router.post("/", function (req, res, next) {
   const reqEmail = req.body.email;
   const reqPassword = req.body.password;
   db.query(
-    "select * from users where email = ? and password = ?",
+    "select * from Users where email = ? and password = ?",
     [reqEmail, reqPassword],
     (err, result) => {
       if (err) {
