@@ -15,6 +15,9 @@ const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.
 const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
 const authenticateRouter = require("./pharmacy_routes/authenticate/auth_routes/authenticate.js");
 
+//Sign up
+const signUpRouter = require("./pharmacy_routes/signUp");
+
 dotEnv.config();
 
 var app = express();
@@ -63,6 +66,9 @@ app.use("/api/login", verifyOrigin, loginRouter);
 app.use("/api/logout", verifyOrigin, logoutRouter);
 app.use("/api/token", verifyOrigin, tokenRouter);
 app.use("/api/authenticate", authenticateToken, authenticateRouter);
+
+//Sign Up
+app.use("/api/sign-up", verifyOrigin, signUpRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
