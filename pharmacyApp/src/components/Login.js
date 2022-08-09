@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import SignUp from "./sign-up/SignUp";
 
 function Login(props) {
   const { setAuth } = useAuth();
@@ -31,6 +32,7 @@ function Login(props) {
 
   return (
     <div>
+      <SignUp />
       <div>
         <form>
           <input
