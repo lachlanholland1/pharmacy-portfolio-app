@@ -27,8 +27,13 @@ function SignInForm(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.access_token) {
-          setAuth({ user: true, access_token: data.access_token });
-          navigate("/");
+          setAuth({
+            user: true,
+            user_id: data.user_id,
+            access_token: data.access_token,
+            username: data.username,
+          });
+          navigate("/" + data.username);
         }
       });
   }

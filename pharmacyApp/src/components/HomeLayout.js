@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 
-function Layout(props) {
+function HomeLayout(props) {
   return (
     <div>
       <Outlet />
@@ -11,4 +11,4 @@ function Layout(props) {
   );
 }
 
-export default Layout;
+export default HomeLayout;
