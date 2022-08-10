@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import SignUp from "./sign-up/SignUp";
+import useAuth from "../../hooks/useAuth";
+import SignUp from "../sign-up/SignUp";
 
-function Login(props) {
+const formreducer = (state, event) => {
+  return {
+    ...state,
+    [event.name]: event.value,
+  };
+};
+
+function SignInForm(props) {
   const { setAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formData, setFormData] = useReducer(formreducer, {});
+
   let navigate = useNavigate();
 
   function reqLogin(loginReq) {
@@ -24,44 +33,54 @@ function Login(props) {
       });
   }
 
+  const handleChange = (event) => {
+    const isCheckbox = event.target.type === "checkbox";
+    setFormData({
+      name: event.target.name,
+      value: isCheckbox ? event.target.checked : event.target.value,
+    });
+  };
+
   function handleLogin(event) {
     event.preventDefault();
-    let loginReq = { email: email, password: password };
-    reqLogin(loginReq);
+    reqLogin(formData);
   }
 
   return (
     <div>
-      <SignUp />
       <div>
-        <form>
+        <form onSubmit={handleLogin}>
           <input
             type="text"
             id="email"
             name="email"
-            value={email}
             placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-control"
+            onChange={handleChange}
+            required
           />
           <br />
           <input
             type="password"
             id="password"
             name="password"
-            value={password}
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            className="form-control"
+            onChange={handleChange}
+            required
           />
           <br />
-          <button className="btn btn-success w-100" onClick={handleLogin}>
-            Login
-          </button>
+          <label>Admin</label>
+          <input
+            type="checkbox"
+            name="admin"
+            onChange={handleChange}
+            step="1"
+          />
+          <br />
+          <button type="submit">Sign in</button>
         </form>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default SignInForm;
