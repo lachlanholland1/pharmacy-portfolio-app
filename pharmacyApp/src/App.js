@@ -1,22 +1,27 @@
 import { Routes, Route } from "react-router-dom";
 import React, { withRouter, useState, useEffect } from "react";
 import Login from "./components/sign-in/SignIn";
-import DashLayout from "./components/DashLayout";
-import Dashboard from "./components/Dashboard";
+import AdminLayout from "./components/admin/layout/AdminLayout";
+import UserLayout from "./components/user/layout/UserLayout";
+import Profile from "./components/user/profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import "./styles.css";
-import Layout from "./components/Layout";
+import HomeLayout from "./components/HomeLayout";
 import SignUp from "./components/sign-up/SignUp";
+import Dashboard from "./components/admin/dashboard/Dashboard";
 
 function App(props) {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<HomeLayout />}>
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignUp />} />
-        {/* private routes */}
-        <Route element={<DashLayout />}>
+        <Route element={<UserLayout />}>
+          <Route path="/:user" element={<Profile />} />
+        </Route>
+        {/* private/admin routes */}
+        <Route element={<AdminLayout />}>
           <Route element={<PrivateRoute />}>
             <Route path="/" index element={<Dashboard />} />
           </Route>

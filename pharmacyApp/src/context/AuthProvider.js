@@ -5,7 +5,6 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState({});
-  console.log(auth.access_token);
   useEffect(() => {
     fetch("/api/authenticate", {
       method: "GET",
