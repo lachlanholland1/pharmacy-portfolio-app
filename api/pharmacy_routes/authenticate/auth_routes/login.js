@@ -33,7 +33,11 @@ router.post("/", function (req, res, next) {
           process.env.REFRESH_TOKEN_SECRET
         );
         refreshTokens.push(refreshToken);
-        return res.send({ access_token: accessToken });
+        return res.send({
+          access_token: accessToken,
+          user_id: user.user_id,
+          username: user.username,
+        });
       }
       return res.sendStatus(401);
     }
