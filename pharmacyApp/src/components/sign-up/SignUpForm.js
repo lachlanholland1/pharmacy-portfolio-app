@@ -46,6 +46,17 @@ const SignUpForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <label>Username</label>
+        <br />
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter a username"
+          name="username"
+          required
+          onChange={handleChange}
+        />
+        <br />
         <label>First name</label>
         <br />
         <input

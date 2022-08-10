@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-function DashFooter(props) {
+function DashboardFooter(props) {
   return <div></div>;
 }
 
-export default DashFooter;
+export default DashboardFooter;

@@ -15,6 +15,9 @@ const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.
 const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
 const authenticateRouter = require("./pharmacy_routes/authenticate/auth_routes/authenticate.js");
 
+//Profile
+const profileRouter = require("./pharmacy_routes/profile.js");
+
 //Sign up
 const signUpRouter = require("./pharmacy_routes/signUp");
 
@@ -65,7 +68,15 @@ function authenticateToken(req, res, next) {
 app.use("/api/login", verifyOrigin, loginRouter);
 app.use("/api/logout", verifyOrigin, logoutRouter);
 app.use("/api/token", verifyOrigin, tokenRouter);
-app.use("/api/authenticate", authenticateToken, authenticateRouter);
+app.use(
+  "/api/authenticate",
+  verifyOrigin,
+  authenticateToken,
+  authenticateRouter
+);
+
+//profile
+app.use("/api/profile", verifyOrigin, profileRouter);
 
 //Sign Up
 app.use("/api/sign-up", verifyOrigin, signUpRouter);
