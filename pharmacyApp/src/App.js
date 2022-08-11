@@ -9,6 +9,7 @@ import "./styles.css";
 import HomeLayout from "./components/HomeLayout";
 import SignUp from "./components/sign-up/SignUp";
 import Dashboard from "./components/admin/dashboard/Dashboard";
+import CreateEvidence from "./components/create-evidence/CreateEvidence";
 
 function App(props) {
   return (
@@ -17,6 +18,7 @@ function App(props) {
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignUp />} />
+        <Route path="evidence" element={<CreateEvidence />} />
         <Route element={<UserLayout />}>
           <Route path="/:user" element={<Profile />} />
         </Route>

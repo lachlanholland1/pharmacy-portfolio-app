@@ -21,6 +21,9 @@ const profileRouter = require("./pharmacy_routes/profile.js");
 //Sign up
 const signUpRouter = require("./pharmacy_routes/signUp");
 
+//Create Evidence
+const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
+
 dotEnv.config();
 
 var app = express();
@@ -80,6 +83,10 @@ app.use("/api/profile", verifyOrigin, profileRouter);
 
 //Sign Up
 app.use("/api/sign-up", verifyOrigin, signUpRouter);
+
+//Create Evidence
+app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
