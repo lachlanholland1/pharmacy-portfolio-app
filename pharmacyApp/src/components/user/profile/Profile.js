@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import EvidenceTable from "../../portfolio/evidence/EvidenceTable";
+import EvidenceTable from "./evidence/EvidenceTable";
 import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
@@ -28,6 +28,7 @@ function Profile(props) {
         SetUserName(data.username);
       });
   }, []);
+
   return (
     <div>
       {profileLoaded ? (
