@@ -24,6 +24,9 @@ const signUpRouter = require("./pharmacy_routes/signUp");
 //Create Evidence
 const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
+//Evidence table
+const evidenceTableRouter = require("./pharmacy_routes/evidenceTable");
+
 dotEnv.config();
 
 var app = express();
@@ -87,7 +90,7 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 //Create Evidence
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
-
+app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
