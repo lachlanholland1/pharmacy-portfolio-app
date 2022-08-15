@@ -24,6 +24,10 @@ const signUpRouter = require("./pharmacy_routes/signUp");
 //Create Evidence
 const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
+//Create Admin
+const createAdminRouter = require("./pharmacy_routes/createAdmin");
+
+
 dotEnv.config();
 
 var app = express();
@@ -87,6 +91,8 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 //Create Evidence
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
+//Create Admin
+app.use("/api/createadmin", verifyOrigin, createAdminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

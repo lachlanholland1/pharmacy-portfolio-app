@@ -10,6 +10,7 @@ import HomeLayout from "./components/HomeLayout";
 import SignUp from "./components/sign-up/SignUp";
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import CreateEvidence from "./components/create-evidence/CreateEvidence";
+import CreateAdmin from "./components/admin/create-admin/CreateAdmin";
 
 function App(props) {
   return (
@@ -19,6 +20,7 @@ function App(props) {
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="evidence" element={<CreateEvidence />} />
+        <Route path="admin" element={<CreateAdmin />} />
         <Route element={<UserLayout />}>
           <Route path="/:user" element={<Profile />} />
         </Route>
