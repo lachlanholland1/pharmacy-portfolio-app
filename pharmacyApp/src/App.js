@@ -11,6 +11,7 @@ import SignUp from "./components/sign-up/SignUp";
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import CreateEvidence from "./components/create-evidence/CreateEvidence";
 import CreateAdmin from "./components/admin/create-admin/CreateAdmin";
+import CreateReviewer from "./components/reviewers/CreateReviewer";
 
 function App(props) {
   return (
@@ -21,6 +22,7 @@ function App(props) {
         <Route path="sign-up" element={<SignUp />} />
         <Route path="evidence" element={<CreateEvidence />} />
         <Route path="admin" element={<CreateAdmin />} />
+        <Route path="reviewer" element={<CreateReviewer />} />
         <Route element={<UserLayout />}>
           <Route path="/:user" element={<Profile />} />
         </Route>
