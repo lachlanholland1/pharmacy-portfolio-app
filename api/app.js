@@ -91,6 +91,19 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
 app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
+
+//Evidence table
+const createAdminTableRouter = require("./pharmacy_routes/createAdmin");
+
+//Evidence table
+const createReviewerTableRouter = require("./pharmacy_routes/createReviewer");
+
+//Create admin
+app.use("/api/createadmin", verifyOrigin, createAdminRouter);
+
+//Create reviewer
+app.use("/api/createreviewer", verifyOrigin, createReviewerRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
