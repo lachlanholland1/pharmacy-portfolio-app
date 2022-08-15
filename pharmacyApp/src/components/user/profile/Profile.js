@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 
 function Profile(props) {
   const params = useParams();
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [username, SetUserName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
