@@ -5,7 +5,7 @@ const db = require("../connection.js");
 router.post("/", (req, res, next) => {
   var date = new Date();
   const title = req.body.title;
-  const userId = req.body.userId;
+  const userId = parseInt(req.body.userId);
   const description = req.body.description;
   const impactstatement = req.body.impactstatement;
   const uploaddate = (date.toISOString().slice(0, 19).replace('T', ' ')).toString();
@@ -16,6 +16,10 @@ router.post("/", (req, res, next) => {
     "INSERT INTO evidenceitems (users_id, title, description, impactstatement, uploaddate, procurementdate, attachment) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [userId, title, description, impactstatement, uploaddate, procurementdate, attachment],
     (err, result) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(401);
+        return;}
       res.sendStatus(200);
     }
   );

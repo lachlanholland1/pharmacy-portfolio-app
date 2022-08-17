@@ -40,9 +40,8 @@ export default function CreateEvidenceForm(){
           name: "date",
           value: (date.toString()).concat(" 00:00:00"),
         });
-        setFormData({name: "userId", value: userId});
+        setFormData({name: "userId", value: userId});////////
       };
-      // let addUser = setFormData({name: "userId", value: userId});
       function handleSubmit(e) {
         console.log(formData);
         e.preventDefault();
