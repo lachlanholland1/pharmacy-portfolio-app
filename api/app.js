@@ -14,6 +14,8 @@ const loginRouter = require("./pharmacy_routes/authenticate/auth_routes/login.js
 const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.js");
 const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
 const authenticateRouter = require("./pharmacy_routes/authenticate/auth_routes/authenticate.js");
+const createAdminRouter = require("./pharmacy_routes/createAdmin.js");
+const createReviewerRouter = require("./pharmacy_routes/createReviewer.js");
 
 //Profile
 const profileRouter = require("./pharmacy_routes/profile.js");
