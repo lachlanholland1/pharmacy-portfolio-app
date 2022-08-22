@@ -36,7 +36,6 @@ export default function CreateEvidenceForm() {
     });
   };
   const handleChangeDate = (date) => {
-    console.log(date.toString());
     setFormData({
       name: "date",
       value: date.toString().concat(" 00:00:00"),
@@ -44,7 +43,6 @@ export default function CreateEvidenceForm() {
     setFormData({ name: "userId", value: userId });
   };
   function handleSubmit(e) {
-    console.log(formData);
     e.preventDefault();
     setFormIsVisible(false);
     setLoading(true);

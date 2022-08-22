@@ -14,7 +14,6 @@ function CreateEvidence(props) {
       <Link to={"/" + auth.username}>
         <button>Back</button>
       </Link>
-
       <CreateEvidenceForm />
     </div>
   );
