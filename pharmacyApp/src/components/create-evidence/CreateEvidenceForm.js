@@ -2,6 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
 import useAuth from "../../hooks/useAuth";
+import UploadImageToS3WithNativeSdk from "../../../UploadImageToS3WithNativeSdk";
 
 const formreducer = (state, event) => {
     return {
@@ -121,12 +122,13 @@ export default function CreateEvidenceForm(){
                 />
                 <br />
                 <label>Evidence Attachment</label>
+                <UploadImageToS3WithNativeSdk />
                 <br />
-                <input
+                {/* <input
                 id="fileInput"
                 type="file"
                 // call file add method to save to amazon s3, retrieve upload link and chuck into the request body
-                />
+                /> */}
                 <div>
                     <button type="submit" className={" button-primary"}>
                         Submit
