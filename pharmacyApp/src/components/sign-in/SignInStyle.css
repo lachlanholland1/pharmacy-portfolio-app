@@ -1,0 +1,65 @@
+.container-1 {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.sign {
+    border: 2px solid lightgray;
+    padding: 25px 100px 50px 100px;
+    border-radius: 25px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    text-align: center;
+    
+  }
+  .sign-2 {
+    border: 2px solid lightgray;
+    padding: 25px 100px 50px 100px;
+    border-radius: 25px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    /* text-align: center; */
+  }
+.myButton {
+	background-color:#000000;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	height: 40px;
+    width: 300px;
+	text-decoration:none;
+}
+.myButton:hover {
+	background-color:#707070;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myForm {
+    border: 2px solid lightgray;
+    border-radius:42px;
+    margin-bottom: 15px;
+    text-align: left;
+    text-indent: 10px; 
+    height: 40px;
+    width: 300px;
+}
+
+.myCheck{
+    margin-bottom: 15px;
+    align-items: center;
+    text-align: center;
+}
+.center {
+    text-align: center;
+}
+.padding {
+    display: inline-block; 
+    padding-bottom: 5px;
+    align-items: center;
+}
