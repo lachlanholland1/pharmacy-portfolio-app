@@ -13,7 +13,7 @@ import CreateEvidence from "./components/create-evidence/CreateEvidence";
 import CreateAdmin from "./components/admin/create-admin/CreateAdmin";
 import CreateReviewer from "./components/reviewers/CreateReviewer";
 import UploadImageToS3WithNativeSdk from "../UploadImageToS3WithNativeSdk";
-
+import EditAccount from "./components/edit-account/EditAccount";
 
 function App(props) {
   return (
@@ -22,7 +22,6 @@ function App(props) {
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignUp />} />
-        <Route path="evidence" element={<CreateEvidence />} />
         <Route path="admin" element={<CreateAdmin />} />
         <Route path="reviewer" element={<CreateReviewer />} />
         {/* this is a test and will need to be deleted///played with */}
@@ -30,7 +29,10 @@ function App(props) {
         {/* this is a test and will need to be deleted///played with */}
         <Route element={<UserLayout />}>
           <Route path="/:user" element={<Profile />} />
+          <Route path="/create-evidence" element={<CreateEvidence />} />
+          <Route path="/accounts/edit" element={<EditAccount />} />
         </Route>
+
         {/* private/admin routes */}
         <Route element={<AdminLayout />}>
           <Route element={<PrivateRoute />}>
