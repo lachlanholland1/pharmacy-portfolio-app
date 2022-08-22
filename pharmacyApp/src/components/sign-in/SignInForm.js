@@ -2,7 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SignUp from "../sign-up/SignUp";
-import SignInStyle from './SignInStyle.css'
+import SignInStyle from "./SignInStyle.css";
 
 const formreducer = (state, event) => {
   return {
@@ -34,7 +34,7 @@ function SignInForm(props) {
             access_token: data.access_token,
             username: data.username,
           });
-          localStorage.setItem("userId", data.user_id) /////
+          localStorage.setItem("userId", data.user_id); /////
           navigate("/" + data.username);
         }
       });
@@ -55,43 +55,45 @@ function SignInForm(props) {
 
   return (
     <div class="container-1">
-            <div className = {SignInStyle.sign}>
-                <h1>Sign In</h1>
-                <br />
-                <form onSubmit={handleLogin}>
-                <input 
-                className = {SignInStyle.myForm}
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-                required
-                />
-                <br />
-                <input
-                className = {SignInStyle.myForm}
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                required
-                />
-                <br />
-                <label>Admin</label>
-                <input
-                className = {SignInStyle.myCheck}
-                type="checkbox"
-                name="admin"
-                onChange={handleChange}
-                step="1"
-                />
-                <br />
-                <button className = {SignInStyle.myButton} type="submit">Sign In</button>
-            </form>
-            </div>
-        </div>
+      <div className={SignInStyle.sign}>
+        <h1>Sign In</h1>
+        <br />
+        <form onSubmit={handleLogin}>
+          <input
+            className={SignInStyle.myForm}
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <input
+            className={SignInStyle.myForm}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <label>Admin</label>
+          <input
+            className={SignInStyle.myCheck}
+            type="checkbox"
+            name="admin"
+            onChange={handleChange}
+            step="1"
+          />
+          <br />
+          <button className={SignInStyle.myButton} type="submit">
+            Sign In
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 
