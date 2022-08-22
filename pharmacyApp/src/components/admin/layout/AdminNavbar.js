@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import useAuth from "../../../hooks/useAuth";
+import SignOutButton from "../../../SignOutButton";
 
 function AdminNavbar(props) {
-  const { setAuth } = useAuth();
-  function signOut() {
-    setAuth({ user: false, access_token: "" });
-  }
   return (
     <nav className="">
-      <button onClick={signOut}>Sign out</button>
       <a className="" href="/"></a>
+      <SignOutButton />
     </nav>
   );
 }

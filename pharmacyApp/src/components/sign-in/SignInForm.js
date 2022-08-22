@@ -34,7 +34,7 @@ function SignInForm(props) {
             access_token: data.access_token,
             username: data.username,
           });
-          localStorage.setItem("userId", data.user_id); /////
+          localStorage.setItem("userId", data.user_id);
           navigate("/" + data.username);
         }
       });
@@ -54,7 +54,7 @@ function SignInForm(props) {
   }
 
   return (
-    <div class="container-1">
+    <div className="container-1">
       <div className={SignInStyle.sign}>
         <h1>Sign In</h1>
         <br />
