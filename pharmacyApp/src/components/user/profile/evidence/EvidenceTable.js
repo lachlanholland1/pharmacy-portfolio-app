@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function EvidenceTable(props) {
   const params = useParams();
@@ -22,34 +23,39 @@ function EvidenceTable(props) {
 
   return (
     <div>
-      {evidenceData.length ? (
-        <table>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Impact statement</th>
-            <th>Procurement date</th>
-            <th>Attachment</th>
-          </tr>
-          <tbody>
-            {evidenceData.length ? (
-              evidenceData.map((evidence) => (
-                <tr>
-                  <td>{evidence.title}</td>
-                  <td>{evidence.description}</td>
-                  <td>{evidence.impactstatement}</td>
-                  <td>{evidence.procurementdate}</td>
-                  <td>{evidence.attachment}</td>
-                </tr>
-              ))
-            ) : (
-              <></>
-            )}
-          </tbody>
-        </table>
+      {auth.user && auth.username === params.user ? (
+        <Link to={"/create-evidence"}>
+          <button>Add evidence</button>
+        </Link>
       ) : (
         <></>
       )}
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Impact statement</th>
+          <th>Procurement date</th>
+          <th>Attachment</th>
+        </tr>
+        <tbody>
+          {evidenceData.length ? (
+            evidenceData.map((evidence) => (
+              <tr>
+                <td>{evidence.title}</td>
+                <td>{evidence.description}</td>
+                <td>{evidence.impactstatement}</td>
+                <td>{evidence.procurementdate}</td>
+                <td>{evidence.attachment}</td>
+              </tr>
+            ))
+          ) : (
+            <>
+              <div>No evidence.</div>
+            </>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
