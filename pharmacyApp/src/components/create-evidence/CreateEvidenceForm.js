@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
+import useAuth from "../../hooks/useAuth";
+import UploadImageToS3WithNativeSdk from "../../../UploadImageToS3WithNativeSdk";
+
 const formreducer = (state, event) => {
     return {
       ...state,
@@ -13,11 +16,13 @@ export default function CreateEvidenceForm(){
     const [formData, setFormData] = useReducer(formreducer, {});
     const [submitting, setSubmitting] = useState(false);
     const [loading, setLoading] = useState(false);
-
-  
+    const {auth, setAuth} = useAuth();
     const [date, setDate] = useState(new Date());
+
+    let userId = localStorage.getItem("userId");
+    console.log(userId);
+ 
     const {
-        // handleSubmit,
         watch,
         control,
         formState: { errors }
@@ -34,11 +39,12 @@ export default function CreateEvidenceForm(){
         console.log(date.toString());
         setFormData({
           name: "date",
-          value: date.toString(),
+          value: (date.toString()).concat(" 00:00:00"),
         });
+        setFormData({name: "userId", value: userId});////////
       };
-      
       function handleSubmit(e) {
+        console.log(formData);
         e.preventDefault();
         setFormIsVisible(false);
         setLoading(true);
@@ -62,8 +68,6 @@ export default function CreateEvidenceForm(){
         <div>
             <h1>Add Evidence</h1>
             <form onSubmit={handleSubmit}>
-           
-                {/* add a bit about onSubmit?? */}
                 <label>Evidence Title</label>
                 <br />
                 <input
@@ -105,17 +109,12 @@ export default function CreateEvidenceForm(){
                 <Controller
                     control={control}
                     name="dateInput"
-                    // id="date"
-                    // onChange={this.handleChange}
-                    // required
                     render={({ field }) => (
                         <DatePicker
                             name="date"
                             id="date"
                             placeholder="Select date"
-                            format='DD-MM-YYYY'
-                            // onChange={(date) => field.onChange(date)}
-                            // onChange={(date) => console.log(date)}
+                            format='YYYY-MM-DD'
                             onChange={(date) => handleChangeDate(date)}
                             selected={field.value}
                             
@@ -123,12 +122,13 @@ export default function CreateEvidenceForm(){
                 />
                 <br />
                 <label>Evidence Attachment</label>
+                <UploadImageToS3WithNativeSdk />
                 <br />
-                <input
+                {/* <input
                 id="fileInput"
                 type="file"
-                // onChange={handleChange}
-                />
+                // call file add method to save to amazon s3, retrieve upload link and chuck into the request body
+                /> */}
                 <div>
                     <button type="submit" className={" button-primary"}>
                         Submit
