@@ -15,7 +15,6 @@ router.post("/", function (req, res, next) {
       return;
     }
     const user = result[0];
-    console.log(user);
     res.send(user);
   });
 });
