@@ -3,6 +3,10 @@ import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
 import useAuth from "../../hooks/useAuth";
 import UploadImageToS3WithNativeSdk from "../../../UploadImageToS3WithNativeSdk";
+import UploadImageToS3 from "../../UploadFileToS3";
+import DownloadImageToS3 from "../../DownloadFileToS3";
+import urlProducer from "../../urlProducer";
+
 
 const formreducer = (state, event) => {
   return {
@@ -18,6 +22,8 @@ export default function CreateEvidenceForm() {
   const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
   const [date, setDate] = useState(new Date());
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [attachmentData, setAttachmentData] = useState("");
 
   let userId = localStorage.getItem("userId");
   console.log(userId);
@@ -28,6 +34,39 @@ export default function CreateEvidenceForm() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
+
+  var attachment;
+
+  const handleFileInput = (e) => {setSelectedFile(e.target.files[0]); 
+    attachment = urlProducer(e.target.files[0].name);
+    setAttachmentData(attachment);
+    setFormData({name: "attachment", value: attachment})}
+
+
+
+function uploadFile(file){
+  console.log(attachmentData);
+  const requestObject = {
+          fileName: attachmentData,
+          fileType: file.type
+  }
+//  console.log(requestObject.fileName);
+//  console.log(requestObject.fileType);
+  fetch('/api/upload',{
+      method: "POST",
+      body: JSON.stringify(requestObject),
+      headers: { "Content-Type": "application/json" }, 
+  })
+  .then(res => res.json())
+  .then((data) => {
+      fetch(data.signedUrl , {
+          method:'PUT',
+          body :file
+      }).then((res) => {
+          // DO WHATEVER YOU WANT
+      })
+  })
+};
 
   const handleChange = (event) => {
     setFormData({
@@ -41,8 +80,10 @@ export default function CreateEvidenceForm() {
       value: date.toString().concat(" 00:00:00"),
     });
     setFormData({ name: "userId", value: userId });
-  };
+  }
+
   function handleSubmit(e) {
+    uploadFile(selectedFile);
     e.preventDefault();
     setFormIsVisible(false);
     setLoading(true);
@@ -65,7 +106,7 @@ export default function CreateEvidenceForm() {
   return (
     <div>
       <h1>Add Evidence</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit }>
         <label>Evidence Title</label>
         <br />
         <input
@@ -120,8 +161,15 @@ export default function CreateEvidenceForm() {
         />
         <br />
         <label>Evidence Attachment</label>
-        <UploadImageToS3WithNativeSdk />
         <br />
+        <input
+          id="fileInput"
+          type="file"
+          onChange={handleFileInput}
+          required
+        />
+        <br />
+        <DownloadImageToS3 />
         {/* <input
                 id="fileInput"
                 type="file"
@@ -135,4 +183,4 @@ export default function CreateEvidenceForm() {
       </form>
     </div>
   );
-}
+              }
