@@ -4,7 +4,6 @@ const db = require("../connection.js");
 const AWS = require("aws-sdk")
 const { orderBy } = require("lodash")
 
-// import AWS from 'aws-sdk'
 router.post("/", (req, res, next) => {
 AWS.config.update({
     accessKeyId: 'AKIA3HRE4ZH3WV6OPTVM',
@@ -19,10 +18,10 @@ const myBucket = new AWS.S3({
     params: { Bucket: S3_BUCKET},
     region: REGION,
 });
+
 console.log(req.body.fileName);
 console.log(req.body.fileType);
 
-// function generatePreSignedPutUrl( fileName , fileType) {
   myBucket.getSignedUrl('putObject', {
       Key: req.body.fileName,
       ContentType: req.body.fileType,
@@ -33,8 +32,6 @@ console.log(req.body.fileType);
   });
 
 });
-//}
-// res.json(url);
 
 
 

@@ -37,10 +37,18 @@ export default function CreateEvidenceForm() {
 
   var attachment;
 
-  const handleFileInput = (e) => {setSelectedFile(e.target.files[0]); 
+  const handleFileInput = (e) => {
+  if (e.target.files[0].size > 10000000){
+    console.log("Error: File size must be below 10mb!");
+    setErrors('Error: File size must be below 10mb!')
+  }
+  else {
+    setSelectedFile(e.target.files[0]); 
     attachment = urlProducer(e.target.files[0].name);
     setAttachmentData(attachment);
-    setFormData({name: "attachment", value: attachment})}
+    setFormData({name: "attachment", value: attachment});
+  }}
+  const [errors1, setErrors] = useState("");
 
 
 
@@ -168,13 +176,12 @@ function uploadFile(file){
           onChange={handleFileInput}
           required
         />
+        <p style={{ color: "red", padding: 5, margin: 0, fontSize: 14 }}>
+          {errors1}
+        </p>
         <br />
-        <DownloadImageToS3 />
-        {/* <input
-                id="fileInput"
-                type="file"
-                // call file add method to save to amazon s3, retrieve upload link and chuck into the request body
-                /> */}
+        <DownloadImageToS3 /> 
+        {/* {//^^^ TO BE MOVED} JUST A PLACEHOLDER */}
         <div>
           <button type="submit" className={" button-primary"}>
             Submit
@@ -187,4 +194,4 @@ function uploadFile(file){
       </form>
     </div>
   );
-              }
+}
