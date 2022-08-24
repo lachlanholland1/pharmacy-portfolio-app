@@ -6,6 +6,7 @@ import UploadImageToS3WithNativeSdk from "../../../UploadImageToS3WithNativeSdk"
 import UploadImageToS3 from "../../UploadFileToS3";
 import DownloadImageToS3 from "../../DownloadFileToS3";
 import urlProducer from "../../urlProducer";
+import { parseJSON } from "jquery";
 
 
 const formreducer = (state, event) => {
@@ -43,11 +44,28 @@ export default function CreateEvidenceForm() {
     setErrors('Error: File size must be below 10mb!')
   }
   else {
+    setErrors('');
     setSelectedFile(e.target.files[0]); 
     attachment = urlProducer(e.target.files[0].name);
     setAttachmentData(attachment);
     setFormData({name: "attachment", value: attachment});
-  }}
+    console.log(e.target.files[0].type);
+  }
+  if (e.target.files[0].type != "application/pdf" && e.target.files[0].type != "image/jpeg" &&
+  e.target.files[0].type != "image/png" && e.target.files[0].type != "text/csv" &&
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && 
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.presentationml.presentation" &&
+  e.target.files[0].type != "application/msword" && e.target.files[0].type != "video/mp4" && 
+  e.target.files[0].type != "audio/mpeg" && e.target.files[0].type != "application/vnd.ms-powerpoint" && 
+  e.target.files[0].type != "audio/wav" && e.target.files[0].type != "application/vnd.ms-excel" && 
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+    setErrors('Error: Invalid file format!');
+    console.log('Error: Invalid file format!');
+  }
+  else {
+    setErrors('');
+  }
+}
   const [errors1, setErrors] = useState("");
 
 
