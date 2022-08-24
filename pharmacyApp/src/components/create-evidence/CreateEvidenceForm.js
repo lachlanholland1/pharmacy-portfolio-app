@@ -180,6 +180,10 @@ function uploadFile(file){
             Submit
           </button>
         </div>
+        <div>
+          <p>Disclaimer: When adding evidence attachments please ensure all personal or private information relating to yourself or others 
+            remains confidential if/when required as public portfolio’s will be viewable by all entities. Please also ensure each file upload is kept under 10MB.</p>
+        </div>
       </form>
     </div>
   );
