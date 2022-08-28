@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import EvidenceTable from "./evidence/EvidenceTable";
 import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import { data } from "jquery";
 
 function Profile(props) {
   const params = useParams();
@@ -35,7 +34,6 @@ function Profile(props) {
         <div>
           <br />
           <h1>{userDetails.first_name + " " + userDetails.last_name}</h1>
-
           <div>{userDetails.username}</div>
           <br />
           <div>{userDetails.bio}</div>
