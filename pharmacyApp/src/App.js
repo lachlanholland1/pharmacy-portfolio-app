@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import React, { withRouter, useState, useEffect } from "react";
-import Login from "./components/sign-in/SignIn";
+import Login from "./components/sign-in/SignInForm";
 import AdminLayout from "./components/admin/layout/AdminLayout";
 import UserLayout from "./components/user/layout/UserLayout";
 import Profile from "./components/user/profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import "./styles.css";
 import HomeLayout from "./components/HomeLayout";
-import SignUp from "./components/sign-up/SignUp";
+import SignUp from "./components/sign-up/SignUpForm";
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import AddEvidence from "./components/add-evidence/AddEvidence";
 import CreateAdmin from "./components/admin/create-admin/CreateAdmin";
