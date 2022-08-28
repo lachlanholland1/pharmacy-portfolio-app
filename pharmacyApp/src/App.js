@@ -12,7 +12,6 @@ import Dashboard from "./components/admin/dashboard/Dashboard";
 import AddEvidence from "./components/add-evidence/AddEvidence";
 import CreateAdmin from "./components/admin/create-admin/CreateAdmin";
 import CreateReviewer from "./components/reviewers/CreateReviewer";
-import UploadImageToS3WithNativeSdk from "../UploadImageToS3WithNativeSdk";
 import EditAccount from "./components/edit-account/EditAccount";
 import PasswordChange from "./components/password-change/PasswordChange";
 
@@ -24,9 +23,6 @@ function App(props) {
       <Route path="sign-up" element={<SignUp />} />
       <Route path="admin" element={<CreateAdmin />} />
       <Route path="reviewer" element={<CreateReviewer />} />
-      {/* this is a test and will need to be deleted///played with */}
-      <Route path="upload" element={<UploadImageToS3WithNativeSdk />} />
-      {/* this is a test and will need to be deleted///played with */}
       <Route element={<UserLayout />}>
         <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
