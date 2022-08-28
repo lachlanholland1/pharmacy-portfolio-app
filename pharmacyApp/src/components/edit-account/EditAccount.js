@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import EditAccountForm from "./EditAccountForm";
 import { Link } from "react-router-dom";
+import SettingsMenu from "../Settings/SettingsMenu";
+import UserCard from "../Settings/UserCard";
 
 function EditAccount(props) {
   const [userData, setUserData] = useState({});
@@ -21,11 +23,8 @@ function EditAccount(props) {
 
   return (
     <div>
-      <div>
-        <Link to={"/" + auth.username}>
-          <button>Back</button>
-        </Link>
-      </div>
+      <UserCard />
+      <SettingsMenu />
       {userData ? <EditAccountForm userData={userData} /> : <></>}
     </div>
   );

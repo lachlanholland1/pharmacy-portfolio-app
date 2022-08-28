@@ -1,11 +1,11 @@
 import React from "react";
-import CreateEvidenceForm from "./CreateEvidenceForm";
+import CreateEvidenceForm from "./AddEvidenceForm";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
-function CreateEvidence(props) {
+function AddEvidence(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
@@ -19,4 +19,4 @@ function CreateEvidence(props) {
   );
 }
 
-export default CreateEvidence;
+export default AddEvidence;

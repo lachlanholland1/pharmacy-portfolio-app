@@ -20,7 +20,10 @@ const createReviewerRouter = require("./pharmacy_routes/createReviewer.js");
 //Profile
 const profileRouter = require("./pharmacy_routes/profile.js");
 const authUserRouter = require("./pharmacy_routes/authUser.js");
+
+//Edit Account
 const editAccountRouter = require("./pharmacy_routes/editAccount.js");
+const passwordChangeRouter = require("./pharmacy_routes/passwordChange.js");
 
 //Sign up
 const signUpRouter = require("./pharmacy_routes/signUp");
@@ -88,7 +91,10 @@ app.use(
 //profile
 app.use("/api/profile", verifyOrigin, profileRouter);
 app.use("/api/auth-user", verifyOrigin, authUserRouter);
+
+//Edit Account
 app.use("/api/edit-account", verifyOrigin, editAccountRouter);
+app.use("/api/accounts/password/change", verifyOrigin, passwordChangeRouter);
 
 //Sign Up
 app.use("/api/sign-up", verifyOrigin, signUpRouter);
