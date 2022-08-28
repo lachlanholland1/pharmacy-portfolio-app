@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SignUp from "../sign-up/SignUp";
 import SignInStyle from "./SignInStyle.css";
+import { Link } from "react-router-dom";
 
 const formreducer = (state, event) => {
   return {
@@ -34,7 +35,7 @@ function SignInForm(props) {
             access_token: data.access_token,
             username: data.username,
           });
-          localStorage.setItem("userId", data.user_id);
+          localStorage.setItem("userId", data.user_id); /////
           navigate("/" + data.username);
         }
       });
@@ -54,7 +55,8 @@ function SignInForm(props) {
   }
 
   return (
-    <div className="container-1">
+    <div>
+    <div className={SignInStyle.container}>
       <div className={SignInStyle.sign}>
         <h1>Sign In</h1>
         <br />
@@ -92,7 +94,12 @@ function SignInForm(props) {
             Sign In
           </button>
         </form>
+        <br />
+        <Link to="/sign-up">
+          <button className={SignInStyle.myButton}>Sign up</button>
+        </Link>
       </div>
+    </div>
     </div>
   );
 }
