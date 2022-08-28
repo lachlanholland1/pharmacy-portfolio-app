@@ -35,7 +35,6 @@ function SignInForm(props) {
             access_token: data.access_token,
             username: data.username,
           });
-          localStorage.setItem("userId", data.user_id); /////
           navigate("/" + data.username);
         }
       });

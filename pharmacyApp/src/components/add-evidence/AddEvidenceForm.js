@@ -2,8 +2,6 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
 import useAuth from "../../hooks/useAuth";
-import UploadImageToS3WithNativeSdk from "../../../UploadImageToS3WithNativeSdk";
-import UploadImageToS3 from "../../UploadFileToS3";
 import DownloadImageToS3 from "../../DownloadFileToS3";
 import urlProducer from "../../urlProducer";
 import { parseJSON } from "jquery";
@@ -21,13 +19,12 @@ export default function AddEvidenceForm() {
   const [formData, setFormData] = useReducer(formreducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const [date, setDate] = useState(new Date());
   const [selectedFile, setSelectedFile] = useState(null);
   const [attachmentData, setAttachmentData] = useState("");
-
-  let userId = localStorage.getItem("userId");
-  console.log(userId);
+  
+  // console.log(auth.user_id);
 
   const {
     watch,
@@ -89,7 +86,7 @@ function uploadFile(file){
           method:'PUT',
           body :file
       }).then((res) => {
-          // DO WHATEVER YOU WANT
+          // DO WHATEVER
       })
   })
 };
@@ -105,7 +102,7 @@ function uploadFile(file){
       name: "date",
       value: date.toString().concat(" 00:00:00"),
     });
-    setFormData({ name: "userId", value: userId });
+    setFormData({ name: "userId", value: auth.user_id });
   }
 
   function handleSubmit(e) {
@@ -198,8 +195,8 @@ function uploadFile(file){
           {errors1}
         </p>
         <br />
-        <DownloadImageToS3 /> 
-        {/* {//^^^ TO BE MOVED} JUST A PLACEHOLDER */}
+        {/* <DownloadImageToS3 /> 
+        {//^^^Download Image to be used later. */}
         <div>
           <button type="submit" className={" button-primary"}>
             Submit
