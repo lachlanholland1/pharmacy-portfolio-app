@@ -1,4 +1,6 @@
 import React, { useState, useReducer } from "react";
+import SignUp from "./SignUpStyle.css";
+import { Link } from "react-router-dom";
 
 const formreducer = (state, event) => {
   return {
@@ -44,83 +46,98 @@ const SignUpForm = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <br />
-        <input
-          type="text"
-          id="username"
-          placeholder="Enter a username"
-          name="username"
-          required
-          onChange={handleChange}
-        />
-        <br />
-        <label>First name</label>
-        <br />
-        <input
-          type="text"
-          id="first_name"
-          placeholder="Enter your first name"
-          name="first_name"
-          required
-          onChange={handleChange}
-        />
-        <br />
-        <label>Last name</label>
-        <br />
-        <input
-          type="text"
-          id="last_name"
-          placeholder="Enter your last name"
-          name="last_name"
-          required
-          onChange={handleChange}
-        />
-        <br />
-        <label>Email</label>
-        <br />
-        <input
-          type="text"
-          id="email"
-          placeholder="Enter your email"
-          name="email"
-          required
-          onChange={handleChange}
-        />
-        <br />
-        <label>Password</label>
-        <br />
-        <input
-          type="text"
-          id="password"
-          placeholder="Enter a password"
-          name="password"
-          required
-          onChange={handleChange}
-        />
-        <br />
-        <label>Confirm password</label>
-        <br />
-        <input
-          type="text"
-          id="confirm_password"
-          placeholder="Confirm your password"
-          name="confirm_password"
-          required
-          onChange={handleChange}
-        />
-        <br />
-        <label>Admin</label>
-        <input type="checkbox" name="admin" onChange={handleChange} step="1" />
-        <div>
-          <button type="submit" className={" button-primary"}>
-            Sign up
-          </button>
+    <div className={SignUp.container-1}>
+        <div className={SignUp.sign}>
+          <h1 className={SignUp.center}>Sign Up</h1>
+          <form onSubmit={handleSubmit}>
+            <label className={SignUp.padding}>Username</label>
+            <br />
+            <input
+           className={SignUp.myForm}
+              type="text"
+              id="username"
+              placeholder="Enter a username"
+              name="username"
+              required
+              onChange={handleChange}
+            />
+            <br />
+            <label className={SignUp.padding}>First name</label>
+            <br />
+            <input
+            className={SignUp.myForm}
+              type="text"
+              id="first_name"
+              placeholder="Enter your first name"
+              name="first_name"
+              required
+              onChange={handleChange}
+            />
+            <br />
+            <label className={SignUp.padding}>Last name</label>
+            <br />
+            <input
+            className={SignUp.myForm}
+              type="text"
+              id="last_name"
+              placeholder="Enter your last name"
+              name="last_name"
+              required
+              onChange={handleChange}
+            />
+            <br />
+            <label className={SignUp.padding}>Email</label>
+            <br />
+            <input
+            className={SignUp.myForm}
+              type="text"
+              id="email"
+              placeholder="Enter your email"
+              name="email"
+              required
+              onChange={handleChange}
+            />
+            <br />
+            <label className={SignUp.padding}>Password</label>
+            <br />
+            <input
+            className={SignUp.myForm}
+              type="text"
+              id="password"
+              placeholder="Enter a password"
+              name="password"
+              required
+              onChange={handleChange}
+            />
+            <br />
+            <label className={SignUp.padding}>Confirm password</label>
+            <br />
+            <input
+            className={SignUp.myForm}
+              type="text"
+              id="confirm_password"
+              placeholder="Confirm your password"
+              name="confirm_password"
+              required
+              onChange={handleChange}
+            />
+            <br />
+            <div className={SignUp.myCheck}>
+            <label>Admin</label>
+            <input class="myCheck" type="checkbox" name="admin" onChange={handleChange} step="1" />
+            </div>
+            <div>
+              <button className={SignUp.myButton} type="submit">
+                Sign up
+              </button>
+            </div>
+          </form>
+          <br />
+        <Link to="/login">
+          <button className={SignUp.myButton}>Sign In</button>
+        </Link>
         </div>
-      </form>
-    </div>
+        </div>
   );
 };
 
