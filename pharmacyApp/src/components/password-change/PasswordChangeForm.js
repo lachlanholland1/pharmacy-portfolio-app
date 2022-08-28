@@ -8,14 +8,14 @@ const formreducer = (state, event) => {
     [event.name]: event.value,
   };
 };
-export default function EditAccountForm({ userData }) {
+export default function EditAccountForm() {
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
   const [formData, setFormData] = useReducer(formreducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
-  const [userChanged, setUserChanged] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const {
     watch,
@@ -25,26 +25,26 @@ export default function EditAccountForm({ userData }) {
   const onSubmit = (data) => console.log(data);
 
   const handleChange = (event) => {
-    setUserChanged(true);
-    const isCheckbox = event.target.type === "checkbox";
+    setPasswordChanged(true);
     setFormData({
       name: event.target.name,
-      value: isCheckbox ? event.target.checked : event.target.value,
+      value: event.target.value,
     });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
     const request = {
-      edit_account: formData,
+      form_data: formData,
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
-    if (!userChanged) return;
+    if (!passwordChanged) return;
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/edit-account", {
+    console.log(request);
+    fetch("/api/accounts/password/change", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
@@ -62,82 +62,42 @@ export default function EditAccountForm({ userData }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="checkbox"
-          name="private-account"
-          onChange={handleChange}
-          step="1"
-        />
-        <label>Private account</label>
-        <br />
-        <label>First Name</label>
+        <label>Old Password</label>
         <br />
         <input
           maxLength={65}
-          type="text"
-          id="first_name"
-          placeholder={userData.firstname}
-          name="first_name"
+          type="password"
+          id="old_password"
+          name="old_password"
           onChange={handleChange}
+          required
         />
         <br />
-        <label>Last name</label>
+        <label>New Password</label>
         <br />
         <input
           maxLength={255}
-          type="text"
-          placeholder={userData.surname}
-          id="last_name"
-          name="last_name"
+          type="password"
+          id="new_password"
+          name="new_password"
           onChange={handleChange}
+          required
         />
         <br />
-        <label>Username</label>
+        <label>Confirm New Password</label>
         <br />
         <input
           maxLength={255}
-          type="text"
-          placeholder={userData.username}
-          id="username"
-          name="username"
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
           onChange={handleChange}
+          required
         />
         <br />
-        <label>Bio</label>
-        <br />
-        <input
-          maxLength={255}
-          type="text"
-          placeholder={userData.description}
-          id="bio"
-          name="bio"
-          onChange={handleChange}
-        />
-        <br />
-        <label>Email</label>
-        <br />
-        <input
-          maxLength={255}
-          type="text"
-          placeholder={userData.email}
-          id="email"
-          name="email"
-          onChange={handleChange}
-        />
-        <br />
-        <label>Mobile</label>
-        <br />
-        <input
-          maxLength={255}
-          type="text"
-          placeholder={userData.mobile}
-          id="mobile"
-          name="mobile"
-          onChange={handleChange}
-        />
         <div>
-          <button disabled={!userChanged} type="submit">
-            Submit
+          <button disabled={!passwordChanged} type="submit">
+            Change Password
           </button>
         </div>
       </form>

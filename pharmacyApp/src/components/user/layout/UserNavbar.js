@@ -10,7 +10,7 @@ function UserNavbar(props) {
   return (
     <nav className="">
       {auth.user && auth.username === params.user ? (
-        <Link to={"/accounts/edit"}>
+        <Link to={"/accounts/edit/"}>
           <button>Settings</button>
         </Link>
       ) : (
