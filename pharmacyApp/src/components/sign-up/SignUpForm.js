@@ -47,14 +47,14 @@ const SignUpForm = () => {
 
   return (
     <div>
-    <div className={SignUp.container}>
+      <div className={SignUp.container}>
         <div className={SignUp.sign}>
           <h1 className={SignUp.center}>Sign Up</h1>
           <form onSubmit={handleSubmit}>
             <label className={SignUp.padding}>Username</label>
             <br />
             <input
-           className={SignUp.myForm}
+              className={SignUp.myForm}
               type="text"
               id="username"
               placeholder="Enter a username"
@@ -66,7 +66,7 @@ const SignUpForm = () => {
             <label className={SignUp.padding}>First name</label>
             <br />
             <input
-            className={SignUp.myForm}
+              className={SignUp.myForm}
               type="text"
               id="first_name"
               placeholder="Enter your first name"
@@ -78,7 +78,7 @@ const SignUpForm = () => {
             <label className={SignUp.padding}>Last name</label>
             <br />
             <input
-            className={SignUp.myForm}
+              className={SignUp.myForm}
               type="text"
               id="last_name"
               placeholder="Enter your last name"
@@ -90,7 +90,7 @@ const SignUpForm = () => {
             <label className={SignUp.padding}>Email</label>
             <br />
             <input
-            className={SignUp.myForm}
+              className={SignUp.myForm}
               type="text"
               id="email"
               placeholder="Enter your email"
@@ -102,7 +102,7 @@ const SignUpForm = () => {
             <label className={SignUp.padding}>Password</label>
             <br />
             <input
-            className={SignUp.myForm}
+              className={SignUp.myForm}
               type="text"
               id="password"
               placeholder="Enter a password"
@@ -114,7 +114,7 @@ const SignUpForm = () => {
             <label className={SignUp.padding}>Confirm password</label>
             <br />
             <input
-            className={SignUp.myForm}
+              className={SignUp.myForm}
               type="text"
               id="confirm_password"
               placeholder="Confirm your password"
@@ -123,10 +123,10 @@ const SignUpForm = () => {
               onChange={handleChange}
             />
             <br />
-            <div className={SignUp.myCheck}>
+            {/* <div className={SignUp.myCheck}>
             <label>Admin</label>
             <input class="myCheck" type="checkbox" name="admin" onChange={handleChange} step="1" />
-            </div>
+            </div> */}
             <div className={SignUp.center}>
               <button className={SignUp.myButton} type="submit">
                 Sign up
@@ -135,13 +135,13 @@ const SignUpForm = () => {
           </form>
           <br />
           <div className={SignUp.center}>
-        <Link to="/login">
-          <button className={SignUp.myButton}>Sign In</button>
-        </Link>
+            <Link to="/login">
+              <button className={SignUp.myButton}>Sign In</button>
+            </Link>
+          </div>
         </div>
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
   );
 };
 
