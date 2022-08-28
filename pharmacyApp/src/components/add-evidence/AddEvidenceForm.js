@@ -15,7 +15,7 @@ const formreducer = (state, event) => {
     [event.name]: event.value,
   };
 };
-export default function CreateEvidenceForm() {
+export default function AddEvidenceForm() {
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
   const [formData, setFormData] = useReducer(formreducer, {});
