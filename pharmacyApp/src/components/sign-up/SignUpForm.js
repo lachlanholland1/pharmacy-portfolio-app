@@ -46,7 +46,8 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className={SignUp.container-1}>
+    <div>
+    <div className={SignUp.container}>
         <div className={SignUp.sign}>
           <h1 className={SignUp.center}>Sign Up</h1>
           <form onSubmit={handleSubmit}>
@@ -126,16 +127,19 @@ const SignUpForm = () => {
             <label>Admin</label>
             <input class="myCheck" type="checkbox" name="admin" onChange={handleChange} step="1" />
             </div>
-            <div>
+            <div className={SignUp.center}>
               <button className={SignUp.myButton} type="submit">
                 Sign up
               </button>
             </div>
           </form>
           <br />
+          <div className={SignUp.center}>
         <Link to="/login">
           <button className={SignUp.myButton}>Sign In</button>
         </Link>
+        </div>
+        </div>
         </div>
         </div>
   );
