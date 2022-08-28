@@ -24,7 +24,7 @@ function EvidenceTable(props) {
   return (
     <div>
       {auth.user && auth.username === params.user ? (
-        <Link to={"/create-evidence"}>
+        <Link to={"/add-evidence"}>
           <button>Add evidence</button>
         </Link>
       ) : (

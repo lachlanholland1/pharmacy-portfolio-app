@@ -78,7 +78,7 @@ function SignInForm(props) {
             onChange={handleChange}
             required
           />
-          <br />
+          {/* <br />
           <label>Admin</label>
           <input
             className={SignInStyle.myCheck}
@@ -86,7 +86,7 @@ function SignInForm(props) {
             name="admin"
             onChange={handleChange}
             step="1"
-          />
+          /> */}
           <br />
           <button className={SignInStyle.myButton} type="submit">
             Sign In
