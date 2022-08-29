@@ -4,7 +4,7 @@ import DatePicker from "react-multi-date-picker";
 import useAuth from "../../hooks/useAuth";
 import DownloadImageToS3 from "../../DownloadFileToS3";
 import urlProducer from "../../urlProducer";
-import { parseJSON } from "jquery";
+import { useNavigate } from "react-router-dom";
 
 
 const formreducer = (state, event) => {
@@ -23,9 +23,8 @@ export default function AddEvidenceForm() {
   const [date, setDate] = useState(new Date());
   const [selectedFile, setSelectedFile] = useState(null);
   const [attachmentData, setAttachmentData] = useState("");
+  const navigate = useNavigate();
   
-  // console.log(auth.user_id);
-
   const {
     watch,
     control,
@@ -125,6 +124,7 @@ function uploadFile(file){
         setIsSuccess(1);
       }
     });
+    navigate("/" + auth.username);
   }
   return (
     <div>
