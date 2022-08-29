@@ -34,6 +34,14 @@ const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 //Evidence table
 const evidenceTableRouter = require("./pharmacy_routes/evidenceTable");
 
+//Upload
+const uploadRouter = require("./pharmacy_routes/upload.js");
+
+//Download
+const downloadRouter = require("./pharmacy_routes/download.js");
+
+
+
 dotEnv.config();
 
 var app = express();
@@ -115,6 +123,12 @@ app.use("/api/createadmin", verifyOrigin, createAdminRouter);
 
 //Create reviewer
 app.use("/api/createreviewer", verifyOrigin, createReviewerRouter);
+
+//Upload File
+app.use("/api/upload", verifyOrigin, uploadRouter);
+
+//Download File
+app.use("/api/download", verifyOrigin, downloadRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

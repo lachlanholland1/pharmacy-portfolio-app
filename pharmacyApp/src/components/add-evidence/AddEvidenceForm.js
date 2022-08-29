@@ -2,7 +2,10 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
 import useAuth from "../../hooks/useAuth";
-import UploadImageToS3WithNativeSdk from "../../../UploadImageToS3WithNativeSdk";
+import DownloadImageToS3 from "../../DownloadFileToS3";
+import urlProducer from "../../urlProducer";
+import { parseJSON } from "jquery";
+
 
 const formreducer = (state, event) => {
   return {
@@ -16,11 +19,12 @@ export default function AddEvidenceForm() {
   const [formData, setFormData] = useReducer(formreducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const [date, setDate] = useState(new Date());
-
-  let userId = localStorage.getItem("userId");
-  console.log(userId);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [attachmentData, setAttachmentData] = useState("");
+  
+  // console.log(auth.user_id);
 
   const {
     watch,
@@ -28,6 +32,64 @@ export default function AddEvidenceForm() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
+
+  var attachment;
+
+  const handleFileInput = (e) => {
+  if (e.target.files[0].size > 10000000){
+    console.log("Error: File size must be below 10mb!");
+    setErrors('Error: File size must be below 10mb!')
+  }
+  else {
+    setErrors('');
+    setSelectedFile(e.target.files[0]); 
+    attachment = urlProducer(e.target.files[0].name);
+    setAttachmentData(attachment);
+    setFormData({name: "attachment", value: attachment});
+    console.log(e.target.files[0].type);
+  }
+  if (e.target.files[0].type != "application/pdf" && e.target.files[0].type != "image/jpeg" &&
+  e.target.files[0].type != "image/png" && e.target.files[0].type != "text/csv" &&
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && 
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.presentationml.presentation" &&
+  e.target.files[0].type != "application/msword" && e.target.files[0].type != "video/mp4" && 
+  e.target.files[0].type != "audio/mpeg" && e.target.files[0].type != "application/vnd.ms-powerpoint" && 
+  e.target.files[0].type != "audio/wav" && e.target.files[0].type != "application/vnd.ms-excel" && 
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+    setErrors('Error: Invalid file format!');
+    console.log('Error: Invalid file format!');
+  }
+  else {
+    setErrors('');
+  }
+}
+  const [errors1, setErrors] = useState("");
+
+
+
+function uploadFile(file){
+  console.log(attachmentData);
+  const requestObject = {
+          fileName: attachmentData,
+          fileType: file.type
+  }
+//  console.log(requestObject.fileName);
+//  console.log(requestObject.fileType);
+  fetch('/api/upload',{
+      method: "POST",
+      body: JSON.stringify(requestObject),
+      headers: { "Content-Type": "application/json" }, 
+  })
+  .then(res => res.json())
+  .then((data) => {
+      fetch(data.signedUrl , {
+          method:'PUT',
+          body :file
+      }).then((res) => {
+          // DO WHATEVER
+      })
+  })
+};
 
   const handleChange = (event) => {
     setFormData({
@@ -40,9 +102,11 @@ export default function AddEvidenceForm() {
       name: "date",
       value: date.toString().concat(" 00:00:00"),
     });
-    setFormData({ name: "userId", value: userId });
-  };
+    setFormData({ name: "userId", value: auth.user_id });
+  }
+
   function handleSubmit(e) {
+    uploadFile(selectedFile);
     e.preventDefault();
     setFormIsVisible(false);
     setLoading(true);
@@ -65,7 +129,7 @@ export default function AddEvidenceForm() {
   return (
     <div>
       <h1>Add Evidence</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit }>
         <label>Evidence Title</label>
         <br />
         <input
@@ -120,17 +184,27 @@ export default function AddEvidenceForm() {
         />
         <br />
         <label>Evidence Attachment</label>
-        <UploadImageToS3WithNativeSdk />
         <br />
-        {/* <input
-                id="fileInput"
-                type="file"
-                // call file add method to save to amazon s3, retrieve upload link and chuck into the request body
-                /> */}
+        <input
+          id="fileInput"
+          type="file"
+          onChange={handleFileInput}
+          required
+        />
+        <p style={{ color: "red", padding: 5, margin: 0, fontSize: 14 }}>
+          {errors1}
+        </p>
+        <br />
+        {/* <DownloadImageToS3 /> 
+        {//^^^Download Image to be used later. */}
         <div>
           <button type="submit" className={" button-primary"}>
             Submit
           </button>
+        </div>
+        <div>
+          <p>Disclaimer: When adding evidence attachments please ensure all personal or private information relating to yourself or others 
+            remains confidential if/when required as public portfolio’s will be viewable by all entities. Please also ensure each file upload is kept under 10MB.</p>
         </div>
       </form>
     </div>
