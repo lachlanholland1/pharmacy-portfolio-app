@@ -7,7 +7,7 @@
     "@babel/register": "^7.17.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^6.2.1",
-    "aws-sdk": "^2.1106.0",
+    "aws-sdk": "^2.1200.0",
     "axios": "^0.26.1",
     "babel-jest": "^27.4.2",
     "babel-plugin-named-asset-import": "^0.3.8",
