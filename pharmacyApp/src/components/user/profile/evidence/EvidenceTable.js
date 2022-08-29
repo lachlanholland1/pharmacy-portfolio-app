@@ -30,6 +30,7 @@ function EvidenceTable(props) {
       ) : (
         <></>
       )}
+      <h2>Evidence</h2>
       <table>
         <tr>
           <th>Title</th>
