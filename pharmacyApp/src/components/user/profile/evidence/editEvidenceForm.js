@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, Alert } from "react";
 import DatePicker from "react-multi-date-picker";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const formreducer = (state, event) => {
   return {
@@ -68,6 +70,30 @@ export default function EditEvidenceForm({ evidenceData }) {
     });
     // navigate("/" + auth.username);
   }
+
+  const submit = () => {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: "Are you sure to do this?",
+      buttons: [
+        {
+          label: "Yes",
+          // onClick: () => alert("Click Yes")
+          onClick: () => fetch("/api/deleteevidence", {
+            method: "POST",
+            body: JSON.stringify({idevidenceitems: evidenceData.idevidenceitems}),
+            headers: { "Content-Type": "application/json" }
+          })
+            .then((res) => res.json()) 
+        },
+        {
+          label: "No"
+          // onClick: () => alert("Click No")
+        }
+      ]
+    });
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -141,8 +167,42 @@ export default function EditEvidenceForm({ evidenceData }) {
           <Link to={`/evidence?id=${evidenceData.idevidenceitems}`}>
         <button>Back</button>
       </Link>
+      <br />
+      {/* <button onClick={(e) => DeleteEvidence(evidenceData.idevidenceitems)}>Delete</button> */}
+      {/* <button onclick="deleteProfile();">Delete Evidence</button> */}
+      {/* <DeleteEvidence  id ={evidenceData.idevidenceitems}/> */}
         </div>
       </form>
+      <div>
+        <button onClick={submit}>Delete Evidence</button>
+        </div>
     </div>
   );
 }
+
+// function DeleteEvidence(id) {
+//     // let user_id = localStorage.getItem("user_id"); //REPLACE WHEN AUTH IMPLEMENTED
+//     function confirmedDelete() {
+//         return fetch("/api/deleteevidence", {
+//             method: "POST",
+//             body: JSON.stringify(),
+//             headers: { "Content-Type": "application/json" }
+//           })
+//             .then((res) => res.json())      
+//             // .then(navigate("/" + auth.username))
+//       }
+    
+//     return(
+//     <div>
+//     <label>
+//         Are you sure?
+//     </label>
+//         <button onClick={(e) => confirmedDelete}>
+//             Yes
+//           </button>
+//           <Link to={`/evidence?id=${id}`}>
+//         <button>No</button>
+//       </Link>
+//     </div>
+//     )
+// }
