@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import EvidenceTable from "./evidence/EvidenceTable";
 import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import style from "./Profile.css";
 
 function Profile(props) {
   const params = useParams();
@@ -33,10 +34,10 @@ function Profile(props) {
       {profileLoaded ? (
         <div>
           <br />
-          <h1>{userDetails.first_name + " " + userDetails.last_name}</h1>
-          <div>{userDetails.username}</div>
+          <h1 className={style.padding}>{userDetails.first_name + " " + userDetails.last_name}</h1>
+          <div className={style.padding}>{userDetails.username}</div>
           <br />
-          <div>{userDetails.bio}</div>
+          <div className={style.padding}>{userDetails.bio}</div>
           <br />
           <EvidenceTable />
         </div>
