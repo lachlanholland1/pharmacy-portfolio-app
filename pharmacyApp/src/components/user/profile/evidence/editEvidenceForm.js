@@ -19,6 +19,7 @@ export default function EditEvidenceForm({ evidenceData }) {
   const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
   const [userChanged, setUserChanged] = useState(false);
+  var procureDate = String(evidenceData.procurementdate);
 
   const {
     watch,
@@ -114,7 +115,7 @@ export default function EditEvidenceForm({ evidenceData }) {
             <DatePicker
               name="date"
               id="date"
-              placeholder="Select date"
+              placeholder={procureDate.slice(0, -14)}
               format="YYYY-MM-DD"
               onChange={(date) => handleChangeDate(date)}
               selected={field.value}

@@ -62,6 +62,11 @@ export default function ViewEvidence(props) {
         <button type="submit" className={" button-primary"}>
             Review
           </button>
+          <br />
+          {/* //go back to whoever was logged - use AUTH.usernameeeeee */}
+          {/* <Link to={"/" + data.username}>
+            <button>Back</button>
+            </Link> */}
     </div>
     
   );

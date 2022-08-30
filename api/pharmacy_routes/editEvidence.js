@@ -49,17 +49,17 @@ router.post("/", function (req, res, next) {
       }
     );
   }
-//procurement date
-//   if (req.body.edit_account.bio) {
-//     db.query(
-//       "UPDATE Users SET description = ? WHERE idevidenceitems = ?;",
-//       [req.body.edit_account.bio, idevidenceitems],
-//       (err, result) => {
-//         if (err) {
-//         }
-//       }
-//     );
-//   }
+
+  if (req.body.procurementdate) {
+    db.query(
+      "UPDATE evidenceitems SET procurementdate = ? WHERE idevidenceitems = ?;",
+      [req.body.procurementdate, idevidenceitems],
+      (err, result) => {
+        if (err) {
+        }
+      }
+    );
+  }
 
 //   if (req.body.edit_account.mobile) {
 //     db.query(
