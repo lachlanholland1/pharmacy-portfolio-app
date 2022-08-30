@@ -43,6 +43,9 @@ const downloadRouter = require("./pharmacy_routes/download.js");
 //View Evidence
 const viewEvidenceRouter = require("./pharmacy_routes/viewEvidence.js");
 
+//Edit Evidence
+const editEvidenceRouter = require("./pharmacy_routes/editEvidence.js");
+
 dotEnv.config();
 
 var app = express();
@@ -133,6 +136,9 @@ app.use("/api/download", verifyOrigin, downloadRouter);
 
 //View Evidence
 app.use("/api/viewevidence", verifyOrigin, viewEvidenceRouter);
+
+//Edit Evidence
+app.use("/api/editevidence", verifyOrigin, editEvidenceRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
