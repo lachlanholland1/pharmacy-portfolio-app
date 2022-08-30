@@ -40,7 +40,8 @@ const uploadRouter = require("./pharmacy_routes/upload.js");
 //Download
 const downloadRouter = require("./pharmacy_routes/download.js");
 
-
+//View Evidence
+const viewEvidenceRouter = require("./pharmacy_routes/viewEvidence.js");
 
 dotEnv.config();
 
@@ -129,6 +130,9 @@ app.use("/api/upload", verifyOrigin, uploadRouter);
 
 //Download File
 app.use("/api/download", verifyOrigin, downloadRouter);
+
+//View Evidence
+app.use("/api/viewevidence", verifyOrigin, viewEvidenceRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

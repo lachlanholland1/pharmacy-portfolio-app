@@ -14,6 +14,7 @@ import CreateAdmin from "./components/admin/create-admin/CreateAdmin";
 import CreateReviewer from "./components/reviewers/CreateReviewer";
 import EditAccount from "./components/edit-account/EditAccount";
 import PasswordChange from "./components/password-change/PasswordChange";
+import ViewEvidence from "./components/user/profile/evidence/viewEvidence"
 
 function App(props) {
   return (
@@ -23,6 +24,7 @@ function App(props) {
       <Route path="sign-up" element={<SignUp />} />
       <Route path="admin" element={<CreateAdmin />} />
       <Route path="reviewer" element={<CreateReviewer />} />
+      <Route path="/evidence" element={<ViewEvidence />} />
       <Route element={<UserLayout />}>
         <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
