@@ -85,21 +85,35 @@ export default function EditEvidenceForm({ evidenceData }) {
             body: JSON.stringify({idevidenceitems: evidenceData.idevidenceitems}),
             headers: { "Content-Type": "application/json" }
           })
-            .then((res) => res.json()) 
+            .then((res) => res.json())
+            .then(navigate("/" + auth.username))
         },
         {
-          label: "No"
-          // onClick: () => alert("Click No")
+          label: "No",
+          onClick: () => navigate("/" + auth.username)
+          //onClick: () => alert("Click No")
         }
       ]
     });
   };
 
-
+console.log(auth.user_id, evidenceData.user_id);
   if (auth.user_id != evidenceData.users_id) {
     console.log("Not authorised.");
-    return(navigate(-1));
+    return(
+      <div>
+        <label>You are unauthorised to access this page.
+        </label>
+        <br />
+        <Link to={"/login"}>
+        <button>Login</button>
+      </Link>
+        </div>
+    )
+    // navigate(-1);
+    // return(navigate(-1));
   }
+ 
     
   return (
     <div>
@@ -155,17 +169,6 @@ export default function EditEvidenceForm({ evidenceData }) {
             />
           )}
         />
-        <br />
-        {/* <label>Attachment</label>
-        <br />
-        <input
-          maxLength={255}
-          type="text"
-          placeholder={evidenceData.attachment}
-          id="attachment"
-          name="attachment"
-          onChange={handleChange}
-        /> */}
         <br />
         <div>
           <button disabled={!userChanged} type="submit">
