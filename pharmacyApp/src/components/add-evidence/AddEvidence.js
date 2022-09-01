@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import style from "./AddEvidenceStyle.css";
 
 function AddEvidence(props) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function AddEvidence(props) {
   return (
     <div>
       <Link to={"/" + auth.username}>
-        <button>Back</button>
+        <button className={style.myButton2}>Back</button>
       </Link>
       <CreateEvidenceForm />
     </div>

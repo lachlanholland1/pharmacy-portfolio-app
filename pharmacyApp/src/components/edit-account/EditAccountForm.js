@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import style from "./EditAccountStyle.css";
 
 const formreducer = (state, event) => {
   return {
@@ -61,18 +62,13 @@ export default function EditAccountForm({ userData }) {
   }
   return (
     <div>
+    <div className={style.container}>
+    <div className={style.sign}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="checkbox"
-          name="private-account"
-          onChange={handleChange}
-          step="1"
-        />
-        <label>Private account</label>
-        <br />
-        <label>First Name</label>
+        <label className={style.padding}>First Name</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={65}
           type="text"
           id="first_name"
@@ -81,9 +77,10 @@ export default function EditAccountForm({ userData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Last name</label>
+        <label className={style.padding}>Last name</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="text"
           placeholder={userData.surname}
@@ -92,9 +89,10 @@ export default function EditAccountForm({ userData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Username</label>
+        <label className={style.padding}>Username</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="text"
           placeholder={userData.username}
@@ -103,9 +101,10 @@ export default function EditAccountForm({ userData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Bio</label>
+        <label className={style.padding}>Bio</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="text"
           placeholder={userData.description}
@@ -114,9 +113,10 @@ export default function EditAccountForm({ userData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Email</label>
+        <label className={style.padding}>Email</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="text"
           placeholder={userData.email}
@@ -125,9 +125,10 @@ export default function EditAccountForm({ userData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Mobile</label>
+        <label className={style.padding}>Mobile</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="text"
           placeholder={userData.mobile}
@@ -135,12 +136,25 @@ export default function EditAccountForm({ userData }) {
           name="mobile"
           onChange={handleChange}
         />
-        <div>
-          <button disabled={!userChanged} type="submit">
+        <br />
+        <div className={style.center}>
+        <input
+          type="checkbox"
+          name="private-account"
+          onChange={handleChange}
+          step="1"
+        />
+        <label className={style.checkboxPadding}>Private account</label>
+        <br />
+        </div>
+        <div className={style.center}>
+          <button className={style.myButton} disabled={!userChanged} type="submit">
             Submit
           </button>
         </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 }
