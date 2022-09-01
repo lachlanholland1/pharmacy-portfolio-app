@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import style from "./EvidenceTableStyle.css";
 
 function EvidenceTable(props) {
   let navigate = useNavigate();
@@ -28,25 +29,28 @@ function EvidenceTable(props) {
   
   return (
     <div>
+      <div className={style.padding}>
       {auth.user && auth.username === params.user ? (
         <Link to={"/add-evidence"}>
-          <button>Add evidence</button>
+          <button className={style.myButton}>Add evidence</button>
         </Link>
       ) : (
         <></>
       )}
-      <table>
-        <tr>
+      <h2>Evidence</h2>
+      </div>
+      <table className={style.table}>
+        <tr table className={style.tr}>
           <th>Title</th>
           <th>Description</th>
-          <th>Impact statement</th>
-          <th>Procurement date</th>
-          <th>Attachment</th>
+          <th >Impact statement</th>
+          <th >Procurement date</th>
+          <th >Attachment</th>
         </tr>
         <tbody>
           {evidenceData.length ? (
             evidenceData.map((evidence) => (
-              <tr onClick={() => handleOnClick(evidence.idevidenceitems)}>
+              <tr onClick={() => handleOnClick(evidence.idevidenceitems)} table className={style.tr2}>
                 <td>{evidence.title}</td>
                 <td>{evidence.description}</td>
                 <td>{evidence.impactstatement}</td>

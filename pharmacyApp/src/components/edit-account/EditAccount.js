@@ -23,8 +23,8 @@ function EditAccount(props) {
 
   return (
     <div>
-      <UserCard />
       <SettingsMenu />
+      <UserCard />
       {userData ? <EditAccountForm userData={userData} /> : <></>}
     </div>
   );
