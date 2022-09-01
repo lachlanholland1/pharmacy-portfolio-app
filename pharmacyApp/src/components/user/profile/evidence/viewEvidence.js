@@ -11,8 +11,6 @@ export default function ViewEvidence(props) {
     const { auth, setAuth } = useAuth();
 
     localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
-    console.log("hi", id);
-    // console.log(flag);
 
   useEffect(() => {
     //const request = { access_token: auth.access_token, user_id: auth.user_id };
@@ -63,26 +61,20 @@ export default function ViewEvidence(props) {
             Review
           </button>
           <br />
-          {/* //go back to whoever was logged - use AUTH.usernameeeeee */}
-          {/* <Link to={"/" + data.username}>
-            <button>Back</button>
-            </Link> */}
+          <button onClick={() => navigate(-1)}>Back</button>
     </div>
     
   );
 }
 function Flagged(id) {
-    let user_id = localStorage.getItem("user_id"); //REPLACE WHEN AUTH IMPLEMENTED
+  const { auth, setAuth } = useAuth();
     let evidence_id = localStorage.getItem("evidence_id"); //will be the id in the function as user id will be from AUTH
-    var flag;
-    if (id = user_id){
-        flag = true; //can remove flag stuff
+    if (id = auth.user_id){
         return(<Link to={`/edit-evidence?id=${evidence_id}`}>
         <button>Edit</button>
       </Link>)
     }
     else {
-        flag = false;
         return(null)
     }
 }
