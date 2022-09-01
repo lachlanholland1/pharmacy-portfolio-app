@@ -20,6 +20,7 @@ export default function EditEvidenceForm({ evidenceData }) {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
   const [userChanged, setUserChanged] = useState(false);
   var procureDate = String(evidenceData.procurementdate);
 
@@ -94,6 +95,12 @@ export default function EditEvidenceForm({ evidenceData }) {
     });
   };
 
+
+  if (auth.user_id != evidenceData.users_id) {
+    console.log("Not authorised.");
+    return(navigate(-1));
+  }
+    
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -178,6 +185,8 @@ export default function EditEvidenceForm({ evidenceData }) {
         </div>
     </div>
   );
+//}
+
 }
 
 // function DeleteEvidence(id) {

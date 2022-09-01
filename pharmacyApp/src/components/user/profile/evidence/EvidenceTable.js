@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function EvidenceTable(props) {
+  let navigate = useNavigate();
   const params = useParams();
   const { auth } = useAuth();
   const [evidenceData, setEvidenceData] = useState([]);
@@ -21,6 +22,10 @@ function EvidenceTable(props) {
       });
   }, []);
 
+  function handleOnClick (userid) {
+    return(navigate(`/evidence?id=${userid}`))
+  };
+  
   return (
     <div>
       {auth.user && auth.username === params.user ? (
@@ -41,7 +46,7 @@ function EvidenceTable(props) {
         <tbody>
           {evidenceData.length ? (
             evidenceData.map((evidence) => (
-              <tr>
+              <tr onClick={() => handleOnClick(evidence.idevidenceitems)}>
                 <td>{evidence.title}</td>
                 <td>{evidence.description}</td>
                 <td>{evidence.impactstatement}</td>
