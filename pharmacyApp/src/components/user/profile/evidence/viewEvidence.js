@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import DownloadImageToS3 from "../../../../DownloadFileToS3";
 
 export default function ViewEvidence(props) {
     const navigate = useNavigate();
@@ -9,39 +10,22 @@ export default function ViewEvidence(props) {
     const id = searchParams.get("id");
     const [evidenceData, setEvidenceData] = useState([]);
     const { auth, setAuth } = useAuth();
-
+    
     localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
-
+    localStorage.setItem("attachment", evidenceData.attachment);
   useEffect(() => {
-    //const request = { access_token: auth.access_token, user_id: auth.user_id };
     const request = {idevidenceitems: id};
     fetch("/api/viewevidence", { 
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
     })
-
       .then((response) => response.json())
-    //   .then((data) => {console.log("bye",response); setEvidenceData(data.evidence_data)});
-    //   .then((data) =>
-    //     data.map((details) => ({
-    //       title: details.title,
-    //       description: details.description,
-    //       impactstatement: details.impactstatement,
-    //       comments: details.comments,
-    //       idevidenceitems: details.idevidenceitems,
-    //       procurementdate: details.procurementdate,
-    //       uploaddate: details.uploaddate,
-    //       attachment: details.attachment,
-    //       users_id: details.users_id
-    //     })))
         .then((details) => {
-            // console.log("details",details);
             setEvidenceData(details);
           });
     //   .catch((err) => console.log("err"));
   }, []);
-//if auth = user then have edit button? or have this on the profile page where they can go accorss to certain ones.
   return (
     <div>
         <h1> {evidenceData.title} </h1>
@@ -50,11 +34,8 @@ export default function ViewEvidence(props) {
         <p> Description: {evidenceData.description}</p>
         <p> Impact Statement: {evidenceData.impactstatement}</p>
         <p> Attachment: {evidenceData.attachment}</p>
-        <p> User Id: {evidenceData.users_id}</p>
-        <p> Reviews</p>
-      {/* {evidenceData ? <ViewEvidenceForm evidenceData={evidenceData} /> : <></>} */}
-      {/* //TO BE IMPLEMENTED - IF IT IS USER'S EVIDENCE THEY CAN HAVE THIS BUTTON  */}
-
+        <DownloadImageToS3 /> 
+        <p> Reviews: </p>
           <Flagged id ={evidenceData.users_id}/>
           <br />
         <button type="submit" className={" button-primary"}>
@@ -68,7 +49,7 @@ export default function ViewEvidence(props) {
 }
 function Flagged(id) {
   const { auth, setAuth } = useAuth();
-    let evidence_id = localStorage.getItem("evidence_id"); //will be the id in the function as user id will be from AUTH
+    let evidence_id = localStorage.getItem("evidence_id");
     if (id = auth.user_id){
         return(<Link to={`/edit-evidence?id=${evidence_id}`}>
         <button>Edit</button>
