@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useReducer, Alert } from "react";
 import DatePicker from "react-multi-date-picker";
 import { Controller, useForm } from "react-hook-form";
-import useAuth from "../../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";

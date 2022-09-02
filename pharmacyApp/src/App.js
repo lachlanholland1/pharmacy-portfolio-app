@@ -15,7 +15,7 @@ import CreateReviewer from "./components/reviewers/CreateReviewer";
 import EditAccount from "./components/edit-account/EditAccount";
 import PasswordChange from "./components/password-change/PasswordChange";
 import ViewEvidence from "./components/user/profile/evidence/viewEvidence"
-import EditEvidence from "./components/user/profile/evidence/editEvidence"
+import EditEvidence from "./components/editEvidence/editEvidence"
 
 function App(props) {
   return (
