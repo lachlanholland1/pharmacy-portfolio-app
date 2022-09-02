@@ -31,6 +31,9 @@ const signUpRouter = require("./pharmacy_routes/signUp");
 //Create Evidence
 const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
+//Review Evidence
+const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+
 //Evidence table
 const evidenceTableRouter = require("./pharmacy_routes/evidenceTable");
 
@@ -117,6 +120,10 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 //Create Evidence
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
+//Review Evidence
+app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+
+//Evidence Table
 app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
 
 //Evidence table
