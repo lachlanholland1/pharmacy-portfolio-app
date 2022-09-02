@@ -13,6 +13,8 @@ function Profile(props) {
   const [profileLoaded, setProfileLoaded] = useState(false);
   const [userDetails, setUserDetails] = useState({});
 
+  localStorage.setItem("profile", params.user);
+
   useEffect(() => {
     const request = {
       auth: auth,
