@@ -1,16 +1,15 @@
+import { stringify } from 'postcss';
 import React ,{useState} from 'react';
 
 const DownloadImageToS3 = () => {
-
-    // const [selectedFile, setSelectedFile] = useState(null);
-
-    // const handleFileInput = (e) => setSelectedFile(e.target.files[0]);
+    var file = localStorage.getItem("attachment");
+    var type = file.substr(file.length -3);
 
     const downloadFile = () => {
-
         const requestObject = {
-                fileName: "retrowave_80_s_bg_by_rafael_de_jongh-d9wsq5j.png",//file.name ,
-                fileType: "image/png" //file.type
+                fileName: file,
+                fileType: type
+                // fileType: "image/png" //file.type
         }
        console.log(requestObject.fileName);
        console.log(requestObject.fileType);
@@ -21,26 +20,12 @@ const DownloadImageToS3 = () => {
             headers: { "Content-Type": "application/json" }, 
         })
         .then(res => res.json())
-        .then((data) => {console.log(data.signedUrl)})
-            
-                  
-
+        .then((data) => {window.open(data.signedUrl, '_blank').focus()})
     }
 
 
     return <>
-        {/* <div>
-        <label>File Name</label>
-        <br />
-        <input
-          maxLength={65}
-          type="text"
-          id="title"
-          name="title"
-        /> */}
-        {/* <input type="file" onChange={handleFileInput}/> */}
-        <button onClick={() => downloadFile()}> Upload to S3</button>
-        {/* </div> */}
+        <button onClick={() => downloadFile()}>View Evidence</button>
     </>
 }
 
