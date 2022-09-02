@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import useAuth from "../../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import EditEvidenceForm from "../evidence/editEvidenceForm";
+import EditEvidenceForm from "./editEvidenceForm";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 function EditEvidence(props) {
