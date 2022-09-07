@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../../../hooks/useAuth";
+// import useAuth from "../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./AdminsTableStyle.css";
-
 
 export default function AdminsTable(props) {
   console.log("Wat???");
   let navigate = useNavigate();
   const params = useParams();
-  const { auth } = useAuth();
+  // const { auth } = useAuth();
   const [adminData, setAdminData] = useState([]);
   useEffect(() => {
     fetch("/api/admins-table", {
@@ -43,14 +42,15 @@ export default function AdminsTable(props) {
         <tbody>
           {adminData.length ? (
             adminData.map((admin) => (
-              <tr
-                table
-                className={style.tr2}
-              >
+              <tr table className={style.tr2}>
                 <td>{admin.email}</td>
-                <td>{admin.firstname} {admin.surname}</td>
+                <td>
+                  {admin.firstname} {admin.surname}
+                </td>
                 <td>{admin.alterprivileges}</td>
-                <td><button>Delete Admin</button></td>
+                <td>
+                  <button>Delete Admin</button>
+                </td>
               </tr>
             ))
           ) : (
@@ -63,5 +63,3 @@ export default function AdminsTable(props) {
     </div>
   );
 }
-
-
