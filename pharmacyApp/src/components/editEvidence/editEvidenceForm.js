@@ -174,13 +174,14 @@ console.log(auth.user_id, evidenceData.user_id);
           <button disabled={!userChanged} type="submit">
             Submit
           </button>
-          <Link to={`/evidence?id=${evidenceData.idevidenceitems}`}>
+          {/* temp fix */}
+          <Link to={'/' + auth.username}>
         <button>Back</button>
       </Link>
+          {/* <Link to={`/evidence?id=${evidenceData.idevidenceitems}`}>
+        <button>Back</button>
+      </Link> */}
       <br />
-      {/* <button onClick={(e) => DeleteEvidence(evidenceData.idevidenceitems)}>Delete</button> */}
-      {/* <button onclick="deleteProfile();">Delete Evidence</button> */}
-      {/* <DeleteEvidence  id ={evidenceData.idevidenceitems}/> */}
         </div>
       </form>
       <div>

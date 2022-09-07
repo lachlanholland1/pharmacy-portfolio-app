@@ -11,8 +11,11 @@ export default function ViewEvidence(props) {
   const [evidenceData, setEvidenceData] = useState([]);
   const { auth, setAuth } = useAuth();
 
+  let viewingProfile = localStorage.getItem("profile");
+
   localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
   localStorage.setItem("attachment", evidenceData.attachment);
+  
   useEffect(() => {
     const request = { idevidenceitems: id };
     fetch("/api/viewevidence", {
@@ -42,7 +45,9 @@ export default function ViewEvidence(props) {
         Review
       </button>
       <br />
-      <button onClick={() => navigate(-1)}>Back</button>
+      <Link to={'/' + viewingProfile}>
+        <button>Back</button>
+      </Link>
     </div>
   );
 }
