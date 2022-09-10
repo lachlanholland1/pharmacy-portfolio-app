@@ -1,6 +1,7 @@
 import React from "react";
 import useAuth from "./hooks/useAuth";
 import { Navigate, useNavigate } from "react-router-dom";
+import style from "./styles.css";
 
 function SignOutButton(props) {
   const { auth, setAuth } = useAuth();
@@ -18,7 +19,7 @@ function SignOutButton(props) {
     });
   }
 
-  return <button onClick={Logout}>Sign out</button>;
+  return <button className={style.SignOutButton} onClick={Logout}>Sign out</button>;
 }
 
 export default SignOutButton;
