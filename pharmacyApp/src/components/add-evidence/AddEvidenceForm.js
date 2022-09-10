@@ -5,6 +5,8 @@ import useAuth from "../../hooks/useAuth";
 import DownloadImageToS3 from "../../DownloadFileToS3";
 import urlProducer from "../../urlProducer";
 import { useNavigate } from "react-router-dom";
+import style from "./AddEvidenceStyle.css";
+
 
 const formreducer = (state, event) => {
   return {
@@ -23,9 +25,7 @@ export default function AddEvidenceForm() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [attachmentData, setAttachmentData] = useState("");
   const navigate = useNavigate();
-
-  // console.log(auth.user_id);
-
+  
   const {
     watch,
     control,
@@ -129,11 +129,14 @@ function uploadFile(file){
   }
   return (
     <div>
-      <h1>Add Evidence</h1>
+    <div className={style.container}>
+    <div className={style.sign}>
+      <h1 className={style.center}>Add Evidence</h1>
       <form onSubmit={handleSubmit }>
-        <label>Evidence Title</label>
+        <label className={style.padding}>Evidence Title</label>
         <br />
         <input
+          className={style.myForm1}
           maxLength={65}
           type="text"
           id="title"
@@ -143,48 +146,56 @@ function uploadFile(file){
           onChange={handleChange}
         />
         <br />
-        <label>Description</label>
+        <label className={style.padding}>Description</label>
         <br />
-        <input
+        <textarea 
+          rows='2' 
+          cols='52'
+          className={style.myForm2}
           maxLength={255}
-          type="text"
           placeholder="Enter the description for your evidence (max 255 character length)"
           required
           id="description"
           name="description"
-          onChange={handleChange}
-        />
+          onChange={handleChange}>
+          </textarea>
         <br />
-        <label>Impact Statement</label>
+        <label className={style.padding}>Impact Statement</label>
         <br />
-        <input
+        <textarea 
+          className={style.myForm3}
           maxLength={255}
-          type="text"
           placeholder="Enter the impact statement for your evidence (max 255 character length)"
           required
           id="impactstatement"
           name="impactstatement"
-          onChange={handleChange}
-        />
+          onChange={handleChange}>
+          </textarea>
         <br />
-        <label>Date</label>
+        <label className={style.padding}>Date</label>
         <br />
         <Controller
           control={control}
           name="dateInput"
           render={({ field }) => (
             <DatePicker
+              style={{"width": '390px',
+               'margin-bottom': '15px',
+                'border': '2px solid lightgray',
+                'border-radius': '5px',
+                'padding-left': '10px'}}
               name="date"
               id="date"
               placeholder="Select date"
               format="YYYY-MM-DD"
               onChange={(date) => handleChangeDate(date)}
               selected={field.value}
+              
             />
           )}
         />
         <br />
-        <label>Evidence Attachment</label>
+        <label className={style.padding}>Evidence Attachment</label>
         <br />
         <input
           id="fileInput"
@@ -198,16 +209,19 @@ function uploadFile(file){
         <br />
         {/* <DownloadImageToS3 /> 
         {//^^^Download Image to be used later. */}
-        <div>
-          <button type="submit" className={" button-primary"}>
+        <div className={style.center}>
+          <button className={style.myButton} type="submit">
             Submit
           </button>
         </div>
-        <div>
+      </form>    
+    </div>
+    </div>
+    <div>
           <p>Disclaimer: When adding evidence attachments please ensure all personal or private information relating to yourself or others 
             remains confidential if/when required as public portfolio’s will be viewable by all entities. Please also ensure each file upload is kept under 10MB.</p>
         </div>
-      </form>
     </div>
+    
   );
 }

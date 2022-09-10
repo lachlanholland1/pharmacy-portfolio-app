@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import style from "./EvidenceTableStyle.css";
+// import DownloadImageToS3 from "../../../../DownloadFileToS3";
 
 function EvidenceTable(props) {
+  let navigate = useNavigate();
   const params = useParams();
   const { auth } = useAuth();
   const [evidenceData, setEvidenceData] = useState([]);
@@ -21,17 +24,24 @@ function EvidenceTable(props) {
       });
   }, []);
 
+  function handleOnClick(userid) {
+    return navigate(`/evidence?id=${userid}`);
+  }
+
   return (
     <div>
-      {auth.user && auth.username === params.user ? (
-        <Link to={"/add-evidence"}>
-          <button>Add evidence</button>
-        </Link>
-      ) : (
-        <></>
-      )}
-      <table>
-        <tr>
+      <div className={style.padding}>
+        {auth.user && auth.username === params.user ? (
+          <Link to={"/add-evidence"}>
+            <button className={style.myButton}>Add evidence</button>
+          </Link>
+        ) : (
+          <></>
+        )}
+        <h2>Evidence</h2>
+      </div>
+      <table className={style.table}>
+        <tr table className={style.tr}>
           <th>Title</th>
           <th>Description</th>
           <th>Impact statement</th>
@@ -41,12 +51,16 @@ function EvidenceTable(props) {
         <tbody>
           {evidenceData.length ? (
             evidenceData.map((evidence) => (
-              <tr>
+              <tr
+                onClick={() => handleOnClick(evidence.idevidenceitems)}
+                table
+                className={style.tr2}
+              >
                 <td>{evidence.title}</td>
                 <td>{evidence.description}</td>
                 <td>{evidence.impactstatement}</td>
                 <td>{evidence.procurementdate}</td>
-                <td>{evidence.attachment}</td>
+                {/* <DownloadImageToS3 /> */}
               </tr>
             ))
           ) : (

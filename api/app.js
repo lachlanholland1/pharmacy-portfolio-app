@@ -31,6 +31,9 @@ const signUpRouter = require("./pharmacy_routes/signUp");
 //Create Evidence
 const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
+//Review Evidence
+const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+
 //Evidence table
 const evidenceTableRouter = require("./pharmacy_routes/evidenceTable");
 
@@ -40,7 +43,23 @@ const uploadRouter = require("./pharmacy_routes/upload.js");
 //Download
 const downloadRouter = require("./pharmacy_routes/download.js");
 
+//View Evidence
+const viewEvidenceRouter = require("./pharmacy_routes/viewEvidence.js");
 
+//Edit Evidence
+const editEvidenceRouter = require("./pharmacy_routes/editEvidence.js");
+
+//Delete Evidence
+const deleteEvidenceRouter = require("./pharmacy_routes/deleteEvidence.js");
+
+//Administrators Table
+const adminTableRouter = require("./pharmacy_routes/adminsTable.js");
+
+//Evidence table
+const createAdminTableRouter = require("./pharmacy_routes/createAdmin");
+
+//Evidence table
+const createReviewerTableRouter = require("./pharmacy_routes/createReviewer");
 
 dotEnv.config();
 
@@ -110,13 +129,11 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 //Create Evidence
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
+//Review Evidence
+app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+
+//Evidence Table
 app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
-
-//Evidence table
-const createAdminTableRouter = require("./pharmacy_routes/createAdmin");
-
-//Evidence table
-const createReviewerTableRouter = require("./pharmacy_routes/createReviewer");
 
 //Create admin
 app.use("/api/createadmin", verifyOrigin, createAdminRouter);
@@ -129,6 +146,18 @@ app.use("/api/upload", verifyOrigin, uploadRouter);
 
 //Download File
 app.use("/api/download", verifyOrigin, downloadRouter);
+
+//View Evidence
+app.use("/api/viewevidence", verifyOrigin, viewEvidenceRouter);
+
+//Edit Evidence
+app.use("/api/editevidence", verifyOrigin, editEvidenceRouter);
+
+//Delete Evidence
+app.use("/api/deleteevidence", verifyOrigin, deleteEvidenceRouter);
+
+//View Administrators
+app.use("/api/admins-table", verifyOrigin, adminTableRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

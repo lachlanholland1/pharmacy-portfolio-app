@@ -1,4 +1,4 @@
-.SignOutButton {
+.myButton {
 	background-color:#000000;
 	border-radius:5px;
 	display:inline-block;
@@ -9,12 +9,17 @@
 	height: 30px;
     width: 175px;
 	text-decoration:none;
-}
+    margin-right: 20px;
 
-.SignOutButton:hover {
+}
+.myButton:hover {
 	background-color:#707070;
 }
-.SignOutButton:active {
+.myButton:active {
 	position:relative;
 	top:1px;
+}
+
+.padding {
+    padding-left: 20px;
 }
