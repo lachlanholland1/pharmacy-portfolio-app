@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import AdminsTable from "./AdminsTable";
+import ReviewersTable from "./ReviewersTable";
 import useAuth from "../../../hooks/useAuth";
 
-function ViewAdmins(props) {
+function ViewReviewers(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
@@ -14,9 +14,9 @@ function ViewAdmins(props) {
       <Link to={"/" + auth.username}>
         <button className="">Back</button>
       </Link>
-      <AdminsTable />
+      <ReviewersTable />
     </div>
   );
 }
 
-export default ViewAdmins;
+export default ViewReviewers;
