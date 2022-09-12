@@ -40,15 +40,7 @@ export default function AddEvidenceForm() {
     console.log("Error: File size must be below 10mb!");
     setErrors('Error: File size must be below 10mb!')
   }
-  else {
-    setErrors('');
-    setSelectedFile(e.target.files[0]); 
-    attachment = urlProducer(e.target.files[0].name);
-    setAttachmentData(attachment);
-    setFormData({name: "attachment", value: attachment});
-    console.log(e.target.files[0].type);
-  }
-  if (e.target.files[0].type != "application/pdf" && e.target.files[0].type != "image/jpeg" &&
+  else if (e.target.files[0].type != "application/pdf" && e.target.files[0].type != "image/jpeg" &&
   e.target.files[0].type != "image/png" && e.target.files[0].type != "text/csv" &&
   e.target.files[0].type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && 
   e.target.files[0].type != "application/vnd.openxmlformats-officedocument.presentationml.presentation" &&
@@ -61,6 +53,11 @@ export default function AddEvidenceForm() {
   }
   else {
     setErrors('');
+    setSelectedFile(e.target.files[0]); 
+    attachment = urlProducer(e.target.files[0].name);
+    setAttachmentData(attachment);
+    setFormData({name: "attachment", value: attachment});
+    console.log(e.target.files[0].type);
   }
 }
   const [errors1, setErrors] = useState("");

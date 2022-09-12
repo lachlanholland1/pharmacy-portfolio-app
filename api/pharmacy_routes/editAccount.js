@@ -85,6 +85,18 @@ router.post("/", function (req, res, next) {
       }
     );
   }
+
+  if (req.body.edit_account.attachment) {
+    db.query(
+      "UPDATE Users SET attachment = ? WHERE user_id = ?;",
+      [req.body.edit_account.attachment, user_id],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+      }
+    );
+  }
 });
 
 module.exports = router;
