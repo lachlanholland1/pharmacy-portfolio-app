@@ -55,11 +55,14 @@ const deleteEvidenceRouter = require("./pharmacy_routes/deleteEvidence.js");
 //Administrators Table
 const adminTableRouter = require("./pharmacy_routes/adminsTable.js");
 
-//Evidence table
-const createAdminTableRouter = require("./pharmacy_routes/createAdmin");
+//Delete Admin
+const deleteAdminRouter = require("./pharmacy_routes/deleteAdmin");
 
-//Evidence table
-const createReviewerTableRouter = require("./pharmacy_routes/createReviewer");
+//Reviewers Table
+const reviewerTableRouter = require("./pharmacy_routes/reviewersTable.js");
+
+//Delete Reviewer
+const deleteReviewerRouter = require("./pharmacy_routes/deleteReviewer");
 
 dotEnv.config();
 
@@ -158,6 +161,16 @@ app.use("/api/deleteevidence", verifyOrigin, deleteEvidenceRouter);
 
 //View Administrators
 app.use("/api/admins-table", verifyOrigin, adminTableRouter);
+
+//Delete Administrators
+app.use("/api/deleteadmin", verifyOrigin, deleteAdminRouter);
+
+//View Reviewers
+app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
+
+//Delete Reviewer
+app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
