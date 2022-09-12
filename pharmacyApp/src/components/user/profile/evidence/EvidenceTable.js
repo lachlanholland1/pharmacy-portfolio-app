@@ -3,7 +3,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./EvidenceTableStyle.css";
-// import DownloadImageToS3 from "../../../../DownloadFileToS3";
+import DownloadImageToS3 from "../../../../DownloadFileToS3";
 
 function EvidenceTable(props) {
   let navigate = useNavigate();
@@ -60,7 +60,7 @@ function EvidenceTable(props) {
                 <td>{evidence.description}</td>
                 <td>{evidence.impactstatement}</td>
                 <td>{evidence.procurementdate}</td>
-                {/* <DownloadImageToS3 /> */}
+                <DownloadImageToS3 className={style.myButton} />
               </tr>
             ))
           ) : (
