@@ -36,8 +36,8 @@ export default function ViewEvidence(props) {
       <p> Date Uploaded: {evidenceData.uploaddate}</p>
       <p> Description: {evidenceData.description}</p>
       <p> Impact Statement: {evidenceData.impactstatement}</p>
-      {/* <p> Attachment: {evidenceData.attachment}</p> */}
-      <button onClick={() => DownloadImageToS3(evidenceData.attachment)}>View Evidence</button>
+      <p> Attachment: {evidenceData.attachment}</p>
+      <DownloadImageToS3 />
       <p> Reviews: </p>
       <Flagged id={evidenceData.users_id} />
       <br />
