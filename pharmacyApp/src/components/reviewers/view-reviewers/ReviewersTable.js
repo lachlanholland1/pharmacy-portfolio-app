@@ -2,51 +2,46 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import style from "./AdminsTableStyle.css";
+import style from "./ReviewersTableStyle.css";
 import { confirmAlert } from "react-confirm-alert";
 
 
-export default function AdminsTable(props) {
+export default function ReviewersTable(props) {
   let navigate = useNavigate();
   const params = useParams();
   const { auth } = useAuth();
-  const [adminData, setAdminData] = useState([]);
-
-  console.log(auth);
-
+  const [reviewerData, setreviewerData] = useState([]);
   useEffect(() => {
-    fetch("/api/admins-table", {
+    fetch("/api/reviewers-table", {
       method: "POST",
       body: JSON.stringify({ user: params.user }),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setAdminData(data.admins_data);
+        setreviewerData(data.reviewers_data);
       });
   }, []);
 
-  const submit = (admin_id) => {
-
+  const submit = (reviewer_id) => {
     confirmAlert({
       title: "Confirm to Delete",
-      message: "Are you sure want to remove the user as an admin?",
+      message: "Are you sure want to remove the user as a reviewer?",
       buttons: [
         {
           label: "Yes",
           // onClick: () => alert("Click Yes")
-          onClick: () => fetch("/api/deleteadmin", {
+          onClick: () => fetch("/api/deletereviewer", {
             method: "POST",
-            body: JSON.stringify({admin_id: admin_id}),
+            body: JSON.stringify({reviewer_id: reviewer_id}),
             headers: { "Content-Type": "application/json" }
           })
             .then((res) => res.json())
-            .then(navigate("/view-admins"))
+            .then(navigate("/view-reviewers"))
         },
         {
           label: "No",
-          onClick: () => navigate("/view-admins")
+          onClick: () => navigate("/view-reviewers")
           //onClick: () => alert("Click No")
         }
       ]
@@ -60,33 +55,31 @@ export default function AdminsTable(props) {
   return (
     <div>
       <div className={style.padding}>
-        <h2>Administrators</h2>
+        <h2>Reviewers</h2>
       </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>User Email</th>
           <th>Name</th>
-          <th>Privileges</th>
           <th>Action</th>
         </tr>
         <tbody>
-          {adminData.length ? (
-            adminData.map((admin) => (
+          {reviewerData.length ? (
+            reviewerData.map((reviewer) => (
               <tr table className={style.tr1}>
-                <td>{admin.email}</td>
+                <td>{reviewer.email}</td>
                 <td>
-                  {admin.firstname} {admin.surname}
+                  {reviewer.firstname} {reviewer.surname}
                 </td>
-                <td>{admin.alterprivileges}</td>
                 <td >
-                  {/* Need to validate that the current Admin has Alter privileges */}
-                    <button className={style.myButton} onClick={() => submit(admin.idadministrators)}>Delete</button>
+                  {/* Need to validate that the current reviewer has Alter privileges */}
+                    <button className={style.myButton} onClick={() => submit(reviewer.idreviewers)}>Delete</button>
                 </td>
               </tr>
             ))
           ) : (
             <>
-              <div>No Administrators.</div>
+              <div>No Reviewers.</div>
             </>
           )}
         </tbody>
