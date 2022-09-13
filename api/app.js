@@ -33,6 +33,7 @@ const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
 //Review Evidence
 const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+const reviewEvidenceRouter = require("./pharmacy_routes/reviewEvidence");
 
 //Evidence table
 const evidenceTableRouter = require("./pharmacy_routes/evidenceTable");
@@ -134,6 +135,7 @@ app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
 //Review Evidence
 app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
 
 //Evidence Table
 app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
@@ -170,7 +172,6 @@ app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
 
 //Delete Reviewer
 app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
