@@ -1,21 +1,30 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const formreducer = (state, event) => {
   return {
     ...state,
-    [event.name]: event.value,
+    [event.name]: {
+      domain: event.domain,
+      standard: event.standard,
+      competency: event.competency,
+      value: event.value,
+    },
   };
 };
 export default function ReviewEvidenceForm({ evidenceCriteria }) {
-  console.log(evidenceCriteria);
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
   const [formData, setFormData] = useReducer(formreducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { auth, setAuth } = useAuth();
+
+  const id = searchParams.get("id");
 
   const {
     watch,
@@ -24,17 +33,21 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  const handleChange = (event) => {
+  const handleChange = (event, domain, standard, competency) => {
     const isCheckbox = event.target.type === "checkbox";
     setFormData({
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
+      domain: domain,
+      standard: standard,
+      competency: competency,
     });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
     const request = {
+      evidence_id: id,
       review: formData,
       access_token: auth.access_token,
       user_id: auth.user_id,
@@ -42,7 +55,6 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    console.log(request);
     fetch("/api/review-evidence", {
       method: "POST",
       body: JSON.stringify(request),
@@ -85,7 +97,15 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                                   "-c" +
                                   competency.idcompetencies
                                 }
-                                onChange={handleChange}
+                                value={criteria.idperformancecriteria}
+                                onChange={(event) =>
+                                  handleChange(
+                                    event,
+                                    domain.iddomains,
+                                    standard.idstandards,
+                                    competency.idcompetencies
+                                  )
+                                }
                                 step="1"
                               />
                               <label className="">{criteria.title}</label>
@@ -105,7 +125,14 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                             "-s" +
                             standard.idstandards
                           }
-                          onChange={handleChange}
+                          onChange={(event) =>
+                            handleChange(
+                              event,
+                              domain.iddomains,
+                              standard.idstandards,
+                              competency.idcompetencies
+                            )
+                          }
                         />
                         <br />
                         <br />
