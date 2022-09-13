@@ -171,7 +171,6 @@ app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
 //Delete Reviewer
 app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
 
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

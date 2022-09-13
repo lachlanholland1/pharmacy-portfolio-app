@@ -2,3 +2,8 @@
     padding-left: 20px;
 }
 
+.photo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+  }
