@@ -16,7 +16,6 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
-  const [submitEnabled, setSubmitEnabled] = useState(false);
 
   const {
     watch,
@@ -36,15 +35,15 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
   function handleSubmit(e) {
     e.preventDefault();
     const request = {
-      edit_account: formData,
+      review: formData,
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
-    if (!submitEnabled) return;
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/edit-account", {
+    console.log(request);
+    fetch("/api/review-evidence", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
@@ -68,7 +67,7 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
               <div>
                 <h2>{domain.description}</h2>
                 {domain.standards.map((standard, index) => (
-                  <div>
+                  <div key={index}>
                     <h4>{standard.description}</h4>
                     {standard.competencies.map((competency, index) => (
                       <div key={index}>
@@ -77,8 +76,15 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                           (criteria, index) => (
                             <div className="" key={index}>
                               <input
-                                type="checkbox"
-                                name={"criteria-" + index}
+                                type="radio"
+                                name={
+                                  "d" +
+                                  domain.iddomains +
+                                  "-s" +
+                                  standard.idstandards +
+                                  "-c" +
+                                  competency.idcompetencies
+                                }
                                 onChange={handleChange}
                                 step="1"
                               />
@@ -86,7 +92,6 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                             </div>
                           )
                         )}
-                        <br />
                         <label className="">Comments</label>
                         <br />
                         <textarea
@@ -94,10 +99,16 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                           maxLength={255}
                           type="text"
                           placeholder={"Enter comments"}
-                          id={"criteria"}
-                          name="mobile"
+                          name={
+                            "comment-d" +
+                            domain.iddomains +
+                            "-s" +
+                            standard.idstandards
+                          }
                           onChange={handleChange}
                         />
+                        <br />
+                        <br />
                       </div>
                     ))}
                   </div>
@@ -105,7 +116,7 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
               </div>
             ))}
             <div className="">
-              <button className="" disabled={!submitEnabled} type="submit">
+              <button className="" type="submit">
                 Submit
               </button>
             </div>
