@@ -15,6 +15,7 @@ function ReviewEvidence(props) {
       .then((response) => response.json())
       .then((data) => setEvidenceCriteria(data));
   }, []);
+  console.log(evidenceCriteria);
 
   return (
     <div>
