@@ -27,6 +27,7 @@ router.post("/:user", (req, res, next) => {
       first_name: user.firstname,
       last_name: user.surname,
       bio: user.description,
+      attachment: user.attachment
     };
     console.log(response);
     return res.send(response);
