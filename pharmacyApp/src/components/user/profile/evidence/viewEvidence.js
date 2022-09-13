@@ -15,7 +15,7 @@ export default function ViewEvidence(props) {
 
   localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
   localStorage.setItem("attachment", evidenceData.attachment);
-  
+
   useEffect(() => {
     const request = { idevidenceitems: id };
     fetch("/api/viewevidence", {
@@ -37,15 +37,17 @@ export default function ViewEvidence(props) {
       <p> Description: {evidenceData.description}</p>
       <p> Impact Statement: {evidenceData.impactstatement}</p>
       {/* <p> Attachment: {evidenceData.attachment}</p> */}
-      <button onClick={() => DownloadImageToS3(evidenceData.attachment)}>View Evidence</button>
+      <button onClick={() => DownloadImageToS3(evidenceData.attachment)}>
+        View Evidence
+      </button>
       <p> Reviews: </p>
       <Flagged id={evidenceData.users_id} />
       <br />
-      <button type="submit" className={" button-primary"}>
-        Review
-      </button>
+      <Link to={`/review-evidence/?id=${id}`}>
+        <button className={" button-primary"}>Review Evidence</button>
+      </Link>
       <br />
-      <Link to={'/' + viewingProfile}>
+      <Link to={"/" + viewingProfile}>
         <button>Back</button>
       </Link>
     </div>
