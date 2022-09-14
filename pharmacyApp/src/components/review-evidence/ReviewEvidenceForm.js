@@ -2,6 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import style from "./style.css";
 
 const formreducer = (state, event) => {
   return {
@@ -72,8 +73,9 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
   }
   return (
     <div>
-      <div className="">
-        <div className="">
+      <div className={style.container}>
+        <div className={style.sign}>
+        <h1>Review Evidence</h1>
           <form onSubmit={handleSubmit}>
             {evidenceCriteria.domains.map((domain) => (
               <div>

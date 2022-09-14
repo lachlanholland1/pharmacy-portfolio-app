@@ -9,6 +9,7 @@
 	height: 30px;
     width: 175px;
 	text-decoration:none;
+    border: none;
 }
 
 .SignOutButton:hover {

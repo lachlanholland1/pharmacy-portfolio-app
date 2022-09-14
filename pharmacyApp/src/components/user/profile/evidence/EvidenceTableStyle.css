@@ -34,11 +34,10 @@
 	color:#ffffff;
 	font-family:Arial;
 	font-size:17px;
-	height: 30px;
-    width: 175px;
+	height: 25px;
+    width: 150px;
 	text-decoration:none;
-
-
+	border: none;
 }
 .myButton:hover {
 	background-color:#707070;
