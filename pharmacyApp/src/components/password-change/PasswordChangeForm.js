@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import style from "./style.css";
 
 const formreducer = (state, event) => {
   return {
@@ -60,11 +61,14 @@ export default function EditAccountForm() {
     });
   }
   return (
-    <div>
+    <div className={style.container}>
+      <div className={style.sign}>
+        <h1 className={style.center}>Change Password</h1>
       <form onSubmit={handleSubmit}>
-        <label>Old Password</label>
+        <label className={style.padding}>Old Password</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={65}
           type="password"
           id="old_password"
@@ -73,9 +77,10 @@ export default function EditAccountForm() {
           required
         />
         <br />
-        <label>New Password</label>
+        <label className={style.padding}>New Password</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="password"
           id="new_password"
@@ -84,9 +89,10 @@ export default function EditAccountForm() {
           required
         />
         <br />
-        <label>Confirm New Password</label>
+        <label className={style.padding}>Confirm New Password</label>
         <br />
         <input
+          className={style.myForm}
           maxLength={255}
           type="password"
           id="confirm_password"
@@ -95,12 +101,13 @@ export default function EditAccountForm() {
           required
         />
         <br />
-        <div>
-          <button disabled={!passwordChanged} type="submit">
+        <div className={style.center}>
+          <button className={style.myButton} disabled={!passwordChanged} type="submit">
             Change Password
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 }

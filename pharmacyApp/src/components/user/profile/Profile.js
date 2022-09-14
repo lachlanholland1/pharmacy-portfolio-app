@@ -52,13 +52,16 @@ function Profile(props) {
   return (
     <div>
       {profileLoaded ? (
-        <div>
+        <div >
           <br />
+          <div className={style.row}>
           <img src= {evidenceData.signedUrl} className={style.photo} ></img>
+          <div >
           <h1 className={style.padding}>{userDetails.first_name + " " + userDetails.last_name}</h1>
-          <div className={style.padding}>{userDetails.username}</div>
-          <br />
+          <h3 className={style.padding}>{userDetails.username}</h3> 
           <div className={style.padding}>{userDetails.bio}</div>
+          </div>
+          </div>
           <br />
           <EvidenceTable />
           <br />
