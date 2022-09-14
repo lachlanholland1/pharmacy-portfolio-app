@@ -33,7 +33,7 @@ function EvidenceTable(props) {
       <div className={style.padding}>
         {auth.user && auth.username === params.user ? (
           <Link to={"/add-evidence"}>
-            <button className={style.myButton}>Add Evidence</button>
+            <button className={style.myButton2}>Add evidence</button>
           </Link>
         ) : (
           <></>
