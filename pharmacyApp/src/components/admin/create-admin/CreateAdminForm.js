@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
+import style from "./style.css";
 const formreducer = (state, event) => {
   return {
     ...state,
@@ -51,10 +52,12 @@ export default function CreateAdminForm() {
     });
   }
   return (
-    <div>
-      <h1>Add Administrator</h1>
+    <div className={style.container}>
+      <div className={style.sign}>
+      <h1 className={style.center}>Add Administrator</h1>
       <form onSubmit={handleSubmit}>
         {/* add a bit about onSubmit?? */}
+        <div className={style.center}>
         <label>User</label>
         <br />
         <select required id="user_id" name="user_id" onChange={handleChange}>
@@ -62,6 +65,7 @@ export default function CreateAdminForm() {
           <option value="1">1</option>
           <option value="3">3</option>
         </select>
+        <br />
         <br />
         <label>Privileges</label>
         <br />
@@ -75,14 +79,15 @@ export default function CreateAdminForm() {
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
+        </div>
         <br />
-
-        <div>
-          <button type="submit" className={" button-primary"}>
+        <div className={style.center}>
+          <button type="submit" className={style.myButton}>
             Submit
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 }

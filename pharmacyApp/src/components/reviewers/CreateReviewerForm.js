@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
+import style from "./style.css";
 const formreducer = (state, event) => {
     return {
       ...state,
@@ -51,12 +52,15 @@ export default function CreateReviewerForm(){
         });
       }
     return (
-        <div>
-            <h1>Add Reviewer</h1>
+        <div className={style.container}>
+          <div className={style.sign}>
+            <h1 className={style.center}>Add Reviewer</h1>
             <form onSubmit={handleSubmit}>
            
                 {/* add a bit about onSubmit?? */}
+                <div className={style.center}>
                 <label>User</label>
+                <br />
                 <br />
                 <select
                     required
@@ -66,14 +70,16 @@ export default function CreateReviewerForm(){
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="3">3</option>
-                </select>               
+                </select>  
+                </div>             
                 <br />
                 <div>
-                    <button type="submit" className={" button-primary"}>
+                    <button type="submit" className={style.myButton}>
                         Submit
                     </button>
                 </div>
             </form>
+            </div>
         </div>
     )
 }

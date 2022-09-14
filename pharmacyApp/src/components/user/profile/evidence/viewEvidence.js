@@ -3,6 +3,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import DownloadImageToS3 from "../../../../DownloadFileToS3";
+import style from "./viewEvidence.css";
 
 export default function ViewEvidence(props) {
   const navigate = useNavigate();
@@ -31,25 +32,31 @@ export default function ViewEvidence(props) {
   }, []);
   return (
     <div>
+      <div className={style.container}>
+      <div className={style.sign}>
       <h1> {evidenceData.title} </h1>
       <p> Date Created: {evidenceData.procurementdate}</p>
       <p> Date Uploaded: {evidenceData.uploaddate}</p>
       <p> Description: {evidenceData.description}</p>
       <p> Impact Statement: {evidenceData.impactstatement}</p>
       {/* <p> Attachment: {evidenceData.attachment}</p> */}
-      <button onClick={() => DownloadImageToS3(evidenceData.attachment)}>
+      <button className={style.myButton} onClick={() => DownloadImageToS3(evidenceData.attachment)}>
         View Evidence
       </button>
       <p> Reviews: </p>
       <Flagged id={evidenceData.users_id} />
       <br />
+      <br />
       <Link to={`/review-evidence/?id=${id}`}>
-        <button className={" button-primary"}>Review Evidence</button>
+        <button className={style.myButton}>Review Evidence</button>
       </Link>
       <br />
+      <br />
       <Link to={"/" + viewingProfile}>
-        <button>Back</button>
+        <button className={style.myButton}>Back</button>
       </Link>
+      </div>
+      </div>
     </div>
   );
 }

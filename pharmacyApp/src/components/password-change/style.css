@@ -2,17 +2,16 @@
     display:flex;
     align-items: center;
     justify-content: center;
-    height: 97vh; 
+    height: 70vh; 
 }
 
 .sign {
     border: 2px solid lightgray;
-    padding: 25px 100px 50px 100px;
+    padding: 25px 125px 50px 125px;
     border-radius: 25px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-    text-align: center;
+    margin-top: -150px;
   }
-
 
 .myButton {
 	background-color:#000000;
@@ -25,7 +24,7 @@
 	height: 40px;
     width: 300px;
 	text-decoration:none;
-    border: none;
+    margin-top: 10px;
 }
 .myButton:hover {
 	background-color:#707070;
@@ -45,16 +44,18 @@
     width: 300px;
 }
 
-.myCheck{
-    margin-bottom: 15px;
-    align-items: center;
-    text-align: center;
-}
+
 .center {
     text-align: center;
 }
+
 .padding {
     display: inline-block; 
     padding-bottom: 5px;
     align-items: center;
+}
+
+
+.center {
+    text-align: center;
 }
