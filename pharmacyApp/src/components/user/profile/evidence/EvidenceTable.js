@@ -33,7 +33,7 @@ function EvidenceTable(props) {
       <div className={style.padding}>
         {auth.user && auth.username === params.user ? (
           <Link to={"/add-evidence"}>
-            <button className={style.myButton}>Add evidence</button>
+            <button className={style.myButton}>Add Evidence</button>
           </Link>
         ) : (
           <></>
@@ -60,7 +60,14 @@ function EvidenceTable(props) {
                 <td>{evidence.description}</td>
                 <td>{evidence.impactstatement}</td>
                 <td>{evidence.procurementdate}</td>
-                <td><button className={style.myButton} onClick={() => DownloadImageToS3(evidence.attachment)}>View Evidence</button></td>
+                <td>
+                  <button
+                    className={style.myButton}
+                    onClick={() => DownloadImageToS3(evidence.attachment)}
+                  >
+                    View Evidence
+                  </button>
+                </td>
               </tr>
             ))
           ) : (
