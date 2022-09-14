@@ -113,6 +113,7 @@ export default function EditAccountForm({ userData }) {
     <div>
     <div className={style.container}>
     <div className={style.sign}>
+      <h1 className={style.center}>Edit Profile</h1>
       <form onSubmit={handleSubmit}>
         <label className={style.padding}>First Name</label>
         <br />

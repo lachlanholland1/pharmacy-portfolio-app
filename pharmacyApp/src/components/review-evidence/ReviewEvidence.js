@@ -22,7 +22,7 @@ function ReviewEvidence(props) {
 
   return (
     <div>
-      <h1>Review Evidence</h1>
+  
 
       {evidenceCriteria ? (
         <ReviewEvidenceForm evidenceCriteria={evidenceCriteria} />
