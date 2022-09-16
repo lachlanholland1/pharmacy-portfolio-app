@@ -19,7 +19,11 @@ function SignOutButton(props) {
     });
   }
 
-  return <button className={style.SignOutButton} onClick={Logout}>Sign out</button>;
+  return (
+    <button className={style.SignOutButton} onClick={Logout}>
+      Sign Out
+    </button>
+  );
 }
 
 export default SignOutButton;

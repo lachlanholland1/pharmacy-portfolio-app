@@ -129,7 +129,7 @@ const SignUpForm = () => {
             </div> */}
             <div className={SignUp.center}>
               <button className={SignUp.myButton} type="submit">
-                Sign up
+                Sign Up
               </button>
             </div>
           </form>
