@@ -23,6 +23,8 @@ export default function EditAccountForm({ userData }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [errors1, setErrors] = useState("");
 
+  console.log(userData.private_account);
+
   var attachment;
 
   const {
@@ -119,6 +121,18 @@ export default function EditAccountForm({ userData }) {
         <div className={style.sign}>
           <h1 className={style.center}>Edit Profile</h1>
           <form onSubmit={handleSubmit}>
+            <div className={style.center}>
+              <input
+                type="checkbox"
+                name="private_account"
+                onChange={handleChange}
+                step="1"
+                defaultChecked={userData.private_account}
+              />
+              <div>{userData.private_account}</div>
+              <label className={style.checkboxPadding}>Private account</label>
+              <br />
+            </div>
             <label className={style.padding}>First Name</label>
             <br />
             <input
@@ -195,16 +209,6 @@ export default function EditAccountForm({ userData }) {
             <br />
             <input id="fileInput" type="file" onChange={handleFileInput} />
             <br />
-            <div className={style.center}>
-              <input
-                type="checkbox"
-                name="private-account"
-                onChange={handleChange}
-                step="1"
-              />
-              <label className={style.checkboxPadding}>Private account</label>
-              <br />
-            </div>
             <div className={style.center}>
               <button
                 className={style.myButton}
