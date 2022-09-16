@@ -23,8 +23,6 @@ export default function EditAccountForm({ userData }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [errors1, setErrors] = useState("");
 
-  console.log(userData.private_account);
-
   var attachment;
 
   const {
@@ -41,6 +39,7 @@ export default function EditAccountForm({ userData }) {
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
+    console.log(formData);
   };
 
   const handleFileInput = (e) => {
