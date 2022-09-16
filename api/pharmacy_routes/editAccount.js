@@ -12,6 +12,20 @@ router.post("/", function (req, res, next) {
     res.sendStatus(401);
   }
   const user_id = req.body.user_id;
+
+  const accountChanges = req.body.edit_account;
+  if (Object.keys(accountChanges).includes("private_account")) {
+    db.query(
+      "UPDATE Users SET private_account = ? WHERE user_id = ?;",
+      [accountChanges.private_account, user_id],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+      }
+    );
+  }
+
   if (req.body.edit_account.first_name) {
     console.log(req.body.edit_account.first_name);
     console.log(user_id);
