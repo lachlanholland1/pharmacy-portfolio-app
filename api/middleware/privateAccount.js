@@ -5,11 +5,6 @@ const db = require("../connection.js");
 const privateAccountMiddleware = (req, res, next) => {
   const username = req.body.user;
 
-  console.log(username);
-  console.log(username);
-  console.log(username);
-  console.log(username);
-  console.log(username);
   db.query(
     "select * from Users where username = ? AND private_account = false",
     [username],

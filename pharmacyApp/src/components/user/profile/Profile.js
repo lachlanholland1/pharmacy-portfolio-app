@@ -96,12 +96,12 @@ function Profile(props) {
             </div>
           </div>
           <br />
-          {userDetails.privateAccount ? (
+          {userDetails.private_account ? (
             <div>This Account is Private.</div>
           ) : (
             <></>
           )}
-          {!userDetails.privateAccount ? <EvidenceTable /> : <></>}
+          {!userDetails.private_account ? <EvidenceTable /> : <></>}
           <br />
         </div>
       ) : (
