@@ -4,6 +4,7 @@ import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./EvidenceTableStyle.css";
 import DownloadImageToS3 from "../../../../DownloadFileToS3";
+import Moment from "moment";
 
 function EvidenceTable(props) {
   let navigate = useNavigate();
@@ -33,7 +34,7 @@ function EvidenceTable(props) {
       <div className={style.padding}>
         {auth.user && auth.username === params.user ? (
           <Link to={"/add-evidence"}>
-            <button className={style.myButton2}>Add evidence</button>
+            <button className={style.myButton2}>Add Evidence</button>
           </Link>
         ) : (
           <></>
@@ -44,28 +45,31 @@ function EvidenceTable(props) {
         <tr table className={style.tr}>
           <th>Title</th>
           <th>Description</th>
-          <th>Impact statement</th>
-          <th>Procurement date</th>
+          <th>Date Created</th>
           <th>Attachment</th>
         </tr>
         <tbody>
           {evidenceData.length ? (
-            evidenceData.map((evidence) => (
+            evidenceData.map((evidence, index) => (
               <tr
                 onClick={() => handleOnClick(evidence.idevidenceitems)}
                 table
                 className={style.tr2}
+                key={index}
               >
                 <td>{evidence.title}</td>
                 <td>{evidence.description}</td>
-                <td>{evidence.impactstatement}</td>
-                <td>{evidence.procurementdate}</td>
+                <td>
+                  {Moment(evidence.procurementdate, "YYYY-MM-DD").format(
+                    "DD/MM/YYYY"
+                  )}
+                </td>
                 <td>
                   <button
                     className={style.myButton}
                     onClick={() => DownloadImageToS3(evidence.attachment)}
                   >
-                    View Evidence
+                    View
                   </button>
                 </td>
               </tr>

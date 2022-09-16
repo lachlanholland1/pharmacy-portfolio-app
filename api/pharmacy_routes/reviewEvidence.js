@@ -6,6 +6,7 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
+  const reviewEvidenceId = Math.floor(Math.random() * 1000000000);
   const user_id = req.body.user_id;
   const evidence_id = req.body.evidence_id;
   const self_review = req.body.review;
@@ -43,13 +44,15 @@ router.post("/", function (req, res, next) {
   }
 
   const reviewPromises = [];
-  console.log(reviewFormatted);
   Object.keys(reviewFormatted).map((key) => {
+    const reviewId = Math.floor(Math.random() * 1000000000);
     reviewPromises.push(
       new Promise((resolve, reject) => {
         db.query(
-          "INSERT INTO evidencereviews (evidenceitems_id, reviewers_id, reviewdate, domains_id, standards_id, competencies_id, performancecriterias_id, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
+          "INSERT INTO evidencereviews (review_id, idevidencereview, evidenceitems_id, reviewers_id, reviewdate, domains_id, standards_id, competencies_id, performancecriterias_id, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
           [
+            reviewId,
+            reviewEvidenceId,
             evidence_id,
             user_id,
             reviewDate,
