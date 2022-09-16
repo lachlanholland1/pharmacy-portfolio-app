@@ -9,6 +9,10 @@ const dotEnv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 
+//Middleware
+
+const privateAccountMiddleware = require("./middleware/privateAccount.js");
+
 //Auth
 const loginRouter = require("./pharmacy_routes/authenticate/auth_routes/login.js");
 const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.js");
@@ -144,7 +148,12 @@ app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
 app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
 
 //Evidence Table
-app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
+app.use(
+  "/api/evidence-table",
+  verifyOrigin,
+  privateAccountMiddleware,
+  evidenceTableRouter
+);
 
 //Create admin
 app.use("/api/createadmin", verifyOrigin, createAdminRouter);

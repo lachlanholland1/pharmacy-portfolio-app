@@ -6,22 +6,30 @@ import style from "./EvidenceTableStyle.css";
 import DownloadImageToS3 from "../../../../DownloadFileToS3";
 import Moment from "moment";
 
-function EvidenceTable(props) {
+function EvidenceTable() {
   let navigate = useNavigate();
   const params = useParams();
   const { auth } = useAuth();
   const [evidenceData, setEvidenceData] = useState([]);
-  console.log(params.user);
+
   useEffect(() => {
     fetch("/api/evidence-table", {
       method: "POST",
       body: JSON.stringify({ user: params.user }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject();
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log(data);
         setEvidenceData(data.evidence_data);
+      })
+      .catch(() => {
+        setAccountIsPrivate(true);
       });
   }, []);
 
@@ -41,16 +49,16 @@ function EvidenceTable(props) {
         )}
         <h2>Evidence</h2>
       </div>
-      <table className={style.table}>
-        <tr table className={style.tr}>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Date Created</th>
-          <th>Attachment</th>
-        </tr>
-        <tbody>
-          {evidenceData.length ? (
-            evidenceData.map((evidence, index) => (
+      {evidenceData.length ? (
+        <table className={style.table}>
+          <tr table className={style.tr}>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date Created</th>
+            <th>Attachment</th>
+          </tr>
+          <tbody>
+            {evidenceData.map((evidence, index) => (
               <tr
                 onClick={() => handleOnClick(evidence.idevidenceitems)}
                 table
@@ -73,14 +81,12 @@ function EvidenceTable(props) {
                   </button>
                 </td>
               </tr>
-            ))
-          ) : (
-            <>
-              <div>No evidence.</div>
-            </>
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <>No evidence has been added yet.</>
+      )}
     </div>
   );
 }
