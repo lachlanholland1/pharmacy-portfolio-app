@@ -15,7 +15,6 @@ function Profile(props) {
   const [userDetails, setUserDetails] = useState({});
   const [evidenceData, setEvidenceData] = useState({});
   const location = useLocation();
-
   const profileUrl = window.location.hostname + ":8080" + location.pathname;
 
   localStorage.setItem("profile", params.user);
@@ -96,12 +95,7 @@ function Profile(props) {
             </div>
           </div>
           <br />
-          {userDetails.private_account ? (
-            <div>This Account is Private.</div>
-          ) : (
-            <></>
-          )}
-          {!userDetails.private_account ? <EvidenceTable /> : <></>}
+          <PrivateAccount userDetails={userDetails} />
           <br />
         </div>
       ) : (
@@ -112,3 +106,18 @@ function Profile(props) {
 }
 
 export default Profile;
+
+function PrivateAccount(userDetails) {
+  const { auth, setAuth } = useAuth();
+  if (userDetails.userDetails.private_account = 1){
+    if (userDetails.userDetails.user_id = auth.user_id){
+      return (<EvidenceTable />);
+    }
+    else {
+      return (<div>This Account is Private.</div>);
+    }
+  }
+  else {
+    return (<EvidenceTable />);
+  }
+}
