@@ -151,7 +151,7 @@ app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
 app.use(
   "/api/evidence-table",
   verifyOrigin,
-  privateAccountMiddleware,
+  //privateAccountMiddleware,
   evidenceTableRouter
 );
 
