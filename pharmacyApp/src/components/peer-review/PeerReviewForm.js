@@ -93,11 +93,19 @@ useEffect(() => {
             {/* <Flagged data={reviewData}/> */}
         {reviewData.data?.map((data, index) => (
             <div className={style.container} key={index}>
-                <p>Domain: {data.domains_id}</p>
-                <p>stand: {data.standards_id}</p>
-                <p>comp: {data.competencies_id}</p>
-                <p>perform: {data.performancecriterias_id}</p>
-                <p>comments: {data.comments}</p>
+                {/* <p>Domain Id: {data.domains_id}</p> */}
+                <p>Domain: {evidenceCriteria.domains[data.domains_id - 1].description}</p>
+                <br />
+                {/* <p>Standard: {data.standards_id}</p> */}
+                <p>Standard: {evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].description}</p>
+                <br />
+                <p>Competency: {evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].
+                competencies[data.competencies_id - 1].description}</p>
+                <br />
+                {/* <p>comp: {data.competencies_id}</p> */}
+                <p>Performance Criteria: {evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</p>
+                <br />
+                <p>Comments: {data.comments}</p>
                 </div>
         ))}
         </div>
