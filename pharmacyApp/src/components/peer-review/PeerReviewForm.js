@@ -37,18 +37,26 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  const handleChange = (event, domain, standard, competency) => {
-    const isCheckbox = event.target.type === "checkbox";
+//   const handleChange = (event, domain, standard, competency) => {
+//     const isCheckbox = event.target.type === "checkbox";
+//     setFormData({
+//       name: event.target.name,
+//       value: isCheckbox ? event.target.checked : event.target.value,
+//       domain: domain,
+//       standard: standard,
+//       competency: competency,
+//     });
+//   };
+  const handleChange = (event) => {
+    // const isCheckbox = event.target.type === "checkbox";
     setFormData({
       name: event.target.name,
-      value: isCheckbox ? event.target.checked : event.target.value,
-      domain: domain,
-      standard: standard,
-      competency: competency,
+      value: event.target.value
+      //value: isCheckbox ? event.target.checked : event.target.value//,
+    //   performancecriterias_id: performancecriterias_id
     });
   };
 
-//get the self review data
 useEffect(() => {
     const request = { review_id: reviewid };
     fetch("/api/get-evidence-review", {
@@ -68,10 +76,11 @@ useEffect(() => {
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
+    console.log(request);
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/review-evidence", {
+    fetch("/api/review-evidence1", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
@@ -86,33 +95,84 @@ useEffect(() => {
       }
     });
   }
+
+  console.log(formData);
+  
+//   if (reviewData = null){
+//     // console.log(reviewData);
+//     console.log("yuea");
+//   }
+
   return (
     <div>
         <div className={style.container}>
         <div className={style.sign}>
+            {/* <Testing data={reviewData} /> */}
+        <h1>Peer Review</h1>
+        <form onSubmit={handleSubmit}>
+        <p>Description of evidence goes here.. blah blah blah</p>
+        <br />
             {/* <Flagged data={reviewData}/> */}
         {reviewData.data?.map((data, index) => (
-            <div className={style.container} key={index}>
+            <div key={index}>
                 {/* <p>Domain Id: {data.domains_id}</p> */}
-                <p>Domain: {evidenceCriteria.domains[data.domains_id - 1].description}</p>
-                <br />
+                <h2>{evidenceCriteria.domains[data.domains_id - 1].description}</h2>
                 {/* <p>Standard: {data.standards_id}</p> */}
-                <p>Standard: {evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].description}</p>
+                <h4>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].description}</h4>
+                <label>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].
+                competencies[data.competencies_id - 1].description}</label>
                 <br />
-                <p>Competency: {evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].
-                competencies[data.competencies_id - 1].description}</p>
-                <br />
+                
                 {/* <p>comp: {data.competencies_id}</p> */}
-                <p>Performance Criteria: {evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</p>
-                <br />
+                <input type="radio" defaultChecked/>
+                <label>{evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</label>
+                {/* <p>Performance Criteria: {evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</p> */}
                 <p>Comments: {data.comments}</p>
+                <p>Agree on competency?</p>
+                <input type="radio" id="yes" name="agree" value="yes" onClick={handleChange}/>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="agree" value="no" onClick={handleChange}/>
+                <label for="no">No</label>
+                {/* temporary solution until can figure out handle change */}
+                <p>What level do you believe the evidence meets?</p>
+                <input type="radio" id="Transition" name="performancecriteria" value="1" onClick={handleChange}/>
+                <label for="Transition">Transition</label>
+                <input type="radio" id="Consolidation" name="performancecriteria" value="2" onClick={handleChange}/>
+                <label for="Consolidation">Consolidation</label>
+                <input type="radio" id="Advanced" name="performancecriteria" value="3" onClick={handleChange}/>
+                <label for="Advanced">Advanced</label>
+                
+                        <label className="">Comments</label>
+                        <br />
+                        <textarea
+                          className=""
+                          maxLength={255}
+                          type="text"
+                          placeholder={"Enter comments"}
+                          name="comments"
+                        //   name={
+                        //     "comment-d" +
+                        //     domain.iddomains +
+                        //     "-s" +
+                        //     standard.idstandards
+                        //   }
+                          onChange={(event) =>
+                            handleChange(event)
+                          }
+                        />
                 </div>
         ))}
+        <div className="">
+              <button className="" type="submit">
+                Submit
+              </button>
+            </div>
+            </form>
         </div>
       </div>
 
 
-      <div className={style.container}>
+      {/* <div className={style.container}>
         <div className={style.sign}>
         <h1>Peer Review</h1>
           <form onSubmit={handleSubmit}>
@@ -190,19 +250,18 @@ useEffect(() => {
             </div>
           </form>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-// function Flagged(data) {
-//     const { auth, setAuth } = useAuth();
-//     let evidence_id = localStorage.getItem("evidence_id");
+// function Testing(data){
+//     //reformat the data object so it can be mapped
+//     data.find(())
 //     console.log(data);
-//     // if ((id = auth.user_id)) {
-//       return (
-//         data.data.map((domain, index) => (
-//             <div className={style.container} key={index}>
-//                 <p>Domain: {domain.domains_id}</p>
-//                 </div>)))
-//   }
+//     console.log("data");
+//     return(
+//         <p>ye</p>
+//     )
+// }
+//function to return mapping of Testing ^^^^/////
