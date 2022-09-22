@@ -64,6 +64,10 @@ const reviewerTableRouter = require("./pharmacy_routes/reviewersTable.js");
 //Delete Reviewer
 const deleteReviewerRouter = require("./pharmacy_routes/deleteReviewer");
 
+//Delete Reviewer
+const createDomainRouter = require("./pharmacy_routes/createDomain");
+
+
 dotEnv.config();
 
 var app = express();
@@ -171,6 +175,8 @@ app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
 //Delete Reviewer
 app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
 
+// Create Domain
+app.use("/api/createdomain", verifyOrigin, createDomainRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
