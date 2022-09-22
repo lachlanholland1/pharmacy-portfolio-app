@@ -75,6 +75,9 @@ const deleteReviewerRouter = require("./pharmacy_routes/deleteReviewer");
 //Get Evidence Review
 const getEvidenceReviewRouter = require("./pharmacy_routes/getEvidenceReview");
 
+//Peer Review
+const peerReviewRouter = require("./pharmacy_routes/peerReview");
+
 dotEnv.config();
 
 var app = express();
@@ -193,6 +196,9 @@ app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
 
 //Get Self Review
 app.use("/api/get-evidence-review", verifyOrigin, getEvidenceReviewRouter);
+
+//Peer Review
+app.use("/api/peer-review", verifyOrigin, peerReviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
