@@ -25,8 +25,9 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [searchParams] = useSearchParams();
   const { auth, setAuth } = useAuth();
   const [reviewData, setReviewData] = useState([]);
+  
 
-
+  localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
   const reviewid = searchParams.get("reviewid");
 
@@ -66,6 +67,7 @@ useEffect(() => {
     })
       .then((response) => response.json())
       .then((data) => {console.log(data);setReviewData(data)});
+      
   }, []);
 
   function handleSubmit(e) {
@@ -107,33 +109,33 @@ useEffect(() => {
     <div>
         <div className={style.container}>
         <div className={style.sign}>
-            {/* <Testing data={reviewData} /> */}
+
         <h1>Peer Review</h1>
         <form onSubmit={handleSubmit}>
         <p>Description of evidence goes here.. blah blah blah</p>
-        <br />
-            {/* <Flagged data={reviewData}/> */}
+        <br /> 
         {reviewData.data?.map((data, index) => (
-            <div key={index}>
-                {/* <p>Domain Id: {data.domains_id}</p> */}
-                <h2>{evidenceCriteria.domains[data.domains_id - 1].description}</h2>
-                {/* <p>Standard: {data.standards_id}</p> */}
-                <h4>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].description}</h4>
-                <label>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].
-                competencies[data.competencies_id - 1].description}</label>
+          <div>
+          <h2>{evidenceCriteria.domains[data.domains_id - 1].description}</h2>
+          {data.standards.map((standard, index) => (
+                  <div key={index}>
+                    <h4>{evidenceCriteria.domains[data.domains_id - 1].standards[standard.standards_id - 1].description}</h4>
+                    {standard.competencies.map((competency, index) => (
+                      <div key={index}>
+                        <label>{evidenceCriteria.domains[data.domains_id - 1].standards[standard.standards_id - 1].
+                competencies[competency.competencies_id - 1].description}</label>
                 <br />
-                
-                {/* <p>comp: {data.competencies_id}</p> */}
-                <input type="radio" defaultChecked/>
-                <label>{evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</label>
-                {/* <p>Performance Criteria: {evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</p> */}
-                <p>Comments: {data.comments}</p>
-                <p>Agree on competency?</p>
-                <input type="radio" id="yes" name="agree" value="yes" onClick={handleChange}/>
+                 <input type="radio" defaultChecked/>
+       
+                            <label>{evidenceCriteria.performance_criteria[competency.performancecriterias_id - 2].title}</label>
+                            <br />
+                            <p>Users Comments: {competency.comments}</p>
+                            <p>Agree on competency?</p>
+                            <input type="radio" id="yes" name="agree" value="yes" onClick={handleChange}/>
                 <label for="yes">Yes</label>
                 <input type="radio" id="no" name="agree" value="no" onClick={handleChange}/>
                 <label for="no">No</label>
-                {/* temporary solution until can figure out handle change */}
+                
                 <p>What level do you believe the evidence meets?</p>
                 <input type="radio" id="Transition" name="performancecriteria" value="1" onClick={handleChange}/>
                 <label for="Transition">Transition</label>
@@ -141,9 +143,60 @@ useEffect(() => {
                 <label for="Consolidation">Consolidation</label>
                 <input type="radio" id="Advanced" name="performancecriteria" value="3" onClick={handleChange}/>
                 <label for="Advanced">Advanced</label>
+                <br />
+                <p>Comments</p> 
+               
+                        <textarea
+                          className=""
+                          maxLength={255}
+                          type="text"
+                          placeholder={"Enter comments"}
+                          name="comments"
+                          onChange={(event) =>
+                            handleChange(event)
+                          }
+                        />
+                </div>))}
+                        
+                        
+                           
+                            
+
+                    </div>))}
+          </div>
+        ))}
+
+        {reviewData.data?.map((data, index) => (
+            <div key={index}>
+       
+                {/* <h2>{evidenceCriteria.domains[data.domains_id - 1].description}</h2>
                 
-                        <label className="">Comments</label>
-                        <br />
+                <h4>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].description}</h4>
+                <label>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].
+                competencies[data.competencies_id - 1].description}</label>
+                <br />
+                {/* <Testino domain={data.domains_id - 1} /> */}
+          
+                {/* <input type="radio" defaultChecked/>
+                <label>{evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</label> */}
+          
+                <p>Comments: {data.comments}</p>
+                <p>Agree on competency?</p>
+                <input type="radio" id="yes" name="agree" value="yes" onClick={handleChange}/>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="agree" value="no" onClick={handleChange}/>
+                <label for="no">No</label>
+                
+                <p>What level do you believe the evidence meets?</p>
+                <input type="radio" id="Transition" name="performancecriteria" value="1" onClick={handleChange}/>
+                <label for="Transition">Transition</label>
+                <input type="radio" id="Consolidation" name="performancecriteria" value="2" onClick={handleChange}/>
+                <label for="Consolidation">Consolidation</label>
+                <input type="radio" id="Advanced" name="performancecriteria" value="3" onClick={handleChange}/>
+                <label for="Advanced">Advanced</label>
+                <br />
+                        <p>Comments</p> 
+               
                         <textarea
                           className=""
                           maxLength={255}
@@ -255,13 +308,3 @@ useEffect(() => {
   );
 }
 
-// function Testing(data){
-//     //reformat the data object so it can be mapped
-//     data.find(())
-//     console.log(data);
-//     console.log("data");
-//     return(
-//         <p>ye</p>
-//     )
-// }
-//function to return mapping of Testing ^^^^/////
