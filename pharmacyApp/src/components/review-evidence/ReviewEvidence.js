@@ -5,8 +5,12 @@ import ReviewEvidenceForm from "./ReviewEvidenceForm";
 function ReviewEvidence(props) {
   const { auth } = useAuth();
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
+
   useEffect(() => {
-    const request = { hello: "hi" };
+    const request = {
+      access_token: auth.access_token,
+      username: auth.username,
+    };
     fetch("/api/evidence-criteria", {
       method: "POST",
       body: JSON.stringify(request),
@@ -18,7 +22,7 @@ function ReviewEvidence(props) {
 
   return (
     <div>
-      <h1>Review Evidence</h1>
+  
 
       {evidenceCriteria ? (
         <ReviewEvidenceForm evidenceCriteria={evidenceCriteria} />

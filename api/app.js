@@ -9,6 +9,10 @@ const dotEnv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 
+//Middleware
+
+const privateAccountMiddleware = require("./middleware/privateAccount.js");
+
 //Auth
 const loginRouter = require("./pharmacy_routes/authenticate/auth_routes/login.js");
 const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.js");
@@ -33,6 +37,10 @@ const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
 //Review Evidence
 const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+const reviewEvidenceRouter = require("./pharmacy_routes/reviewEvidence");
+
+// Evidence Review Info
+const evidenceReviewRouter = require("./pharmacy_routes/evidenceReview");
 
 //Evidence table
 const evidenceTableRouter = require("./pharmacy_routes/evidenceTable");
@@ -138,9 +146,18 @@ app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
 //Review Evidence
 app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
+
+// Evidence Review Info
+app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
 
 //Evidence Table
-app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
+app.use(
+  "/api/evidence-table",
+  verifyOrigin,
+  //privateAccountMiddleware,
+  evidenceTableRouter
+);
 
 //Create admin
 app.use("/api/createadmin", verifyOrigin, createAdminRouter);
@@ -174,9 +191,6 @@ app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
 
 //Delete Reviewer
 app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
-
-// Create Domain
-app.use("/api/createdomain", verifyOrigin, createDomainRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

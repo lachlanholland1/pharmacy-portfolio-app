@@ -3,9 +3,10 @@ import useAuth from "../../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./EvidenceTableStyle.css";
-// import DownloadImageToS3 from "../../../../DownloadFileToS3";
+import DownloadImageToS3 from "../../../../DownloadFileToS3";
+import Moment from "moment";
 
-function EvidenceTable(props) {
+function EvidenceTable() {
   let navigate = useNavigate();
   const params = useParams();
   const { auth } = useAuth();
@@ -17,11 +18,17 @@ function EvidenceTable(props) {
       body: JSON.stringify({ user: params.user }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject();
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log(data);
         setEvidenceData(data.evidence_data);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   function handleOnClick(userid) {
@@ -33,43 +40,51 @@ function EvidenceTable(props) {
       <div className={style.padding}>
         {auth.user && auth.username === params.user ? (
           <Link to={"/add-evidence"}>
-            <button className={style.myButton}>Add evidence</button>
+            <button className={style.myButton2}>Add Evidence</button>
           </Link>
         ) : (
           <></>
         )}
         <h2>Evidence</h2>
       </div>
-      <table className={style.table}>
-        <tr table className={style.tr}>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Impact statement</th>
-          <th>Procurement date</th>
-          <th>Attachment</th>
-        </tr>
-        <tbody>
-          {evidenceData.length ? (
-            evidenceData.map((evidence) => (
+      {evidenceData.length ? (
+        <table className={style.table}>
+          <tr table className={style.tr}>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date Created</th>
+            <th>Attachment</th>
+          </tr>
+          <tbody>
+            {evidenceData.map((evidence, index) => (
               <tr
                 onClick={() => handleOnClick(evidence.idevidenceitems)}
                 table
                 className={style.tr2}
+                key={index}
               >
                 <td>{evidence.title}</td>
                 <td>{evidence.description}</td>
-                <td>{evidence.impactstatement}</td>
-                <td>{evidence.procurementdate}</td>
-                {/* <DownloadImageToS3 /> */}
+                <td>
+                  {Moment(evidence.procurementdate, "YYYY-MM-DD").format(
+                    "DD/MM/YYYY"
+                  )}
+                </td>
+                <td>
+                  <button
+                    className={style.myButton}
+                    onClick={() => DownloadImageToS3(evidence.attachment)}
+                  >
+                    View
+                  </button>
+                </td>
               </tr>
-            ))
-          ) : (
-            <>
-              <div>No evidence.</div>
-            </>
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <>No evidence has been added yet.</>
+      )}
     </div>
   );
 }

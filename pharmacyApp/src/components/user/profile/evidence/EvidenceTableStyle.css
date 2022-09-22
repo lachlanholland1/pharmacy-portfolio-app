@@ -34,11 +34,10 @@
 	color:#ffffff;
 	font-family:Arial;
 	font-size:17px;
-	height: 30px;
-    width: 175px;
+	height: 25px;
+    width: 150px;
 	text-decoration:none;
-
-
+	border: none;
 }
 .myButton:hover {
 	background-color:#707070;
@@ -51,4 +50,26 @@
 .padding {
     padding-left: 20px;
 }
+
+.myButton2 {
+	background-color:purple;
+	border-radius:5px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	height: 25px;
+    width: 150px;
+	text-decoration:none;
+	border: none;
+}
+.myButton2:hover {
+	background-color:#707070;
+}
+.myButton2:active {
+	position:relative;
+	top:1px;
+}
+
 

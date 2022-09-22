@@ -19,8 +19,12 @@ import EditEvidence from "./components/editEvidence/editEvidence";
 import ReviewEvidence from "./components/review-evidence/ReviewEvidence";
 import ViewAdmins from "./components/admin/view-admin/ViewAdmins";
 import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
+<<<<<<< HEAD
 import AddDomain from "./components/domains/add-domains/AddDomain";
 
+=======
+import EvidenceReview from "./components/evidence-review/EvidenceReview";
+>>>>>>> a8630845ed5844d5ed072cffc520ccd2fcd0ae6f
 
 function App(props) {
   return (
@@ -35,6 +39,8 @@ function App(props) {
       <Route path="/edit-evidence" element={<EditEvidence />} />
       <Route path="/view-admins" element={<ViewAdmins />} />
       <Route path="/view-reviewers" element={<ViewReviewers />} />
+      <Route path="/evidence-review/:id" element={<EvidenceReview />} />
+
       <Route element={<UserLayout />}>
         <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
