@@ -7,12 +7,7 @@ import style from "./style.css";
 const formreducer = (state, event) => {
   return {
     ...state,
-    [event.name]: {
-      domain: event.domain,
-      standard: event.standard,
-      competency: event.competency,
-      value: event.value,
-    },
+    [event.name]: event.value,
   };
 };
 export default function PeerReviewForm({ evidenceCriteria }) {
@@ -78,11 +73,12 @@ useEffect(() => {
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
+    console.log("submitting");
     console.log(request);
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/review-evidence1", {
+    fetch("/api/peer-review", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
@@ -144,8 +140,7 @@ useEffect(() => {
                 <input type="radio" id="Advanced" name="performancecriteria" value="3" onClick={handleChange}/>
                 <label for="Advanced">Advanced</label>
                 <br />
-                <p>Comments</p> 
-               
+                <p>Comments</p>
                         <textarea
                           className=""
                           maxLength={255}
@@ -157,63 +152,8 @@ useEffect(() => {
                           }
                         />
                 </div>))}
-                        
-                        
-                           
-                            
-
                     </div>))}
           </div>
-        ))}
-
-        {reviewData.data?.map((data, index) => (
-            <div key={index}>
-       
-                {/* <h2>{evidenceCriteria.domains[data.domains_id - 1].description}</h2>
-                
-                <h4>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].description}</h4>
-                <label>{evidenceCriteria.domains[data.domains_id - 1].standards[data.standards_id - 1].
-                competencies[data.competencies_id - 1].description}</label>
-                <br />
-                {/* <Testino domain={data.domains_id - 1} /> */}
-          
-                {/* <input type="radio" defaultChecked/>
-                <label>{evidenceCriteria.performance_criteria[data.performancecriterias_id - 2].title}</label> */}
-          
-                <p>Comments: {data.comments}</p>
-                <p>Agree on competency?</p>
-                <input type="radio" id="yes" name="agree" value="yes" onClick={handleChange}/>
-                <label for="yes">Yes</label>
-                <input type="radio" id="no" name="agree" value="no" onClick={handleChange}/>
-                <label for="no">No</label>
-                
-                <p>What level do you believe the evidence meets?</p>
-                <input type="radio" id="Transition" name="performancecriteria" value="1" onClick={handleChange}/>
-                <label for="Transition">Transition</label>
-                <input type="radio" id="Consolidation" name="performancecriteria" value="2" onClick={handleChange}/>
-                <label for="Consolidation">Consolidation</label>
-                <input type="radio" id="Advanced" name="performancecriteria" value="3" onClick={handleChange}/>
-                <label for="Advanced">Advanced</label>
-                <br />
-                        <p>Comments</p> 
-               
-                        <textarea
-                          className=""
-                          maxLength={255}
-                          type="text"
-                          placeholder={"Enter comments"}
-                          name="comments"
-                        //   name={
-                        //     "comment-d" +
-                        //     domain.iddomains +
-                        //     "-s" +
-                        //     standard.idstandards
-                        //   }
-                          onChange={(event) =>
-                            handleChange(event)
-                          }
-                        />
-                </div>
         ))}
         <div className="">
               <button className="" type="submit">
@@ -223,87 +163,6 @@ useEffect(() => {
             </form>
         </div>
       </div>
-
-
-      {/* <div className={style.container}>
-        <div className={style.sign}>
-        <h1>Peer Review</h1>
-          <form onSubmit={handleSubmit}>
-            {evidenceCriteria.domains.map((domain) => (
-              <div>
-                <h2>{domain.description}</h2>
-                {domain.standards.map((standard, index) => (
-                  <div key={index}>
-                    <h4>{standard.description}</h4>
-                    {standard.competencies.map((competency, index) => (
-                      <div key={index}>
-                        <label>{competency.description}</label>
-                        {evidenceCriteria.performance_criteria.map(
-                          (criteria, index) => (
-                            <div className="" key={index}>
-                              <input
-                                type="radio"
-                                name={
-                                  "d" +
-                                  domain.iddomains +
-                                  "-s" +
-                                  standard.idstandards +
-                                  "-c" +
-                                  competency.idcompetencies
-                                }
-                                value={criteria.idperformancecriteria}
-                                onChange={(event) =>
-                                  handleChange(
-                                    event,
-                                    domain.iddomains,
-                                    standard.idstandards,
-                                    competency.idcompetencies
-                                  )
-                                }
-                                step="1"
-                              />
-                              <label className="">{criteria.title}</label>
-                            </div>
-                          )
-                        )}
-                        <label className="">Comments</label>
-                        <br />
-                        <textarea
-                          className=""
-                          maxLength={255}
-                          type="text"
-                          placeholder={"Enter comments"}
-                          name={
-                            "comment-d" +
-                            domain.iddomains +
-                            "-s" +
-                            standard.idstandards
-                          }
-                          onChange={(event) =>
-                            handleChange(
-                              event,
-                              domain.iddomains,
-                              standard.idstandards,
-                              competency.idcompetencies
-                            )
-                          }
-                        />
-                        <br />
-                        <br />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            ))}
-            <div className="">
-              <button className="" type="submit">
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
-      </div> */}
     </div>
   );
 }
