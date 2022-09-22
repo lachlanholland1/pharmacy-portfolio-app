@@ -20,6 +20,7 @@ import ReviewEvidence from "./components/review-evidence/ReviewEvidence";
 import ViewAdmins from "./components/admin/view-admin/ViewAdmins";
 import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
 import EvidenceReview from "./components/evidence-review/EvidenceReview";
+import AddDomain from "./components/domains/add-domains/AddDomain";
 
 function App(props) {
   return (
@@ -27,6 +28,7 @@ function App(props) {
       {/* public routes */}
       <Route path="login" element={<Login />} />
       <Route path="sign-up" element={<SignUp />} />
+      <Route path="/create-domain" element={<AddDomain />} />
       <Route path="/create-admin" element={<CreateAdmin />} />
       <Route path="/create-reviewer" element={<CreateReviewer />} />
       <Route path="/evidence" element={<ViewEvidence />} />

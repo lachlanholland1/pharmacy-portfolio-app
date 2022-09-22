@@ -72,6 +72,10 @@ const reviewerTableRouter = require("./pharmacy_routes/reviewersTable.js");
 //Delete Reviewer
 const deleteReviewerRouter = require("./pharmacy_routes/deleteReviewer");
 
+//Delete Reviewer
+const createDomainRouter = require("./pharmacy_routes/createDomain");
+
+
 dotEnv.config();
 
 var app = express();
