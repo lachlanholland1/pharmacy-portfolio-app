@@ -9,6 +9,8 @@ const dotEnv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 
+const session = require("express-session");
+
 //Middleware
 
 const privateAccountMiddleware = require("./middleware/privateAccount.js");
@@ -76,6 +78,17 @@ dotEnv.config();
 
 var app = express();
 
+const oneDay = 1000 * 60 * 60 * 24;
+
+app.use(
+  session({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
+  })
+);
+
 app.options("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
@@ -101,18 +114,22 @@ app.use(bodyParser.json({ limit: "100mb" }));
 app.use(cookieParser());
 
 //IMPROVE ROUTING - not setting header
-function authenticateToken(req, res, next) {
+function authenticateUser(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
   res.header("Access-Control-Allow-Headers", "*");
-  const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    // req.user = user;
-    next();
-  });
+  if (!req.session.userid) {
+    return res.sendStatus(401);
+  }
+  next();
+  // const authHeader = req.headers["authorization"];
+  // const token = authHeader.split(" ")[1];
+  // if (token == null) return res.sendStatus(401);
+  // jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  //   if (err) return res.sendStatus(403);
+  //   // req.user = user;
+  //   next();
+  // });
 }
 
 //AUTH
@@ -122,7 +139,7 @@ app.use("/api/token", verifyOrigin, tokenRouter);
 app.use(
   "/api/authenticate",
   verifyOrigin,
-  authenticateToken,
+  authenticateUser,
   authenticateRouter
 );
 
@@ -131,7 +148,7 @@ app.use("/api/profile", verifyOrigin, profileRouter);
 app.use("/api/auth-user", verifyOrigin, authUserRouter);
 
 //Edit Account
-app.use("/api/edit-account", verifyOrigin, editAccountRouter);
+app.use("/api/edit-account", verifyOrigin, authenticateUser, editAccountRouter);
 app.use("/api/accounts/password/change", verifyOrigin, passwordChangeRouter);
 
 //Sign Up

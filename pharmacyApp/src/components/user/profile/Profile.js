@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import style from "./Profile.css";
+import Cookies from "js-cookie";
 
 function Profile(props) {
   const params = useParams();
@@ -35,17 +36,17 @@ function Profile(props) {
       .then(() => setProfileLoaded(true));
   }, []);
 
-  console.log(userDetails);
-
   useEffect(() => {
     //Method to download profile picture
     if (!Object.keys(userDetails).length) {
       return;
     }
     const file = userDetails.attachment;
-    console.log(file);
-    console.log(file);
-    console.log(file);
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
     const type = file.substr(file.length - 3);
     const requestObject = {
       fileName: file,
@@ -83,7 +84,7 @@ function Profile(props) {
                 {userDetails.first_name + " " + userDetails.last_name}
               </h1>
               <h3 className={style.padding}>{userDetails.username}</h3>
-              {auth.user && auth.username === params.user ? (
+              {Cookies.get("username") === params.user ? (
                 <div>
                   <input value={profileUrl} readOnly id="profileLink" />
                   <button onClick={copyProfileLink}>Copy</button>
@@ -109,18 +110,16 @@ export default Profile;
 
 function PrivateAccount(userDetails) {
   const { auth, setAuth } = useAuth();
-  if (userDetails.userDetails.private_account === 1){
-    if (userDetails.userDetails.user_id = auth.user_id){
+  if (userDetails.userDetails.private_account === 1) {
+    if ((userDetails.userDetails.user_id = auth.user_id)) {
       console.log("if statement auth");
-      return (<EvidenceTable />);
-    }
-    else {
+      return <EvidenceTable />;
+    } else {
       console.log("if statement unauth");
-      return (<div>This Account is Private.</div>);
+      return <div>This Account is Private.</div>;
     }
-  }
-  else {
+  } else {
     console.log("fine to show");
-    return (<EvidenceTable />);
+    return <EvidenceTable />;
   }
 }

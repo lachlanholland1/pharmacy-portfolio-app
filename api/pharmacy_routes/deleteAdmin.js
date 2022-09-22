@@ -11,7 +11,8 @@ router.post("/", (req, res, next) => {
       if (err) {
         console.log(err);
         res.sendStatus(401);
-        return;}
+        return;
+      }
       res.sendStatus(200);
     }
   );
