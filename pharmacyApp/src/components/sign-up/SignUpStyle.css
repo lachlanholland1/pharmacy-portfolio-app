@@ -23,7 +23,7 @@
 	height: 40px;
     width: 300px;
 	text-decoration:none;
-
+    border: none;
 }
 .myButton:hover {
 	background-color:#707070;

@@ -1,22 +1,31 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import style from "./style.css";
 
 const formreducer = (state, event) => {
   return {
     ...state,
-    [event.name]: event.value,
+    [event.name]: {
+      domain: event.domain,
+      standard: event.standard,
+      competency: event.competency,
+      value: event.value,
+    },
   };
 };
 export default function ReviewEvidenceForm({ evidenceCriteria }) {
-  console.log(evidenceCriteria);
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
   const [formData, setFormData] = useReducer(formreducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { auth, setAuth } = useAuth();
-  const [submitEnabled, setSubmitEnabled] = useState(false);
+
+  const id = searchParams.get("id");
 
   const {
     watch,
@@ -25,26 +34,29 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  const handleChange = (event) => {
+  const handleChange = (event, domain, standard, competency) => {
     const isCheckbox = event.target.type === "checkbox";
     setFormData({
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
+      domain: domain,
+      standard: standard,
+      competency: competency,
     });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
     const request = {
-      edit_account: formData,
+      evidence_id: id,
+      review: formData,
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
-    if (!submitEnabled) return;
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/edit-account", {
+    fetch("/api/review-evidence", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
@@ -61,14 +73,15 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
   }
   return (
     <div>
-      <div className="">
-        <div className="">
+      <div className={style.container}>
+        <div className={style.sign}>
+        <h1>Review Evidence</h1>
           <form onSubmit={handleSubmit}>
             {evidenceCriteria.domains.map((domain) => (
               <div>
                 <h2>{domain.description}</h2>
                 {domain.standards.map((standard, index) => (
-                  <div>
+                  <div key={index}>
                     <h4>{standard.description}</h4>
                     {standard.competencies.map((competency, index) => (
                       <div key={index}>
@@ -77,16 +90,30 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                           (criteria, index) => (
                             <div className="" key={index}>
                               <input
-                                type="checkbox"
-                                name={"criteria-" + index}
-                                onChange={handleChange}
+                                type="radio"
+                                name={
+                                  "d" +
+                                  domain.iddomains +
+                                  "-s" +
+                                  standard.idstandards +
+                                  "-c" +
+                                  competency.idcompetencies
+                                }
+                                value={criteria.idperformancecriteria}
+                                onChange={(event) =>
+                                  handleChange(
+                                    event,
+                                    domain.iddomains,
+                                    standard.idstandards,
+                                    competency.idcompetencies
+                                  )
+                                }
                                 step="1"
                               />
                               <label className="">{criteria.title}</label>
                             </div>
                           )
                         )}
-                        <br />
                         <label className="">Comments</label>
                         <br />
                         <textarea
@@ -94,10 +121,23 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
                           maxLength={255}
                           type="text"
                           placeholder={"Enter comments"}
-                          id={"criteria"}
-                          name="mobile"
-                          onChange={handleChange}
+                          name={
+                            "comment-d" +
+                            domain.iddomains +
+                            "-s" +
+                            standard.idstandards
+                          }
+                          onChange={(event) =>
+                            handleChange(
+                              event,
+                              domain.iddomains,
+                              standard.idstandards,
+                              competency.idcompetencies
+                            )
+                          }
                         />
+                        <br />
+                        <br />
                       </div>
                     ))}
                   </div>
@@ -105,7 +145,7 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
               </div>
             ))}
             <div className="">
-              <button className="" disabled={!submitEnabled} type="submit">
+              <button className="" type="submit">
                 Submit
               </button>
             </div>
