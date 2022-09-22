@@ -19,12 +19,8 @@ import EditEvidence from "./components/editEvidence/editEvidence";
 import ReviewEvidence from "./components/review-evidence/ReviewEvidence";
 import ViewAdmins from "./components/admin/view-admin/ViewAdmins";
 import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
-<<<<<<< HEAD
-import AddDomain from "./components/domains/add-domains/AddDomain";
-
-=======
 import EvidenceReview from "./components/evidence-review/EvidenceReview";
->>>>>>> a8630845ed5844d5ed072cffc520ccd2fcd0ae6f
+import AddDomain from "./components/domains/add-domains/AddDomain";
 
 function App(props) {
   return (
