@@ -24,7 +24,7 @@ function SignInForm(props) {
     fetch("/api/login", {
       method: "POST",
       body: JSON.stringify(loginReq),
-      headers: { "Content-Type": "application/json" },
+      headers: { "content-type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => {
