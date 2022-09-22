@@ -5,6 +5,7 @@ import PeerReviewForm from "./PeerReviewForm";
 function PeerReview(props) {
   const { auth } = useAuth();
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
+  localStorage.removeItem("currentDomain");
 
   useEffect(() => {
     const request = {
