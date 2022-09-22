@@ -8,6 +8,23 @@ const jwt = require("jsonwebtoken");
 const dotEnv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
+const session = require("express-session");
+const mysqlStore = require("express-mysql-session")(session);
+
+const mysqlStoreOptions = {
+  connectionLimit: 10,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB,
+  createDatabaseTable: true,
+};
+const sessionStore = new mysqlStore(mysqlStoreOptions);
+
+const PORT = process.env.DB_PORT;
+const IN_PROD = process.env.NODE_ENV;
+const TWO_HOURS = 1000 * 60 * 60 * 2;
 
 //Middleware
 
@@ -16,7 +33,7 @@ const privateAccountMiddleware = require("./middleware/privateAccount.js");
 //Auth
 const loginRouter = require("./pharmacy_routes/authenticate/auth_routes/login.js");
 const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.js");
-const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
+// const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
 const authenticateRouter = require("./pharmacy_routes/authenticate/auth_routes/authenticate.js");
 const createAdminRouter = require("./pharmacy_routes/createAdmin.js");
 const createReviewerRouter = require("./pharmacy_routes/createReviewer.js");
@@ -76,6 +93,22 @@ dotEnv.config();
 
 var app = express();
 
+app.use(
+  session({
+    name: process.env.SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+    secret: process.env.SESS_SECRET,
+    cookie: {
+      httpOnly: true,
+      maxAge: TWO_HOURS,
+      sameSite: true,
+      secure: IN_PROD,
+    },
+  })
+);
+
 app.options("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
@@ -100,25 +133,29 @@ app.use(bodyParser.json({ limit: "100mb" }));
 
 app.use(cookieParser());
 
-//IMPROVE ROUTING - not setting header
 function authenticateToken(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
   res.header("Access-Control-Allow-Headers", "*");
-  const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    // req.user = user;
-    next();
-  });
+  const userId = req.session.userID;
+  if (!userId) {
+    return res.sendStatus(403);
+  }
+  next();
+  // const authHeader = req.headers["authorization"];
+  // const token = authHeader.split(" ")[1];
+  // if (token == null) return res.sendStatus(401);
+  // jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  //   if (err) return res.sendStatus(403);
+  //   // req.user = user;
+  //   next();
+  // });
 }
 
 //AUTH
 app.use("/api/login", verifyOrigin, loginRouter);
 app.use("/api/logout", verifyOrigin, logoutRouter);
-app.use("/api/token", verifyOrigin, tokenRouter);
+// app.use("/api/token", verifyOrigin, tokenRouter);
 app.use(
   "/api/authenticate",
   verifyOrigin,
@@ -201,7 +238,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send("error");
+  // res.send("error");
 });
 
 module.exports = app;

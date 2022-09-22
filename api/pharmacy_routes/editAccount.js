@@ -5,13 +5,10 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
-  console.log(req.body);
-  console.log(req.body);
-  console.log(req.body);
   if (!req.body.user_id) {
     res.sendStatus(401);
   }
-  const user_id = req.body.user_id;
+  const user_id = req.session.user_id;
 
   const accountChanges = req.body.edit_account;
   if (Object.keys(accountChanges).includes("private_account")) {
@@ -27,7 +24,6 @@ router.post("/", function (req, res, next) {
   }
 
   if (req.body.edit_account.first_name) {
-    console.log(req.body.edit_account.first_name);
     console.log(user_id);
     db.query(
       "UPDATE Users SET firstname = ? WHERE user_id = ?;",

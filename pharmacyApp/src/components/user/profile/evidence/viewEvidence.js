@@ -29,6 +29,7 @@ export default function ViewEvidence(props) {
     })
       .then((response) => response.json())
       .then((details) => {
+        console.log(details);
         setEvidenceData(details.evidence_data);
         setEvidenceReviews(details.evidence_reviews);
       });
@@ -68,7 +69,6 @@ export default function ViewEvidence(props) {
           ) : (
             <></>
           )}
-
           <br />
           <br />
           <Link to={"/" + viewingProfile}>

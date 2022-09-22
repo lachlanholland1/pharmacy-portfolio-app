@@ -9,14 +9,19 @@ export const AuthProvider = ({ children }) => {
     fetch("/api/authenticate", {
       method: "GET",
       headers: {
-        authorization: `Bearer ${auth.access_token}`,
+        // authorization: `Bearer ${auth.access_token}`,
         "Content-Type": "application/json",
       },
     })
       .then((response) => {
-        setAuth({ ...auth, user: response.ok });
+        if (!response.ok) {
+          return Promise.reject();
+        }
+        setAuth({ ...auth, user: true });
       })
-      .catch((err) => setAuth({ ...auth, user: false }))
+      .catch((err) => {
+        setAuth({ ...auth, user: false });
+      })
       .finally(() => setLoading(false));
   }, []);
   return (

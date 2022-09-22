@@ -7,7 +7,7 @@ dotEnv.config();
 
 router.post("/:user", (req, res, next) => {
   const auth = req.body.auth;
-  const user = req.params.user;
+  const user = req.session.userID;
   db.query("select * from Users where username = ?", [user], (err, result) => {
     if (err) {
       res.sendStatus(401);

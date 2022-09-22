@@ -4,7 +4,7 @@ import Login from "./components/sign-in/SignInForm";
 import AdminLayout from "./components/admin/layout/AdminLayout";
 import UserLayout from "./components/user/layout/UserLayout";
 import Profile from "./components/user/profile/Profile";
-import PrivateRoute from "./PrivateRoute";
+// import PrivateRoute from "./PrivateRoute";
 import "./styles.css";
 import HomeLayout from "./components/HomeLayout";
 import SignUp from "./components/sign-up/SignUpForm";
@@ -34,7 +34,6 @@ function App(props) {
       <Route path="/view-admins" element={<ViewAdmins />} />
       <Route path="/view-reviewers" element={<ViewReviewers />} />
       <Route path="/evidence-review/:id" element={<EvidenceReview />} />
-
       <Route element={<UserLayout />}>
         <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
@@ -44,10 +43,10 @@ function App(props) {
       </Route>
       {/* private/admin routes */}
       <Route element={<AdminLayout />}>
-        <Route element={<PrivateRoute />}>
-          <Route path="/" index element={<Dashboard />} />
-        </Route>
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route path="/" index element={<Dashboard />} />
       </Route>
+      {/* </Route> */}
     </Routes>
   );
 }
