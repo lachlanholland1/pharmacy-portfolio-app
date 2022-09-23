@@ -51,7 +51,7 @@ router.post("/", (req, res, next) => {
                 console.log("Added Standard");
               } 
               var point = {};
-              point = {"competencies_id": result[i].competencies_id, "performancecriterias_id": result[i].performancecriterias_id, "comments": result[i].comments};
+              point = {"competencies_id": result[i].competencies_id, "performancecriterias_id": result[i].performancecriterias_id, "comments": result[i].comments, "review_id": result[i].review_id};
               // obj[result[i].domains_id]["standards"][prevstandCount]["competencies"].push(point);
               obj[prevdomainCount]["standards"][prevstandCount]["competencies"].push(point);
 

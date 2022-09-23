@@ -7,7 +7,13 @@ import style from "./style.css";
 const formreducer = (state, event) => {
   return {
     ...state,
-    [event.name]: event.value,
+    [event.name]: {
+      // domain: event.domain,
+      // standard: event.standard,
+      // competency: event.competency,
+      reviewId: event.reviewId,
+      value: event.value,
+    },
   };
 };
 export default function PeerReviewForm({ evidenceCriteria }) {
@@ -21,10 +27,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const { auth, setAuth } = useAuth();
   const [reviewData, setReviewData] = useState([]);
   
+  
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
-  const reviewid = searchParams.get("reviewid");
+  const evidencereviews_id = searchParams.get("reviewid");
 
   const {
     watch,
@@ -43,18 +50,18 @@ export default function PeerReviewForm({ evidenceCriteria }) {
 //       competency: competency,
 //     });
 //   };
-  const handleChange = (event) => {
-    // const isCheckbox = event.target.type === "checkbox";
+  const handleChange = (event, reviewId) => {
+    console.log(reviewId);
     setFormData({
       name: event.target.name,
-      value: event.target.value
-      //value: isCheckbox ? event.target.checked : event.target.value//,
-    //   performancecriterias_id: performancecriterias_id
+      value: event.target.value,
+      reviewId: reviewId
     });
   };
 
+
 useEffect(() => {
-    const request = { review_id: reviewid };
+    const request = { review_id: evidencereviews_id };
     fetch("/api/get-evidence-review", {
       method: "POST",
       body: JSON.stringify(request),
@@ -62,13 +69,13 @@ useEffect(() => {
     })
       .then((response) => response.json())
       .then((data) => {console.log(data);setReviewData(data)});
-      
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
     const request = {
       evidence_id: id,
+      evidencereviews_id: evidencereviews_id,
       review: formData,
       access_token: auth.access_token,
       user_id: auth.user_id,
@@ -105,7 +112,6 @@ useEffect(() => {
     <div>
         <div className={style.container}>
         <div className={style.sign}>
-
         <h1>Peer Review</h1>
         <form onSubmit={handleSubmit}>
         <p>Description of evidence goes here.. blah blah blah</p>
@@ -127,28 +133,49 @@ useEffect(() => {
                             <br />
                             <p>Users Comments: {competency.comments}</p>
                             <p>Agree on competency?</p>
-                            <input type="radio" id="yes" name="agree" value="yes" onClick={handleChange}/>
+                            {/* <input type="radio" id="yes" name="agree" value="yes" onChange={(event) => handleChange(event, competency.review_id)}/>
                 <label for="yes">Yes</label>
-                <input type="radio" id="no" name="agree" value="no" onClick={handleChange}/>
-                <label for="no">No</label>
-                
+                <input type="radio" id="no" name="agree" value="no" onClick={(event) => handleChange(event, competency.review_id)}/>
+                <label for="no">No</label>  */}
+                <input required type="radio" name={"a-" + competency.review_id} value="Yes" onChange={(event) => handleChange( event, competency.review_id ) } step="1" />
+                <label className="">{"Yes"}</label>
+                <input required type="radio" name={"a-" + competency.review_id} value="No" onChange={(event) => handleChange( event, competency.review_id ) } step="1" />
+                <label className="">{"No"}</label>
                 <p>What level do you believe the evidence meets?</p>
-                <input type="radio" id="Transition" name="performancecriteria" value="1" onClick={handleChange}/>
+                {/* <input type="radio" id="Transition" name={"c"+competency.competencies_id} value="1" onClick={handleChange}/>
                 <label for="Transition">Transition</label>
-                <input type="radio" id="Consolidation" name="performancecriteria" value="2" onClick={handleChange}/>
+                <input type="radio" id="Consolidation" name={"c"+competency.competencies_id} value="2" onClick={handleChange}/>
                 <label for="Consolidation">Consolidation</label>
-                <input type="radio" id="Advanced" name="performancecriteria" value="3" onClick={handleChange}/>
-                <label for="Advanced">Advanced</label>
+                <input type="radio" id="Advanced" name={"c"+competency.competencies_id} value="3" onClick={handleChange}/>
+                <label for="Advanced">Advanced</label> */}
+                {/* <Choose revId={competency.review_id} /> */}
+                <div>
+                <input type="radio" name={"c" + competency.review_id} value="1" onChange={(event) => handleChange( event, competency.review_id ) } step="1" />
+                <label className="">{"Transition"}</label>
                 <br />
-                <p>Comments</p>
+                <input type="radio" name={"c" + competency.review_id} value="2" onChange={(event) => handleChange( event, competency.review_id ) } step="1" />
+                <label className="">{"Consolidation"}</label>
+                <br />
+                <input type="radio" name={"c" + competency.review_id} value="3" onChange={(event) => handleChange( event, competency.review_id ) } step="1" />
+                <label className="">{"Advanced"}</label>
+                </div>
+                <br />
+                <label className="">Comments</label>
+                        <br />
                         <textarea
                           className=""
                           maxLength={255}
                           type="text"
                           placeholder={"Enter comments"}
-                          name="comments"
+                          name={
+                            "comments-" +
+                            competency.review_id
+                          }
                           onChange={(event) =>
-                            handleChange(event)
+                            handleChange(
+                              event,
+                              competency.review_id
+                            )
                           }
                         />
                 </div>))}
@@ -167,3 +194,11 @@ useEffect(() => {
   );
 }
 
+function Choose(revId) {
+  console.log(revId);
+  return(
+    <div>
+      <p>testino</p>
+    </div>
+  )
+}
