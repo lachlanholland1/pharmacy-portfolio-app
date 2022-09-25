@@ -26,6 +26,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [searchParams] = useSearchParams();
   const { auth, setAuth } = useAuth();
   const [reviewData, setReviewData] = useState([]);
+  const [evidenceData, setEvidenceData] = useState([]);
   
   
 
@@ -69,6 +70,17 @@ useEffect(() => {
     })
       .then((response) => response.json())
       .then((data) => {console.log(data);setReviewData(data)});
+      //get evidence description
+      const evidenceRequest = { idevidenceitems: id };
+      fetch("/api/viewevidence", {
+        method: "POST",
+        body: JSON.stringify(evidenceRequest),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((evidenceData) => {setEvidenceData(evidenceData.evidence_data.description)});
+  
+
   }, []);
 
   function handleSubmit(e) {
@@ -103,10 +115,6 @@ useEffect(() => {
 
   console.log(formData);
   
-//   if (reviewData = null){
-//     // console.log(reviewData);
-//     console.log("yuea");
-//   }
 
   return (
     <div>
@@ -114,7 +122,7 @@ useEffect(() => {
         <div className={style.sign}>
         <h1>Peer Review</h1>
         <form onSubmit={handleSubmit}>
-        <p>Description of evidence goes here.. blah blah blah</p>
+        <p>{evidenceData}</p>
         <br /> 
         {reviewData.data?.map((data, index) => (
           <div>
@@ -132,7 +140,7 @@ useEffect(() => {
                             <label>{evidenceCriteria.performance_criteria[competency.performancecriterias_id - 2].title}</label>
                             <br />
                             <p>Users Comments: {competency.comments}</p>
-                            <p>Agree on competency?</p>
+                            <p>Do you believe the evidence meets the Competency?</p>
                             {/* <input type="radio" id="yes" name="agree" value="yes" onChange={(event) => handleChange(event, competency.review_id)}/>
                 <label for="yes">Yes</label>
                 <input type="radio" id="no" name="agree" value="no" onClick={(event) => handleChange(event, competency.review_id)}/>
@@ -194,11 +202,3 @@ useEffect(() => {
   );
 }
 
-function Choose(revId) {
-  console.log(revId);
-  return(
-    <div>
-      <p>testino</p>
-    </div>
-  )
-}
