@@ -121,15 +121,8 @@ export default function EditAccountForm({ userData }) {
           <h1 className={style.center}>Edit Profile</h1>
           <form onSubmit={handleSubmit}>
             <div className={style.center}>
-              <input
-                type="checkbox"
-                name="private_account"
-                onChange={handleChange}
-                step="1"
-                defaultChecked={userData.private_account}
-              />
-              <div>{userData.private_account}</div>
-              <label className={style.checkboxPadding}>Private account</label>
+              <input type="checkbox" id="private_account" name="private_account" value="1" onClick={handleChange} defaultChecked ={userData.private_account}/>
+                <label for="private_account">Private Account</label>
               <br />
             </div>
             <label className={style.padding}>First Name</label>
