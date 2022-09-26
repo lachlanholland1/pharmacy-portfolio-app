@@ -46,7 +46,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <div>
+    <div className={SignUp.page}>
       <div className={SignUp.container}>
         <div className={SignUp.sign}>
           <h1 className={SignUp.center}>Sign Up</h1>

@@ -208,6 +208,7 @@ export default function EditAccountForm({ userData }) {
             <br />
             <input id="fileInput" type="file" onChange={handleFileInput} />
             <br />
+            <br />
             <div className={style.center}>
               <button
                 className={style.myButton}
