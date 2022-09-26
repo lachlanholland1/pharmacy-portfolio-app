@@ -72,9 +72,11 @@ const reviewerTableRouter = require("./pharmacy_routes/reviewersTable.js");
 //Delete Reviewer
 const deleteReviewerRouter = require("./pharmacy_routes/deleteReviewer");
 
-//Delete Reviewer
+//Create Domain
 const createDomainRouter = require("./pharmacy_routes/createDomain");
 
+//Delete Reviewer
+const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 
 dotEnv.config();
 
@@ -191,6 +193,10 @@ app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
 
 //Delete Reviewer
 app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
+
+//Fetch Users
+app.use("/api/fetch-users", verifyOrigin, fetchUsersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
