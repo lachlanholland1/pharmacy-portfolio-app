@@ -111,16 +111,13 @@ function PrivateAccount(userDetails) {
   const { auth, setAuth } = useAuth();
   if (userDetails.userDetails.private_account === 1){
     if (userDetails.userDetails.user_id = auth.user_id){
-      console.log("if statement auth");
       return (<EvidenceTable />);
     }
     else {
-      console.log("if statement unauth");
       return (<div>This Account is Private.</div>);
     }
   }
   else {
-    console.log("fine to show");
     return (<EvidenceTable />);
   }
 }
