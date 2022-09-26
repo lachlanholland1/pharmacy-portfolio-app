@@ -15,7 +15,7 @@ router.post("/", (req, res, next) => {
   console.log(response.length);
   console.log(response.standard_count);
   db.query(
-    "SELECT * FROM evidencereviews WHERE idevidencereview = ?",
+    "SELECT * FROM evidencereviews WHERE idevidencereview = ? ORDER BY domains_id ASC, standards_id ASC",
     [review_id],
     (err, result) => {
       console.log(result[1]);
@@ -38,13 +38,17 @@ router.post("/", (req, res, next) => {
                 //obj[result[i].domains_id]["standards"] = [];
                 doneDomains.push(result[i].domains_id);
                 console.log("Added Domain");
+                standCount = 0;
               }
               
               if (doneStandards.includes(result[i].standards_id) === false){
                 // obj[result[i].domains_id]["standards"].push({"standards_id": result[i].standards_id,"competencies": []});
                 obj[prevdomainCount]["standards"].push({"standards_id": result[i].standards_id,"competencies": []});
                 // obj[result[i].domains_id]["standards"][standCount]["competencies"] = [];
+                // console.log("papi");
+                // console.log(obj[prevdomainCount]["standards"][standCount]);
                 obj[prevdomainCount]["standards"][standCount]["competencies"] = [];
+                
                 prevstandCount = standCount;
                 standCount += 1;
                 doneStandards.push(result[i].standards_id);
