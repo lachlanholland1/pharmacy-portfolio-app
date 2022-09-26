@@ -11,7 +11,7 @@ function AddEvidence(props) {
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div>
+    <div className={style.border}>
       <Link to={"/" + auth.username}>
         <button className={style.myButton2}>Back</button>
       </Link>

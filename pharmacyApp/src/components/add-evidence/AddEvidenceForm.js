@@ -25,7 +25,7 @@ export default function AddEvidenceForm() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [attachmentData, setAttachmentData] = useState("");
   const navigate = useNavigate();
-  
+
   const {
     watch,
     control,
@@ -42,18 +42,18 @@ export default function AddEvidenceForm() {
   }
   else if (e.target.files[0].type != "application/pdf" && e.target.files[0].type != "image/jpeg" &&
   e.target.files[0].type != "image/png" && e.target.files[0].type != "text/csv" &&
-  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && 
+  e.target.files[0].type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" &&
   e.target.files[0].type != "application/vnd.openxmlformats-officedocument.presentationml.presentation" &&
-  e.target.files[0].type != "application/msword" && e.target.files[0].type != "video/mp4" && 
-  e.target.files[0].type != "audio/mpeg" && e.target.files[0].type != "application/vnd.ms-powerpoint" && 
-  e.target.files[0].type != "audio/wav" && e.target.files[0].type != "application/vnd.ms-excel" && 
+  e.target.files[0].type != "application/msword" && e.target.files[0].type != "video/mp4" &&
+  e.target.files[0].type != "audio/mpeg" && e.target.files[0].type != "application/vnd.ms-powerpoint" &&
+  e.target.files[0].type != "audio/wav" && e.target.files[0].type != "application/vnd.ms-excel" &&
   e.target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
     setErrors('Error: Invalid file format!');
     console.log('Error: Invalid file format!');
   }
   else {
     setErrors('');
-    setSelectedFile(e.target.files[0]); 
+    setSelectedFile(e.target.files[0]);
     attachment = urlProducer(e.target.files[0].name);
     setAttachmentData(attachment);
     setFormData({name: "attachment", value: attachment});
@@ -75,7 +75,7 @@ function uploadFile(file){
   fetch('/api/upload',{
       method: "POST",
       body: JSON.stringify(requestObject),
-      headers: { "Content-Type": "application/json" }, 
+      headers: { "Content-Type": "application/json" },
   })
   .then(res => res.json())
   .then((data) => {
@@ -125,7 +125,7 @@ function uploadFile(file){
     navigate("/" + auth.username);
   }
   return (
-    <div>
+    <div >
     <div className={style.container}>
     <div className={style.sign}>
       <h1 className={style.center}>Add Evidence</h1>
@@ -145,8 +145,8 @@ function uploadFile(file){
         <br />
         <label className={style.padding}>Description</label>
         <br />
-        <textarea 
-          rows='2' 
+        <textarea
+          rows='2'
           cols='52'
           className={style.myForm2}
           maxLength={255}
@@ -159,7 +159,7 @@ function uploadFile(file){
         <br />
         <label className={style.padding}>Impact Statement</label>
         <br />
-        <textarea 
+        <textarea
           className={style.myForm3}
           maxLength={255}
           placeholder="Enter the impact statement for your evidence (max 255 character length)"
@@ -187,7 +187,7 @@ function uploadFile(file){
               format="YYYY-MM-DD"
               onChange={(date) => handleChangeDate(date)}
               selected={field.value}
-              
+
             />
           )}
         />
@@ -204,21 +204,23 @@ function uploadFile(file){
           {errors1}
         </p>
         <br />
-        {/* <DownloadImageToS3 /> 
+        {/* <DownloadImageToS3 />
         {//^^^Download Image to be used later. */}
         <div className={style.center}>
           <button className={style.myButton} type="submit">
             Submit
           </button>
         </div>
-      </form>    
+      </form>
     </div>
     </div>
-    <div>
-          <p>Disclaimer: When adding evidence attachments please ensure all personal or private information relating to yourself or others 
+    <div >
+    <br />
+    <br />
+          <p>Disclaimer: When adding evidence attachments please ensure all personal or private information relating to yourself or others
             remains confidential if/when required as public portfolio’s will be viewable by all entities. Please also ensure each file upload is kept under 10MB.</p>
         </div>
     </div>
-    
+
   );
 }

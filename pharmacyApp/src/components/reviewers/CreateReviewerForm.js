@@ -32,6 +32,7 @@ export default function CreateReviewerForm(){
         });
     }, []);
   
+
     const [date, setDate] = useState(new Date());
     const {
         // handleSubmit,
@@ -40,14 +41,14 @@ export default function CreateReviewerForm(){
         formState: { errors }
       } = useForm();
        const onSubmit = (data) => console.log(data);
-      
+
       const handleChange = (event) => {
         setFormData({
           name: event.target.name,
           value: event.target.value,
         });
       };
-  
+
       function handleSubmit(e) {
         e.preventDefault();
         setFormIsVisible(false);
@@ -73,7 +74,7 @@ export default function CreateReviewerForm(){
           <div className={style.sign}>
             <h1 className={style.center}>Add Reviewer</h1>
             <form onSubmit={handleSubmit}>
-           
+
                 {/* add a bit about onSubmit?? */}
                 <div className={style.center}>
                 <label>User</label>
