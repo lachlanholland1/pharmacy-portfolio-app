@@ -54,7 +54,7 @@ function SignInForm(props) {
   }
 
   return (
-    <div>
+    <div className={SignInStyle.page}>
     <div className={SignInStyle.container}>
       <div className={SignInStyle.sign}>
         <h1>Sign In</h1>
