@@ -1,13 +1,17 @@
+.border {
+    padding: 10px 20px 20px 20px;
+}
+
 .container {
     display:flex;
     align-items: center;
     justify-content: center;
-    height: 90vh; 
+    height: 81vh;
 }
 
 .sign {
     border: 2px solid lightgray;
-    padding: 25px 100px 50px 100px;
+    padding: 15px 100px 50px 100px;
     border-radius: 25px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
   }
@@ -38,7 +42,7 @@
     border-radius: 5px;
     margin-bottom: 15px;
     text-align: left;
-    text-indent: 10px; 
+    text-indent: 10px;
     height: 40px;
     width: 400px;
 }
@@ -46,8 +50,6 @@
     border: 2px solid lightgray;
     border-radius: 5px;
     margin-bottom: 15px;
-    /* text-align: left; */
-    /* text-indent: 10px;  */
     padding-left: 10px;
     height: 200px;
     width: 390px;
@@ -57,8 +59,6 @@
     border: 2px solid lightgray;
     border-radius: 5px;
     margin-bottom: 15px;
-    /* text-align: center; */
-    /* text-indent: 10px;  */
     padding-left: 10px;
     height: 100px;
     width: 390px;
@@ -76,7 +76,7 @@
 }
 
 .padding {
-    display: inline-block; 
+    display: inline-block;
     padding-bottom: 5px;
     align-items: center;
 }

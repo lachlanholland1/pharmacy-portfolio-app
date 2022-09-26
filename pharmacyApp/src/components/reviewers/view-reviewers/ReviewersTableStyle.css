@@ -1,7 +1,10 @@
+.border{
+	padding: 20px;
+}
+
 .table {
     border: 2px solid lightgray;
     width: 98%;
-    /* border-collapse: collapse; */
     overflow: hidden;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     border-radius: 5px;
@@ -34,8 +37,8 @@
     color: #ffffff;
     font-family: Arial;
     font-size: 17px;
-    height: 30px;
-    width: 175px;
+    height: 25px;
+    width: 75px;
     text-decoration: none;
 
 

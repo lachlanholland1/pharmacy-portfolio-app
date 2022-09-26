@@ -75,7 +75,6 @@ function Profile(props) {
     <div>
       {profileLoaded ? (
         <div>
-          <br />
           <div className={style.row}>
             <img src={evidenceData.signedUrl} className={style.photo}></img>
             <div>
@@ -85,8 +84,8 @@ function Profile(props) {
               <h3 className={style.padding}>{userDetails.username}</h3>
               {auth.user && auth.username === params.user ? (
                 <div>
-                  <input value={profileUrl} readOnly id="profileLink" />
-                  <button onClick={copyProfileLink}>Copy</button>
+                  <input className={style.margin} value={profileUrl} readOnly id="profileLink" />
+                  <button className={style.myButton} onClick={copyProfileLink}>Copy</button>
                 </div>
               ) : (
                 <></>
