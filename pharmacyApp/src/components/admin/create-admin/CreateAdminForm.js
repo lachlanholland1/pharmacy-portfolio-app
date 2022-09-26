@@ -60,7 +60,7 @@ export default function CreateAdminForm() {
         <div className={style.center}>
         <label>User</label>
         <br />
-        <select required id="user_id" name="user_id" onChange={handleChange}>
+        <select required id="user_id" name="user_id" onChange={handleChange} className={style.classic}>
           <option value=""></option>
           <option value="1">1</option>
           <option value="3">3</option>
@@ -70,6 +70,7 @@ export default function CreateAdminForm() {
         <label>Privileges</label>
         <br />
         <select
+          className={style.classic}
           required
           id="privileges"
           name="privileges"
