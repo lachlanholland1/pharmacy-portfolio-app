@@ -16,9 +16,16 @@ export default function ViewEvidence(props) {
   const { auth, setAuth } = useAuth();
 
   let viewingProfile = localStorage.getItem("profile");
-
+  let review_id = null;
   localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
   localStorage.setItem("attachment", evidenceData.attachment);
+  console.log(evidenceReviews[0]);
+  if(evidenceReviews[0] != null){
+    localStorage.setItem('review_id', evidenceReviews[0].idevidencereview);
+    console.log("set");
+    review_id = localStorage.getItem('review_id');
+  }
+  
 
   useEffect(() => {
     const request = { idevidenceitems: id };
@@ -68,8 +75,10 @@ export default function ViewEvidence(props) {
           ) : (
             <></>
           )}
-
           <br />
+          <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
+            <button>Peer Review</button>
+          </Link>
           <br />
           <Link to={"/" + viewingProfile}>
             <button className={style.myButton}>Back</button>
