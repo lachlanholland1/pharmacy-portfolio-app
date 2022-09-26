@@ -16,6 +16,9 @@ function ViewReviewers(props) {
       <Link to={"/" + auth.username}>
         <button className={style.myButton}>Back</button>
       </Link>
+      <Link to={"/create-reviewer"}>
+        <button className={style.myButton}>New Admin</button>
+      </Link>
       </div>
       <ReviewersTable />
     </div>

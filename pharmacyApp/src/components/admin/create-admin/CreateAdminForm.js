@@ -2,6 +2,8 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-multi-date-picker";
 import style from "./style.css";
+import { useNavigate } from "react-router-dom";
+
 const formreducer = (state, event) => {
   return {
     ...state,
@@ -16,6 +18,7 @@ export default function CreateAdminForm() {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
 
   const request = {
     table: "administrators",
@@ -72,6 +75,7 @@ export default function CreateAdminForm() {
         setIsSuccess(1);
       }
     });
+    navigate("/view-admins");
   }
   return (
     <div className={style.container}>
