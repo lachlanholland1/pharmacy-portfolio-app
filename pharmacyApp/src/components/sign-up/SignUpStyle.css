@@ -1,15 +1,28 @@
+
+.page {
+    background-size: cover;
+    background: linear-gradient(
+        to right,
+        rgb(0, 174, 255) 0%,
+        rgb(0, 174, 255) 60%,
+        white 60%,
+        white 100%);
+}
+
 .container {
     display:flex;
     align-items: center;
-    justify-content: center;
-    height: 97vh; 
+    justify-content: flex-end;
+    height: 100vh;
 }
 
 .sign {
+    margin-right: 95px;
     border: 2px solid lightgray;
     padding: 25px 125px 50px 125px;
     border-radius: 25px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    background-color: white;
   }
 
 .myButton {
@@ -38,7 +51,7 @@
     border-radius:42px;
     margin-bottom: 15px;
     text-align: left;
-    text-indent: 10px; 
+    text-indent: 10px;
     height: 40px;
     width: 300px;
 }
@@ -54,7 +67,7 @@
 }
 
 .padding {
-    display: inline-block; 
+    display: inline-block;
     padding-bottom: 5px;
     align-items: center;
 }
