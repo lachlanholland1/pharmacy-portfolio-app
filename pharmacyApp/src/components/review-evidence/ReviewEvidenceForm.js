@@ -75,7 +75,7 @@ export default function ReviewEvidenceForm({ evidenceCriteria }) {
     <div>
       <div className={style.container}>
         <div className={style.sign}>
-        <h1>Review Evidence</h1>
+        <h1 className={style.container}>Review Evidence</h1>
           <form onSubmit={handleSubmit}>
             {evidenceCriteria.domains.map((domain) => (
               <div>
