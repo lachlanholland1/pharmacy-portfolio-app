@@ -84,11 +84,6 @@ export default function CreateAdminForm() {
         <br />
         <select required id="user_id" name="user_id" onChange={handleChange} className={style.classic}>
           <option value=""></option>
-          <option value="1">1</option>
-          <option value="3">3</option>
-        </select> */}
-        <select required id="user_id" name="user_id" onChange={handleChange}>
-          <option value=""></option>
           {userData.length ? (
               userData.map((user) => (
                 <option value={user.user_id}>{user.username} ({user.email})</option>
