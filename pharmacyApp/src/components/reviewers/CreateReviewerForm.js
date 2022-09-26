@@ -80,7 +80,7 @@ export default function CreateReviewerForm(){
                 <label>User</label>
                 <br />
                 <br />
-                <select required id="user_id" name="user_id" onChange={handleChange}>
+                <select required id="user_id" name="user_id" onChange={handleChange}  className={style.classic}>
                   <option value=""></option>
                   {userData.length ? (
                       userData.map((user) => (
