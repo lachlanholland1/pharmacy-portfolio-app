@@ -47,14 +47,10 @@ export default function ViewEvidence(props) {
     })
       .then((response) => response.json())
       .then((reviewerDetails) => {
-        console.log(reviewerDetails);
-        console.log("ASD");
         if (reviewerDetails.length > 0) {
           setReviewers(true);
-          console.log("true");
         } else {
           setReviewers(false);
-          console.log("false");
         }
       });
   }, []);
