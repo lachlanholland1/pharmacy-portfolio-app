@@ -13,8 +13,26 @@ export default function CreateReviewerForm(){
     const [formData, setFormData] = useReducer(formreducer, {});
     const [submitting, setSubmitting] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [userData, setUserData] = useState([]);
 
+    const request = {
+      table: "reviewers",
+    };
+
+    useEffect(() => {
+      fetch("/api/fetch-users", {
+        method: "POST",
+        body: JSON.stringify(request),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setUserData(data.users_data);
+        });
+    }, []);
   
+
     const [date, setDate] = useState(new Date());
     const {
         // handleSubmit,
@@ -23,14 +41,14 @@ export default function CreateReviewerForm(){
         formState: { errors }
       } = useForm();
        const onSubmit = (data) => console.log(data);
-      
+
       const handleChange = (event) => {
         setFormData({
           name: event.target.name,
           value: event.target.value,
         });
       };
-  
+
       function handleSubmit(e) {
         e.preventDefault();
         setFormIsVisible(false);
@@ -56,20 +74,21 @@ export default function CreateReviewerForm(){
           <div className={style.sign}>
             <h1 className={style.center}>Add Reviewer</h1>
             <form onSubmit={handleSubmit}>
-           
+
                 {/* add a bit about onSubmit?? */}
                 <div className={style.center}>
                 <label>User</label>
                 <br />
                 <br />
-                <select
-                    required
-                    id="user_id"
-                    name="user_id"
-                    onChange={handleChange}>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="3">3</option>
+                <select required id="user_id" name="user_id" onChange={handleChange}  className={style.classic}>
+                  <option value=""></option>
+                  {userData.length ? (
+                      userData.map((user) => (
+                        <option value={user.user_id}>{user.username} ({user.email})</option>
+                      ))
+                    ) : (
+                      <option value=""></option>
+                    )}
                 </select>  
                 </div>             
                 <br />
