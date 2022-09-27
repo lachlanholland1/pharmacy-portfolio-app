@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 import DatePicker from "react-multi-date-picker";
 import style from "./style.css";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
+
 const formreducer = (state, event) => {
   return {
     ...state,
@@ -16,12 +19,30 @@ export default function CreateAdminForm() {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const [admins, setAdmins] = useState(null);
 
   const request = {
     table: "administrators",
   };
   
   useEffect(() => {
+    const adminRequest = { users_id: auth.users_id };
+    fetch("/api/checkadmins", {
+      method: "POST",
+      body: JSON.stringify(adminRequest),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((adminDetails) => {
+        if (adminDetails.length > 0) {
+          setAdmins(true);
+        } else {
+          setAdmins(false);
+        }
+      });
+
     fetch("/api/fetch-users", {
       method: "POST",
       body: JSON.stringify(request),
@@ -29,13 +50,9 @@ export default function CreateAdminForm() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setUserData(data.users_data);
       });
   }, []);
-
-  
-  
 
   const [date, setDate] = useState(new Date());
   const {
@@ -72,6 +89,17 @@ export default function CreateAdminForm() {
         setIsSuccess(1);
       }
     });
+    navigate("/view-admins");
+  }
+
+  if (admins == false) {
+    console.log("Not authorised.");
+    return (
+      <div>
+        <label>You are unauthorised to access this page.</label>
+        <br />
+      </div>
+    );
   }
   return (
     <div className={style.container}>
