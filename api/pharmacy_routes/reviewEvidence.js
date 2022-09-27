@@ -7,7 +7,7 @@ dotEnv.config();
 
 router.post("/", function (req, res, next) {
   const reviewEvidenceId = Math.floor(Math.random() * 1000000000);
-  const user_id = req.body.user_id;
+  const user_id = req.session.userid;
   const evidence_id = req.body.evidence_id;
   const self_review = req.body.review;
   var date = new Date();

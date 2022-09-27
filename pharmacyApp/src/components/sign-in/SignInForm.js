@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SignUp from "../sign-up/SignUp";
 import SignInStyle from "./SignInStyle.css";
-import { Link } from "react-router-dom";
 
 const formreducer = (state, event) => {
   return {
@@ -13,7 +12,7 @@ const formreducer = (state, event) => {
 };
 
 function SignInForm(props) {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formData, setFormData] = useReducer(formreducer, {});
@@ -26,17 +25,19 @@ function SignInForm(props) {
       body: JSON.stringify(loginReq),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.access_token) {
-          setAuth({
-            user: true,
-            user_id: data.user_id,
-            access_token: data.access_token,
-            username: data.username,
-          });
-          navigate("/" + data.username);
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject();
         }
+        return response.json();
+      })
+      .then((data) => {
+        setAuth({
+          user: true,
+          user_id: data.user_id,
+          username: data.username,
+        });
+        navigate("/" + data.username);
       });
   }
 
@@ -70,16 +71,27 @@ function SignInForm(props) {
             required
           />
           <br />
-          <input
-            className={SignInStyle.myForm}
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            required
-          />
-          {/* <br />
+          <form onSubmit={handleLogin}>
+            <input
+              className={SignInStyle.myForm}
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <input
+              className={SignInStyle.myForm}
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
+            {/* <br />
           <label>Admin</label>
           <input
             className={SignInStyle.myCheck}
@@ -88,17 +100,17 @@ function SignInForm(props) {
             onChange={handleChange}
             step="1"
           /> */}
+            <br />
+            <button className={SignInStyle.myButton} type="submit">
+              Sign In
+            </button>
+          </form>
           <br />
-          <button className={SignInStyle.myButton} type="submit">
-            Sign In
-          </button>
-        </form>
-        <br />
-        <Link to="/sign-up">
-          <button className={SignInStyle.myButton}>Sign up</button>
-        </Link>
+          <Link to="/sign-up">
+            <button className={SignInStyle.myButton}>Sign up</button>
+          </Link>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

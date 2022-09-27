@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import style from "./Profile.css";
+import Cookies from "js-cookie";
 
 function Profile(props) {
   const params = useParams();
@@ -35,17 +36,17 @@ function Profile(props) {
       .then(() => setProfileLoaded(true));
   }, []);
 
-  console.log(userDetails);
-
   useEffect(() => {
     //Method to download profile picture
     if (!Object.keys(userDetails).length) {
       return;
     }
     const file = userDetails.attachment;
-    console.log(file);
-    console.log(file);
-    console.log(file);
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
+    console.log(Cookies.get("username"));
     const type = file.substr(file.length - 3);
     const requestObject = {
       fileName: file,
@@ -82,7 +83,7 @@ function Profile(props) {
                 {userDetails.first_name + " " + userDetails.last_name}
               </h1>
               <h3 className={style.padding}>{userDetails.username}</h3>
-              {auth.user && auth.username === params.user ? (
+              {Cookies.get("username") === params.user ? (
                 <div>
                   <input className={style.margin} value={profileUrl} readOnly id="profileLink" />
                   <button className={style.myButton} onClick={copyProfileLink}>Copy</button>
