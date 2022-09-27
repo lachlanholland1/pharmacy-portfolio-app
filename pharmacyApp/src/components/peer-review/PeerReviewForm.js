@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import style from "./style.css";
 
 const formreducer = (state, event) => {
   return {
     ...state,
     [event.name]: {
-      // domain: event.domain,
-      // standard: event.standard,
-      // competency: event.competency,
       reviewId: event.reviewId,
       value: event.value,
     },
@@ -28,6 +25,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [reviewData, setReviewData] = useState([]);
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
+  const [reviewers, setReviewers] = useState(null);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -40,16 +38,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  //   const handleChange = (event, domain, standard, competency) => {
-  //     const isCheckbox = event.target.type === "checkbox";
-  //     setFormData({
-  //       name: event.target.name,
-  //       value: isCheckbox ? event.target.checked : event.target.value,
-  //       domain: domain,
-  //       standard: standard,
-  //       competency: competency,
-  //     });
-  //   };
   const handleChange = (event, reviewId) => {
     console.log(reviewId);
     setFormData({
@@ -71,7 +59,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
         console.log(data);
         setReviewData(data);
       });
-    //get evidence description
     const evidenceRequest = { idevidenceitems: id };
     fetch("/api/viewevidence", {
       method: "POST",
@@ -82,6 +69,20 @@ export default function PeerReviewForm({ evidenceCriteria }) {
       .then((evidenceData) => {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
+      });
+    const reviewerRequest = { users_id: auth.user_id };
+    fetch("/api/viewreviewers", {
+      method: "POST",
+      body: JSON.stringify(reviewerRequest),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((reviewerDetails) => {
+        if (reviewerDetails.length > 0) {
+          setReviewers(true);
+        } else {
+          setReviewers(false);
+        }
       });
   }, []);
 
@@ -114,6 +115,19 @@ export default function PeerReviewForm({ evidenceCriteria }) {
       }
     });
     navigate("/evidence?id=" + id);
+  }
+
+  if (reviewers == false) {
+    console.log("Not authorised.");
+    return (
+      <div>
+        <label>You are unauthorised to access this page.</label>
+        <br />
+        <Link to={"/login"}>
+          <button>Login</button>
+        </Link>
+      </div>
+    );
   }
 
   console.log(formData);
