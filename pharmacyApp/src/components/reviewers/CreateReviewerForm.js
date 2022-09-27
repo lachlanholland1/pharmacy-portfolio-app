@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import style from "./style.css";
+import { useNavigate } from "react-router-dom";
+
+
 const formreducer = (state, event) => {
     return {
       ...state,
@@ -14,7 +17,7 @@ export default function CreateReviewerForm(){
     const [submitting, setSubmitting] = useState(false);
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState([]);
-
+    const navigate = useNavigate();
     const request = {
       table: "reviewers",
     };
@@ -68,6 +71,7 @@ export default function CreateReviewerForm(){
             setIsSuccess(1);
           }
         });
+        navigate("/view-reviewers");
       }
     return (
         <div className={style.container}>
