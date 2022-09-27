@@ -80,9 +80,12 @@ const viewReviewersRouter = require("./pharmacy_routes/viewReviewers");
 
 //Peer Review
 const peerReviewRouter = require("./pharmacy_routes/peerReview");
-//Delete Reviewer
+//Create Domain
 
 const createDomainRouter = require("./pharmacy_routes/createDomain");
+
+//Delete Reviewer
+const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 
 dotEnv.config();
 
@@ -208,6 +211,9 @@ app.use("/api/peer-review", verifyOrigin, peerReviewRouter);
 
 //View Reviewers
 app.use("/api/viewreviewers", verifyOrigin, viewReviewersRouter);
+
+//Fetch Users
+app.use("/api/fetch-users", verifyOrigin, fetchUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
