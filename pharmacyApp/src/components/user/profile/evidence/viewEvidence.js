@@ -13,12 +13,19 @@ export default function ViewEvidence(props) {
   const id = searchParams.get("id");
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceReviews, setEvidenceReviews] = useState([]);
+  const [reviewers, setReviewers] = useState(false);
   const { auth, setAuth } = useAuth();
 
   let viewingProfile = localStorage.getItem("profile");
-
+  let review_id = null;
   localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
   localStorage.setItem("attachment", evidenceData.attachment);
+  console.log(evidenceReviews[0]);
+  if (evidenceReviews[0] != null) {
+    localStorage.setItem("review_id", evidenceReviews[0].idevidencereview);
+    console.log("set");
+    review_id = localStorage.getItem("review_id");
+  }
 
   useEffect(() => {
     const request = { idevidenceitems: id };
@@ -32,7 +39,20 @@ export default function ViewEvidence(props) {
         setEvidenceData(details.evidence_data);
         setEvidenceReviews(details.evidence_reviews);
       });
-    //   .catch((err) => console.log("err"));
+    const reviewerRequest = { users_id: auth.user_id };
+    fetch("/api/viewreviewers", {
+      method: "POST",
+      body: JSON.stringify(reviewerRequest),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((reviewerDetails) => {
+        if (reviewerDetails.length > 0) {
+          setReviewers(true);
+        } else {
+          setReviewers(false);
+        }
+      });
   }, []);
   return (
     <div>
@@ -58,8 +78,6 @@ export default function ViewEvidence(props) {
           >
             View Evidence
           </button>
-          <br />
-          <br />
           <Flagged id={evidenceData.users_id} />
           <br />
           <br />
@@ -70,8 +88,15 @@ export default function ViewEvidence(props) {
           ) : (
             <></>
           )}
-
           <br />
+          {reviewers === true && auth.user_id != evidenceData.users_id ? (
+            <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
+              <button className={style.myButton}>Peer Review</button>
+            </Link>
+          ) : (
+            <></>
+          )}
+
           <br />
           <Link to={"/" + viewingProfile}>
             <button className={style.myButton}>Back</button>
@@ -89,7 +114,7 @@ function Flagged(id) {
   if ((id = auth.user_id)) {
     return (
       <Link to={`/edit-evidence?id=${evidence_id}`}>
-        <button className={style.myButton}>Edit</button>
+        <button>Edit</button>
       </Link>
     );
   } else {

@@ -21,6 +21,7 @@ import ViewAdmins from "./components/admin/view-admin/ViewAdmins";
 import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
 import EvidenceReview from "./components/evidence-review/EvidenceReview";
 import AddDomain from "./components/domains/add-domains/AddDomain";
+import PeerReview from "./components/peer-review/PeerReview";
 
 function App(props) {
   return (
@@ -43,6 +44,7 @@ function App(props) {
         <Route path="/review-evidence" element={<ReviewEvidence />} />
         <Route path="/accounts/edit/" element={<EditAccount />} />
         <Route path="/accounts/password/change" element={<PasswordChange />} />
+        <Route path="/peer-review" element={<PeerReview />} />
       </Route>
       {/* private/admin routes */}
       <Route element={<AdminLayout />}>
