@@ -9,12 +9,26 @@ import { confirmAlert } from "react-confirm-alert";
 export default function AdminsTable(props) {
   let navigate = useNavigate();
   const params = useParams();
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [adminData, setAdminData] = useState([]);
-
-  console.log(auth);
+  const [admins, setAdmins] = useState(null);
 
   useEffect(() => {
+    const adminRequest = { users_id: auth.users_id };
+    fetch("/api/checkadmins", {
+      method: "POST",
+      body: JSON.stringify(adminRequest),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((adminDetails) => {
+        if (adminDetails.length > 0) {
+          setAdmins(true);
+        } else {
+          setAdmins(false);
+        }
+      });
+
     fetch("/api/admins-table", {
       method: "POST",
       body: JSON.stringify({ user: params.user }),
@@ -25,6 +39,7 @@ export default function AdminsTable(props) {
         console.log(data);
         setAdminData(data.admins_data);
       });
+
   }, []);
 
   const submit = (admin_id) => {
@@ -52,11 +67,6 @@ export default function AdminsTable(props) {
       ]
     });
   };
-
-  // function handleOnClick(userid) {
-  //   return navigate(`/evidence?id=${userid}`);
-  // }
-
   return (
     <div>
       <div className={style.padding}>
@@ -80,7 +90,9 @@ export default function AdminsTable(props) {
                 <td>{admin.alterprivileges}</td>
                 <td >
                   {/* Need to validate that the current Admin has Alter privileges */}
-                    <button className={style.myButton} onClick={() => submit(admin.idadministrators)}>Delete</button>
+                    {admins ? (
+                      <button className={style.myButton} onClick={() => submit(admin.idadministrators)}>Delete</button>
+                    ) : ("")}
                 </td>
               </tr>
             ))
