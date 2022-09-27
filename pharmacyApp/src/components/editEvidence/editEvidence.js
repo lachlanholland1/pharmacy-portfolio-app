@@ -23,7 +23,8 @@ function EditEvidence(props) {
     })
       .then((response) => response.json())
         .then((details) => {
-            setEvidenceData(details);
+          console.log(details);
+            setEvidenceData(details.evidence_data);
           });
   }, []);
 
