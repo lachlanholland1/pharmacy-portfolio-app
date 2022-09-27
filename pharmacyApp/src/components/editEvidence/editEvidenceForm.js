@@ -97,7 +97,7 @@ export default function EditEvidenceForm({ evidenceData }) {
     });
   };
 
-console.log(auth.user_id, evidenceData.user_id);
+console.log(auth.user_id, evidenceData.users_id);
   if (auth.user_id != evidenceData.users_id) {
     console.log("Not authorised.");
     return(
@@ -110,10 +110,8 @@ console.log(auth.user_id, evidenceData.user_id);
       </Link>
         </div>
     )
-    // navigate(-1);
-    // return(navigate(-1));
   }
- 
+
     
   return (
     <div>
