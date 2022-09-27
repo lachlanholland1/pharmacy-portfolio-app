@@ -27,6 +27,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const { auth, setAuth } = useAuth();
   const [reviewData, setReviewData] = useState([]);
   const [evidenceData, setEvidenceData] = useState([]);
+  const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -80,6 +81,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
       .then((response) => response.json())
       .then((evidenceData) => {
         setEvidenceData(evidenceData.evidence_data.description);
+        setEvidenceDataTitle(evidenceData.evidence_data.title);
       });
   }, []);
 
@@ -126,8 +128,12 @@ export default function PeerReviewForm({ evidenceCriteria }) {
         <div className={style.sign}>
           <h1>Peer Review</h1>
           <form onSubmit={handleSubmit}>
+            <p>Evidence Title</p>
+            <h2>{evidenceDataTitle}</h2>
+
+            <p>Description</p>
             <p>{evidenceData}</p>
-            <br />
+
             {reviewData.data?.map((data, index) => (
               <div>
                 <input
@@ -141,7 +147,10 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                   }
                 />
 
-                <h2>{evidenceCriteria.domains[domainIndex].description}</h2>
+                <h2>
+                  {evidenceCriteria.domains[domainIndex].title}{" "}
+                  {evidenceCriteria.domains[domainIndex].description}
+                </h2>
 
                 {data.standards.map((standard, index) => (
                   <div key={index}>
@@ -158,6 +167,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                     />
 
                     <h4>
+                      {
+                        evidenceCriteria.domains[domainIndex].standards[
+                          standardIndex
+                        ].title
+                      }{" "}
                       {
                         evidenceCriteria.domains[domainIndex].standards[
                           standardIndex
@@ -181,6 +195,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                         />
 
                         <label>
+                          {
+                            evidenceCriteria.domains[domainIndex].standards[
+                              standardIndex
+                            ].competencies[competenecyIndex].title
+                          }{" "}
                           {
                             evidenceCriteria.domains[domainIndex].standards[
                               standardIndex
@@ -265,7 +284,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           className=""
                           maxLength={255}
                           type="text"
-                          placeholder={"Enter comments"}
+                          placeholder={"Enter your reasons for Yes/No"}
                           name={"comments-" + competency.review_id}
                           onChange={(event) =>
                             handleChange(event, competency.review_id)
