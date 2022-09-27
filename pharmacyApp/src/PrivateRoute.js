@@ -6,6 +6,7 @@ const PrivateRoute = () => {
   const { auth, loading } = useAuth();
   const location = useLocation();
   if (loading) return <div>....loading please wait</div>;
+
   return auth?.user ? (
     <Outlet />
   ) : (

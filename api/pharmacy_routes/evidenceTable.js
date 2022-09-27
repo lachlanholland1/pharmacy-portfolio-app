@@ -8,7 +8,6 @@ router.post("/", (req, res, next) => {
     "SELECT * FROM evidenceitems WHERE users_id = (SELECT user_id FROM Users WHERE username = ?);",
     [username],
     (err, result) => {
-      console.log(result);
       res.send({ evidence_data: result });
     }
   );
