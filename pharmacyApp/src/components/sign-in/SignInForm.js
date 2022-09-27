@@ -55,10 +55,21 @@ function SignInForm(props) {
   }
 
   return (
-    <div>
-      <div className={SignInStyle.container}>
-        <div className={SignInStyle.sign}>
-          <h1>Sign In</h1>
+    <div className={SignInStyle.page}>
+    <div className={SignInStyle.container}>
+      <div className={SignInStyle.sign}>
+        <h1>Sign In</h1>
+        <br />
+        <form onSubmit={handleLogin}>
+          <input
+            className={SignInStyle.myForm}
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
           <br />
           <form onSubmit={handleLogin}>
             <input

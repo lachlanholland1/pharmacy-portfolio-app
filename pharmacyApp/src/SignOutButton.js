@@ -20,9 +20,11 @@ function SignOutButton(props) {
   }
 
   return (
+    <div className={style.padding}>
     <button className={style.SignOutButton} onClick={Logout}>
       Sign Out
     </button>
+    </div>
   );
 }
 

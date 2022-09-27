@@ -1,40 +1,38 @@
-.border {
-    padding: 10px 20px 20px 20px;
-}
-
 .container {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    height: 81vh;
+    height: 90vh;
 }
 
 .sign {
     border: 2px solid lightgray;
-    padding: 15px 100px 50px 100px;
+    padding: 25px 100px 50px 100px;
     border-radius: 25px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-  }
+}
 
 .myButton {
-	background-color:#000000;
-	border-radius:5px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	height: 40px;
+    background-color: #000000;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    height: 40px;
     width: 400px;
-	text-decoration:none;
-    border: none;
+    text-decoration: none;
+
 }
+
 .myButton:hover {
-	background-color:#707070;
+    background-color: #707070;
 }
+
 .myButton:active {
-	position:relative;
-	top:1px;
+    position: relative;
+    top: 1px;
 }
 
 .myForm1 {
@@ -46,26 +44,32 @@
     height: 40px;
     width: 400px;
 }
+
 .myForm2 {
     border: 2px solid lightgray;
     border-radius: 5px;
     margin-bottom: 15px;
+    /* text-align: left; */
+    /* text-indent: 10px;  */
     padding-left: 10px;
     height: 200px;
     width: 390px;
     resize: none;
 }
+
 .myForm3 {
     border: 2px solid lightgray;
     border-radius: 5px;
     margin-bottom: 15px;
+    /* text-align: center; */
+    /* text-indent: 10px;  */
     padding-left: 10px;
     height: 100px;
     width: 390px;
     resize: none;
 }
 
-.myCheck{
+.myCheck {
     margin-bottom: 15px;
     align-items: center;
     text-align: center;
@@ -87,22 +91,24 @@
 
 
 .myButton2 {
-	background-color:#000000;
-	border-radius:5px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	height: 25px;
+    background-color: #000000;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    height: 25px;
     width: 75px;
-	text-decoration:none;
-    border: none;
+    text-decoration: none;
+
 }
+
 .myButton2:hover {
-	background-color:#707070;
+    background-color: #707070;
 }
+
 .myButton2:active {
-	position:relative;
-	top:1px;
+    position: relative;
+    top: 1px;
 }

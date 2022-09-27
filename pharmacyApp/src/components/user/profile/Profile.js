@@ -76,7 +76,6 @@ function Profile(props) {
     <div>
       {profileLoaded ? (
         <div>
-          <br />
           <div className={style.row}>
             <img src={evidenceData.signedUrl} className={style.photo}></img>
             <div>
@@ -86,8 +85,8 @@ function Profile(props) {
               <h3 className={style.padding}>{userDetails.username}</h3>
               {Cookies.get("username") === params.user ? (
                 <div>
-                  <input value={profileUrl} readOnly id="profileLink" />
-                  <button onClick={copyProfileLink}>Copy</button>
+                  <input className={style.margin} value={profileUrl} readOnly id="profileLink" />
+                  <button className={style.myButton} onClick={copyProfileLink}>Copy</button>
                 </div>
               ) : (
                 <></>
@@ -110,16 +109,15 @@ export default Profile;
 
 function PrivateAccount(userDetails) {
   const { auth, setAuth } = useAuth();
-  if (userDetails.userDetails.private_account === 1) {
-    if ((userDetails.userDetails.user_id = auth.user_id)) {
-      console.log("if statement auth");
-      return <EvidenceTable />;
-    } else {
-      console.log("if statement unauth");
-      return <div>This Account is Private.</div>;
+  if (userDetails.userDetails.private_account === 1){
+    if (userDetails.userDetails.user_id = auth.user_id){
+      return (<EvidenceTable />);
     }
-  } else {
-    console.log("fine to show");
-    return <EvidenceTable />;
+    else {
+      return (<div>This Account is Private.</div>);
+    }
+  }
+  else {
+    return (<EvidenceTable />);
   }
 }

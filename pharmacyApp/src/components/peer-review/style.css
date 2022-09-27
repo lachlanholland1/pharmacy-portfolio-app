@@ -1,18 +1,17 @@
 .container {
     display:flex;
     align-items: center;
-    justify-content: left;
-    height: 100%;
+    justify-content: center;
+    height: 100%; 
 }
 
 .sign {
     border: 2px solid lightgray;
-    padding: 25px 25px 50px 25px;
+    padding: 25px 5px 50px 5px;
     border-radius: 25px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-    text-align: left;
-  }
-
-  .center {
     text-align: center;
   }
+
+
+

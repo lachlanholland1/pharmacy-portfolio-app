@@ -1,23 +1,22 @@
 import React from "react";
-import CreateEvidenceForm from "./AddEvidenceForm";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import style from "./AddEvidenceStyle.css";
+import ReviewersTable from "./ReviewersTable";
+import useAuth from "../../../hooks/useAuth";
 
-function AddEvidence(props) {
+function ViewReviewers(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div className={style.border}>
+    <div>
       <Link to={"/" + auth.username}>
-        <button className={style.myButton2}>Back</button>
+        <button className="">Back</button>
       </Link>
-      <CreateEvidenceForm />
+      <ReviewersTable />
     </div>
   );
 }
 
-export default AddEvidence;
+export default ViewReviewers;

@@ -7,6 +7,7 @@ function SettingsMenu(props) {
   const { auth } = useAuth();
   return (
     <div>
+    <div className={style.padding}>
       <div className={style.spacing}>
         <Link to={"/" + auth.username}>
           <button className={style.myButton}>Back</button>
@@ -20,6 +21,7 @@ function SettingsMenu(props) {
       <Link to="/accounts/password/change/">
         <button className={style.myButton2}>Change password</button>
       </Link>
+    </div>
     </div>
   );
 }
