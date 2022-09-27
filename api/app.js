@@ -89,6 +89,10 @@ const createDomainRouter = require("./pharmacy_routes/createDomain");
 //Delete Reviewer
 const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 
+// Check admin privileges
+const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
+
+
 dotEnv.config();
 
 var app = express();
@@ -231,6 +235,9 @@ app.use("/api/viewreviewers", verifyOrigin, viewReviewersRouter);
 
 //Fetch Users
 app.use("/api/fetch-users", verifyOrigin, fetchUsersRouter);
+
+// Check Admin privileges
+app.use("/api/checkadmins", verifyOrigin, checkAdminsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
