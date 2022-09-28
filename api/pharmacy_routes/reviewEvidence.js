@@ -25,7 +25,7 @@ router.post("/", function (req, res, next) {
         reviewFormatted[self_review[key].competency] = {
           ...reviewFormatted[self_review[key].competency],
           domain: self_review[key].domain,
-          standard: self_review[key].domain,
+          standard: self_review[key].standard,
           competency: self_review[key].competency,
           comment: self_review[key].value,
         };
@@ -33,7 +33,7 @@ router.post("/", function (req, res, next) {
         reviewFormatted[self_review[key].competency] = {
           ...reviewFormatted[self_review[key].competency],
           domain: self_review[key].domain,
-          standard: self_review[key].domain,
+          standard: self_review[key].standard,
           competency: self_review[key].competency,
           criteria: self_review[key].value,
         };
