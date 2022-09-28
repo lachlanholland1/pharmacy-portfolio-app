@@ -35,12 +35,13 @@ router.post("/", function (req, res, next) {
           process.env.REFRESH_TOKEN_SECRET
         );
         refreshTokens.push(refreshToken);
-
         res.cookie("user_id", session.userid, { httpOnly: true });
         res.cookie("username", user.username, { httpOnly: true });
+        res.cookie("admin", user.admin, { httpOnly: true });
         return res.send({
           user_id: session.userid,
           username: user.username,
+          admin: user.admin,
         });
       }
       return res.sendStatus(401);
