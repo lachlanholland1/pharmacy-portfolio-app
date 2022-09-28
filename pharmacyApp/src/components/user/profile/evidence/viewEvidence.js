@@ -78,6 +78,8 @@ export default function ViewEvidence(props) {
           >
             View Evidence
           </button>
+          <br />
+          <br />
           <Flagged id={evidenceData.users_id} />
           <br />
           <br />
@@ -114,7 +116,7 @@ function Flagged(id) {
   if ((id = auth.user_id)) {
     return (
       <Link to={`/edit-evidence?id=${evidence_id}`}>
-        <button>Edit</button>
+        <button className={style.myButton}>Edit Evidence</button>
       </Link>
     );
   } else {
