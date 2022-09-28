@@ -22,6 +22,7 @@ import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
 import EvidenceReview from "./components/evidence-review/EvidenceReview";
 import AddDomain from "./components/domains/add-domains/AddDomain";
 import PeerReview from "./components/peer-review/PeerReview";
+import ViewReview from "./components/view-review/ViewReview";
 
 function App(props) {
   return (
@@ -42,6 +43,7 @@ function App(props) {
           <Route path="/add-evidence" element={<AddEvidence />} />
           <Route path="/review-evidence" element={<ReviewEvidence />} />
            <Route path="/peer-review" element={<PeerReview />} />
+           <Route path="/view-review" element={<ViewReview />} />
         </Route>
           <Route path="/edit-evidence" element={<EditEvidence />} />
         <Route element={<PrivateRoute />}>
