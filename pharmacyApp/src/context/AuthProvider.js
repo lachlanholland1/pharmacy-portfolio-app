@@ -4,7 +4,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
-  const [auth, setAuth] = useState({ user: true });
+  const [auth, setAuth] = useState({});
 
   useEffect(() => {
     fetch("/api/authenticate", {
