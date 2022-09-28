@@ -56,31 +56,31 @@ function SignInForm(props) {
 
   return (
     <div className={SignInStyle.page}>
-    <div className={SignInStyle.container}>
-      <div className={SignInStyle.sign}>
-        <h1>Sign In</h1>
-        <br />
-        <form onSubmit={handleLogin}>
-          <input
-            className={SignInStyle.myForm}
-            type="text"
-            id="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            required
-          />
+      <div className={SignInStyle.container}>
+        <div className={SignInStyle.sign}>
+          <h1>Sign In</h1>
           <br />
-          <input
-            className={SignInStyle.myForm}
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            required
-          />
-          {/* <br />
+          <form onSubmit={handleLogin}>
+            <input
+              className={SignInStyle.myForm}
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <input
+              className={SignInStyle.myForm}
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
+            {/* <br />
           <label>Admin</label>
           <input
             className={SignInStyle.myCheck}
@@ -89,17 +89,17 @@ function SignInForm(props) {
             onChange={handleChange}
             step="1"
           /> */}
+            <br />
+            <button className={SignInStyle.myButton} type="submit">
+              Sign In
+            </button>
+          </form>
           <br />
-          <button className={SignInStyle.myButton} type="submit">
-            Sign In
-          </button>
-        </form>
-        <br />
-        <Link to="/sign-up">
-          <button className={SignInStyle.myButton}>Sign up</button>
-        </Link>
+          <Link to="/sign-up">
+            <button className={SignInStyle.myButton}>Sign up</button>
+          </Link>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
