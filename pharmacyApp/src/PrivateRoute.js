@@ -7,11 +7,11 @@ const PrivateRoute = () => {
   const location = useLocation();
   if (loading) return <div>....loading please wait</div>;
 
-  return auth?.user ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  if (auth.admin) {
+    return <Outlet />;
+  } else {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 };
 
 export default PrivateRoute;

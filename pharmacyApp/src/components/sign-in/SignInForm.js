@@ -36,8 +36,13 @@ function SignInForm(props) {
           user: true,
           user_id: data.user_id,
           username: data.username,
+          admin: data.admin,
         });
-        navigate("/" + data.username);
+        if (!data.admin) {
+          navigate("/" + data.username);
+        } else {
+          navigate("/");
+        }
       });
   }
 

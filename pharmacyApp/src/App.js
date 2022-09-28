@@ -27,35 +27,43 @@ import PublicRoute from "./PublicRoute";
 
 function App(props) {
   return (
-    <Routes element={<HomeLayout />}>
+    <Routes>
+      {/* Public Only */}
       <Route element={<PublicRoute />}>
-        <Route path="login" element={<Login />} />
-        <Route path="sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Route>
-      {/* public routes */}
-      <Route path="/create-domain" element={<AddDomain />} />
-      <Route path="/create-admin" element={<CreateAdmin />} />
-      <Route path="/create-reviewer" element={<CreateReviewer />} />
-      <Route path="/evidence" element={<ViewEvidence />} />
-      <Route path="/view-admins" element={<ViewAdmins />} />
-      <Route path="/view-reviewers" element={<ViewReviewers />} />
-      <Route path="/evidence-review/:id" element={<EvidenceReview />} />
-      <Route path="/" />
+      {/* User*/}
       <Route element={<UserLayout />}>
+        {/* User and Public*/}
         <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
-        <Route path="/review-evidence" element={<ReviewEvidence />} />
-        <Route path="/peer-review" element={<PeerReview />} />
         <Route path="/view-review" element={<ViewReview />} />
+        <Route path="/evidence" element={<ViewEvidence />} />
+        <Route path="/evidence-review/:id" element={<EvidenceReview />} />
+        {/* User Only */}
+        <Route element={<PrivateRoute />}>
+          <Route
+            path="/accounts/password/change"
+            element={<PasswordChange />}
+          />
+          <Route path="/review-evidence" element={<ReviewEvidence />} />
+          <Route path="/peer-review" element={<PeerReview />} />
+          <Route path="/accounts/edit/" element={<EditAccount />} />
+          <Route path="/edit-evidence" element={<EditEvidence />} />
+        </Route>
       </Route>
-      <Route path="/edit-evidence" element={<EditEvidence />} />
+      {/* Admin Only */}
       <Route element={<PrivateRoute />}>
-        <Route path="/" index element={<Dashboard />} />
-        <Route path="/accounts/password/change" element={<PasswordChange />} />
-        <Route path="/accounts/edit/" element={<EditAccount />} />
+        <Route element={<AdminLayout />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/view-admins" element={<ViewAdmins />} />
+          <Route path="/view-reviewers" element={<ViewReviewers />} />
+          <Route path="/create-domain" element={<AddDomain />} />
+          <Route path="/create-admin" element={<CreateAdmin />} />
+          <Route path="/create-reviewer" element={<CreateReviewer />} />
+        </Route>
       </Route>
-      {/* private/admin routes */}
-      <Route element={<AdminLayout />}></Route>
     </Routes>
   );
 }
