@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
           user: true,
           user_id: data.user_id,
           username: data.username,
+          admin: data.admin,
         })
       )
       .catch((err) => setAuth({ ...auth, user: false }))

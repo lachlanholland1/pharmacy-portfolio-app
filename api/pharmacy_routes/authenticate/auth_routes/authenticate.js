@@ -9,6 +9,7 @@ router.get("/", (req, res, next) => {
     authenticated: "true",
     user_id: cookies.user_id,
     username: cookies.username,
+    admin: cookies.admin,
   });
 });
 
