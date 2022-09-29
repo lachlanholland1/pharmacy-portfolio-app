@@ -24,6 +24,7 @@ import AddDomain from "./components/domains/add-domains/AddDomain";
 import PeerReview from "./components/peer-review/PeerReview";
 import ViewReview from "./components/view-review/ViewReview";
 import PublicRoute from "./PublicRoute";
+import ViewPeerReview from "./components/view-review/ViewPeerReview";
 
 function App(props) {
   return (
@@ -39,6 +40,7 @@ function App(props) {
         <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
         <Route path="/view-review" element={<ViewReview />} />
+        <Route path="/view-peer-review" element={<ViewPeerReview />} />
         <Route path="/evidence" element={<ViewEvidence />} />
         <Route path="/evidence-review/:id" element={<EvidenceReview />} />
         {/* User Only */}

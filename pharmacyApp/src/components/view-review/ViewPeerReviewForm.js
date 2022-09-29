@@ -14,14 +14,16 @@ const formreducer = (state, event) => {
   };
 };
 
-export default function ViewReviewForm({ evidenceCriteria }) {
+export default function ViewPeerReviewForm({ evidenceCriteria }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { auth, setAuth } = useAuth();
   const [reviewData, setReviewData] = useState([]);
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
-  const [reviewers, setReviewers] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [ispeerReview, setisPeerReview] = useState(null);
+  const [peerReviewData, setPeerReview] = useState([]);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -38,8 +40,9 @@ export default function ViewReviewForm({ evidenceCriteria }) {
       .then((data) => {
         console.log(data);
         setReviewData(data);
+        console.log(data);
       });
-    const evidenceRequest = { idevidenceitems: id };
+    const evidenceRequest = { evidenceitems_id: id };
     fetch("/api/viewevidence", {
       method: "POST",
       body: JSON.stringify(evidenceRequest),
@@ -50,26 +53,43 @@ export default function ViewReviewForm({ evidenceCriteria }) {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
       });
-    const reviewerRequest = { users_id: auth.user_id };
-    fetch("/api/viewreviewers", {
+
+    const peerreviewRequest = { evidenceitems_id: id };
+    fetch("/api/get-peer-review", {
       method: "POST",
-      body: JSON.stringify(reviewerRequest),
+      body: JSON.stringify(peerreviewRequest),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((reviewerDetails) => {
-        if (reviewerDetails.length > 0) {
-          setReviewers(true);
+      .then((peerReviewData) => {
+        if (peerReviewData.length > 0) {
+          setisPeerReview(true);
+          setPeerReview(peerReviewData);
+          console.log("PEER REVIEW DATA");
+          console.log(peerReviewData);
         } else {
-          setReviewers(false);
+          setisPeerReview(false);
         }
+      });
+
+    fetch("/api/get-all-users", {
+      method: "POST",
+      body: JSON.stringify(request),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((userData) => {
+        console.log("USERSSS");
+        setUsers(userData);
+        console.log(userData);
       });
   }, []);
 
   var domainIndex = null;
   var standardIndex = null;
   var competenecyIndex = null;
-
+  var peerReviewInfo = null;
+  var username = null;
   return (
     <div>
       <div className={style.container}>
@@ -166,6 +186,51 @@ export default function ViewReviewForm({ evidenceCriteria }) {
                       </label>
                       <br />
                       <p>Users Comments: {competency.comments}</p>
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                      {ispeerReview === true ? (
+                        <div>
+                          <input
+                            type="hidden"
+                            name="inputThree"
+                            value={
+                              ((peerReviewInfo = PeerReviewData(
+                                peerReviewData,
+                                competency.review_id
+                              )),
+                              (username = getUser(
+                                users,
+                                peerReviewInfo.reviewers_id
+                              )))
+                            }
+                          />
+                          <h3>Peer Reviews</h3>
+                          <p>Reviewer: {username}</p>
+                          <p>Reviewers Comments: {peerReviewInfo.comments}</p>
+
+                          <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
+                          {peerReviewInfo.agreeoncompetency === "No" ? (
+                            <div>
+                              <p>
+                                Performance Criteria Met:{" "}
+                                {
+                                  evidenceCriteria.performance_criteria[
+                                    peerReviewInfo.performancecriterias_id - 2
+                                  ].title
+                                }
+                              </p>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
                     </div>
                   ))}
                 </div>
@@ -225,4 +290,23 @@ function getIndexOfDomain(evidenceCriteria, domains_id) {
     }
   }
   return false;
+}
+
+function PeerReviewData(data, review_id) {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].review_id == review_id) {
+      return data[i];
+    }
+  }
+  return null;
+}
+
+function getUser(users, user_id) {
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].user_id == user_id) {
+      let username = users[i].firstname + " " + users[i].surname;
+      return username;
+    }
+  }
+  return null;
 }
