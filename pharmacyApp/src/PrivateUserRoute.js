@@ -7,7 +7,7 @@ const PrivateRoute = () => {
   const location = useLocation();
   if (loading) return <div>....loading please wait</div>;
 
-  if (auth.admin) {
+  if (auth.user) {
     return <Outlet />;
   } else {
     return <Navigate to="/login" state={{ from: location }} replace />;
