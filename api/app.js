@@ -92,15 +92,12 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
 
-<<<<<<< HEAD
 //Get Peer Review
 const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
 
 //Get All Users
 const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
 
-=======
->>>>>>> origin/main
 dotEnv.config();
 
 var app = express();
