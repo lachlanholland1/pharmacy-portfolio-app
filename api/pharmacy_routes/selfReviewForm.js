@@ -56,7 +56,7 @@ router.post("/", function (req, res, next) {
   async function selectPerformanceCriteria() {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM performancecriterias WHERE status = 'Active';",
+        "SELECT * FROM performancecriterias WHERE status = 'Active' ORDER BY sort;",
         (err, result) => {
           if (err) {
             throw err;

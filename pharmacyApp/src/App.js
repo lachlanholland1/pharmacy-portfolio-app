@@ -4,7 +4,8 @@ import Login from "./components/sign-in/SignInForm";
 import AdminLayout from "./components/admin/layout/AdminLayout";
 import UserLayout from "./components/user/layout/UserLayout";
 import Profile from "./components/user/profile/Profile";
-import PrivateRoute from "./PrivateRoute";
+import PrivateUserRoute from "./PrivateUserRoute";
+import PrivateAdminRoute from "./PrivateAdminRoute";
 import "./styles.css";
 import HomeLayout from "./components/HomeLayout";
 import SignUp from "./components/sign-up/SignUpForm";
@@ -16,7 +17,6 @@ import EditAccount from "./components/edit-account/EditAccount";
 import PasswordChange from "./components/password-change/PasswordChange";
 import ViewEvidence from "./components/user/profile/evidence/viewEvidence";
 import EditEvidence from "./components/editEvidence/editEvidence";
-import ReviewEvidence from "./components/review-evidence/ReviewEvidence";
 import ViewAdmins from "./components/admin/view-admin/ViewAdmins";
 import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
 import EvidenceReview from "./components/evidence-review/EvidenceReview";
@@ -24,6 +24,7 @@ import AddDomain from "./components/domains/add-domains/AddDomain";
 import PeerReview from "./components/peer-review/PeerReview";
 import ViewReview from "./components/view-review/ViewReview";
 import PublicRoute from "./PublicRoute";
+import SelfReview from "./components/self-review/SelfReview";
 
 function App(props) {
   return (
@@ -42,19 +43,19 @@ function App(props) {
         <Route path="/evidence" element={<ViewEvidence />} />
         <Route path="/evidence-review/:id" element={<EvidenceReview />} />
         {/* User Only */}
-        <Route element={<PrivateRoute />}>
+        <Route element={<PrivateUserRoute />}>
           <Route
             path="/accounts/password/change"
             element={<PasswordChange />}
           />
-          <Route path="/review-evidence" element={<ReviewEvidence />} />
+          <Route path="/self-review" element={<SelfReview />} />
           <Route path="/peer-review" element={<PeerReview />} />
           <Route path="/accounts/edit/" element={<EditAccount />} />
           <Route path="/edit-evidence" element={<EditEvidence />} />
         </Route>
       </Route>
       {/* Admin Only */}
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateAdminRoute />}>
         <Route element={<AdminLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/view-admins" element={<ViewAdmins />} />
