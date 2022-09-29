@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import SelfReviewForm from "./SelfReviewForm";
+import { Link } from "react-router-dom";
+import style from "./style.css";
 
 function SelfReview(props) {
   const { auth } = useAuth();
@@ -22,6 +24,9 @@ function SelfReview(props) {
 
   return (
     <div>
+      <Link to={"/" + auth.username}>
+        <button className={style.myButtton}>Back</button>
+      </Link>
       {evidenceCriteria ? (
         <SelfReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (

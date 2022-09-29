@@ -87,16 +87,18 @@ export default function SelfReviewForm({ evidenceCriteria }) {
         <div className={style.sign}>
           <h1 className={style.container}>Review Evidence</h1>
           <form onSubmit={handleSubmit}>
-            {evidenceCriteria.domains.map((domain) => (
+            {evidenceCriteria.domains.map((domain, index) => (
               <div>
-                <h2>{domain.description}</h2>
-                {domain.standards.map((standard, index) => (
-                  <div key={index}>
-                    <h4 onClick={() => handleDisplayDomain(index)}>
-                      {standard.description}
-                    </h4>
-                    {domainsDisplay[index] ? (
-                      standard.competencies.map((competency, index) => (
+                <div className={style.domain_dropdown}>
+                  <h2 onClick={() => handleDisplayDomain(index)}>
+                    {domain.description}
+                  </h2>
+                </div>
+                {domainsDisplay[index] ? (
+                  domain.standards.map((standard, index) => (
+                    <div key={index}>
+                      <h4>{standard.description}</h4>
+                      {standard.competencies.map((competency, index) => (
                         <div key={index}>
                           <label>{competency.description}</label>
                           {evidenceCriteria.performance_criteria.map(
@@ -152,12 +154,12 @@ export default function SelfReviewForm({ evidenceCriteria }) {
                           <br />
                           <br />
                         </div>
-                      ))
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                ))}
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
               </div>
             ))}
             <div className="">
