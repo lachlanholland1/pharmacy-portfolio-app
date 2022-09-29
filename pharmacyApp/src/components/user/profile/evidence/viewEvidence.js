@@ -27,6 +27,9 @@ export default function ViewEvidence(props) {
     review_id = localStorage.getItem("review_id");
   }
 
+  console.log(auth.user_id);
+  console.log(evidenceData.users_id);
+
   useEffect(() => {
     const request = { idevidenceitems: id };
     fetch("/api/viewevidence", {
@@ -84,7 +87,7 @@ export default function ViewEvidence(props) {
           <br />
           <br />
           {auth.user_id === evidenceData.users_id ? (
-            <Link to={`/review-evidence/?id=${id}`}>
+            <Link to={`/create-self-review/?id=${id}`}>
               <button className={style.myButton}>Self Review</button>
             </Link>
           ) : (
