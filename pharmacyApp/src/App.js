@@ -48,7 +48,7 @@ function App(props) {
             path="/accounts/password/change"
             element={<PasswordChange />}
           />
-          <Route path="/self-review" element={<SelfReview />} />
+          <Route path="/create-self-review" element={<SelfReview />} />
           <Route path="/peer-review" element={<PeerReview />} />
           <Route path="/accounts/edit/" element={<EditAccount />} />
           <Route path="/edit-evidence" element={<EditEvidence />} />

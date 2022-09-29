@@ -17,7 +17,7 @@ function Profile(props) {
   const [evidenceData, setEvidenceData] = useState({});
   const location = useLocation();
   const profileUrl = window.location.hostname + ":8080" + location.pathname;
-
+  console.log(auth);
   localStorage.setItem("profile", params.user);
 
   useEffect(() => {
