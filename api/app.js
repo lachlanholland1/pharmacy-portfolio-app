@@ -38,7 +38,7 @@ const signUpRouter = require("./pharmacy_routes/signUp");
 const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
 //Review Evidence
-const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+const selfReviewFormRouter = require("./pharmacy_routes/selfReviewForm");
 const reviewEvidenceRouter = require("./pharmacy_routes/reviewEvidence");
 
 // Evidence Review Info
@@ -92,12 +92,15 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
 
+<<<<<<< HEAD
 //Get Peer Review
 const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
 
 //Get All Users
 const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
 
+=======
+>>>>>>> origin/main
 dotEnv.config();
 
 var app = express();
@@ -182,7 +185,7 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
 //Review Evidence
-app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+app.use("/api/self-review-form", verifyOrigin, selfReviewFormRouter);
 app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
 
 // Evidence Review Info

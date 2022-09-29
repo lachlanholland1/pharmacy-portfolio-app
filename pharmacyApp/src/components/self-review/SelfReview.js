@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import ReviewEvidenceForm from "./ReviewEvidenceForm";
+import SelfReviewForm from "./SelfReviewForm";
+import { Link } from "react-router-dom";
+import style from "./style.css";
 
-function ReviewEvidence(props) {
+function SelfReview(props) {
   const { auth } = useAuth();
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
 
@@ -11,7 +13,7 @@ function ReviewEvidence(props) {
       access_token: auth.access_token,
       username: auth.username,
     };
-    fetch("/api/evidence-criteria", {
+    fetch("/api/self-review-form", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
@@ -22,10 +24,11 @@ function ReviewEvidence(props) {
 
   return (
     <div>
-  
-
+      <Link to={"/" + auth.username}>
+        <button className={style.myButtton}>Back</button>
+      </Link>
       {evidenceCriteria ? (
-        <ReviewEvidenceForm evidenceCriteria={evidenceCriteria} />
+        <SelfReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (
         <></>
       )}
@@ -33,4 +36,4 @@ function ReviewEvidence(props) {
   );
 }
 
-export default ReviewEvidence;
+export default SelfReview;
