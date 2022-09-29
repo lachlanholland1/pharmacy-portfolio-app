@@ -21,7 +21,9 @@ export default function ViewReviewForm({ evidenceCriteria }) {
   const [reviewData, setReviewData] = useState([]);
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
-  const [reviewers, setReviewers] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [ispeerReview, setisPeerReview] = useState(null);
+  const [peerReviewData, setPeerReview] = useState([]);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -38,8 +40,9 @@ export default function ViewReviewForm({ evidenceCriteria }) {
       .then((data) => {
         console.log(data);
         setReviewData(data);
+        console.log(data);
       });
-    const evidenceRequest = { idevidenceitems: id };
+    const evidenceRequest = { evidenceitems_id: id };
     fetch("/api/viewevidence", {
       method: "POST",
       body: JSON.stringify(evidenceRequest),
@@ -50,128 +53,190 @@ export default function ViewReviewForm({ evidenceCriteria }) {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
       });
-    const reviewerRequest = { users_id: auth.user_id };
-    fetch("/api/viewreviewers", {
+
+    const peerreviewRequest = { evidenceitems_id: id };
+    fetch("/api/get-peer-review", {
       method: "POST",
-      body: JSON.stringify(reviewerRequest),
+      body: JSON.stringify(peerreviewRequest),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((reviewerDetails) => {
-        if (reviewerDetails.length > 0) {
-          setReviewers(true);
+      .then((peerReviewData) => {
+        if (peerReviewData.length > 0) {
+          setisPeerReview(true);
+          setPeerReview(peerReviewData);
+          console.log("PEER REVIEW DATA");
+          console.log(peerReviewData);
         } else {
-          setReviewers(false);
+          setisPeerReview(false);
         }
+      });
+
+    fetch("/api/get-all-users", {
+      method: "POST",
+      body: JSON.stringify(request),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((userData) => {
+        console.log("USERSSS");
+        setUsers(userData);
+        console.log(userData);
       });
   }, []);
 
   var domainIndex = null;
   var standardIndex = null;
   var competenecyIndex = null;
-
+  var peerReviewInfo = null;
+  var username = null;
   return (
     <div>
       <div className={style.container}>
         <div className={style.sign}>
           <h1>Peer Review</h1>
-            <p>Evidence Title</p>
-            <h2>{evidenceDataTitle}</h2>
+          <p>Evidence Title</p>
+          <h2>{evidenceDataTitle}</h2>
 
-            <p>Description</p>
-            <p>{evidenceData}</p>
+          <p>Description</p>
+          <p>{evidenceData}</p>
 
-            {reviewData.data?.map((data, index) => (
-              <div>
-                <input
-                  type="hidden"
-                  name="inputTwo"
-                  value={
-                    (domainIndex = getIndexOfDomain(
-                      evidenceCriteria,
-                      data.domains_id
-                    ))
-                  }
-                />
+          {reviewData.data?.map((data, index) => (
+            <div>
+              <input
+                type="hidden"
+                name="inputTwo"
+                value={
+                  (domainIndex = getIndexOfDomain(
+                    evidenceCriteria,
+                    data.domains_id
+                  ))
+                }
+              />
 
-                <h2>
-                  {evidenceCriteria.domains[domainIndex].title}{" "}
-                  {evidenceCriteria.domains[domainIndex].description}
-                </h2>
+              <h2>
+                {evidenceCriteria.domains[domainIndex].title}{" "}
+                {evidenceCriteria.domains[domainIndex].description}
+              </h2>
 
-                {data.standards.map((standard, index) => (
-                  <div key={index}>
-                    <input
-                      type="hidden"
-                      name="inputTwo"
-                      value={
-                        (standardIndex = getIndexOfStandard(
-                          evidenceCriteria,
-                          domainIndex,
-                          standard.standards_id
-                        ))
-                      }
-                    />
+              {data.standards.map((standard, index) => (
+                <div key={index}>
+                  <input
+                    type="hidden"
+                    name="inputTwo"
+                    value={
+                      (standardIndex = getIndexOfStandard(
+                        evidenceCriteria,
+                        domainIndex,
+                        standard.standards_id
+                      ))
+                    }
+                  />
 
-                    <h4>
-                      {
-                        evidenceCriteria.domains[domainIndex].standards[
-                          standardIndex
-                        ].title
-                      }{" "}
-                      {
-                        evidenceCriteria.domains[domainIndex].standards[
-                          standardIndex
-                        ].description
-                      }
-                    </h4>
+                  <h4>
+                    {
+                      evidenceCriteria.domains[domainIndex].standards[
+                        standardIndex
+                      ].title
+                    }{" "}
+                    {
+                      evidenceCriteria.domains[domainIndex].standards[
+                        standardIndex
+                      ].description
+                    }
+                  </h4>
 
-                    {standard.competencies.map((competency, index) => (
-                      <div key={index}>
-                        <input
-                          type="hidden"
-                          name="inputTwo"
-                          value={
-                            (competenecyIndex = getIndexOfCompetency(
-                              evidenceCriteria,
-                              domainIndex,
-                              standardIndex,
-                              competency.competencies_id
-                            ))
-                          }
-                        />
+                  {standard.competencies.map((competency, index) => (
+                    <div key={index}>
+                      <input
+                        type="hidden"
+                        name="inputTwo"
+                        value={
+                          (competenecyIndex = getIndexOfCompetency(
+                            evidenceCriteria,
+                            domainIndex,
+                            standardIndex,
+                            competency.competencies_id
+                          ))
+                        }
+                      />
 
-                        <label>
-                          {
-                            evidenceCriteria.domains[domainIndex].standards[
-                              standardIndex
-                            ].competencies[competenecyIndex].title
-                          }{" "}
-                          {
-                            evidenceCriteria.domains[domainIndex].standards[
-                              standardIndex
-                            ].competencies[competenecyIndex].description
-                          }
-                        </label>
+                      <label>
+                        {
+                          evidenceCriteria.domains[domainIndex].standards[
+                            standardIndex
+                          ].competencies[competenecyIndex].title
+                        }{" "}
+                        {
+                          evidenceCriteria.domains[domainIndex].standards[
+                            standardIndex
+                          ].competencies[competenecyIndex].description
+                        }
+                      </label>
 
-                        <br />
-                        <input type="radio" defaultChecked />
+                      <br />
+                      <input type="radio" defaultChecked />
 
-                        <label>
-                          {
-                            evidenceCriteria.performance_criteria[
-                              competency.performancecriterias_id - 2
-                            ].title
-                          }
-                        </label>
-                        <br />
-                        <p>Users Comments: {competency.comments}</p>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            ))}
+                      <label>
+                        {
+                          evidenceCriteria.performance_criteria[
+                            competency.performancecriterias_id - 2
+                          ].title
+                        }
+                      </label>
+                      <br />
+                      <p>Users Comments: {competency.comments}</p>
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                      {ispeerReview === true ? (
+                        <div>
+                          <input
+                            type="hidden"
+                            name="inputThree"
+                            value={
+                              ((peerReviewInfo = PeerReviewData(
+                                peerReviewData,
+                                competency.review_id
+                              )),
+                              (username = getUser(
+                                users,
+                                peerReviewInfo.reviewers_id
+                              )))
+                            }
+                          />
+                          <h3>Peer Reviews</h3>
+                          <p>Reviewer: {username}</p>
+                          <p>Reviewers Comments: {peerReviewInfo.comments}</p>
+
+                          <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
+                          {peerReviewInfo.agreeoncompetency === "No" ? (
+                            <div>
+                              <p>
+                                Performance Criteria Met:{" "}
+                                {
+                                  evidenceCriteria.performance_criteria[
+                                    peerReviewInfo.performancecriterias_id - 2
+                                  ].title
+                                }
+                              </p>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                      {/* //////////////////////// */}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -188,7 +253,6 @@ function getIndexOfCompetency(
     var max =
       evidenceCriteria.domains[domains_id].standards[standard_id].competencies
         .length;
-    console.log(max);
     for (let i = 0; i < max; i++) {
       if (
         evidenceCriteria.domains[domains_id].standards[standard_id]
@@ -204,7 +268,6 @@ function getIndexOfCompetency(
 function getIndexOfStandard(evidenceCriteria, domains_id, standard_id) {
   if (evidenceCriteria != null) {
     var max = evidenceCriteria.domains[domains_id].standards.length;
-    console.log(max);
     for (let i = 0; i < max; i++) {
       if (
         evidenceCriteria.domains[domains_id].standards[i].idstandards ==
@@ -227,4 +290,29 @@ function getIndexOfDomain(evidenceCriteria, domains_id) {
     }
   }
   return false;
+}
+
+function PeerReviewData(data, review_id) {
+  // console.log("MADE IT TO EPER REVIEW DATA");
+  // console.log(data);
+  // console.log(review_id);
+  // console.log("end");
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].review_id == review_id) {
+      return data[i];
+    }
+  }
+  return null;
+}
+
+function getUser(users, user_id) {
+  for (let i = 0; i < users.length; i++) {
+    //console.log(data[i].review_id);
+    if (users[i].user_id == user_id) {
+      console.log("APPOROVED");
+      let username = users[i].firstname + " " + users[i].surname;
+      return username;
+    }
+  }
+  return null;
 }

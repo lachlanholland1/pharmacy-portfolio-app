@@ -92,6 +92,11 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
 
+//Get Peer Review
+const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
+
+//Get All Users
+const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
 
 dotEnv.config();
 
@@ -238,6 +243,12 @@ app.use("/api/fetch-users", verifyOrigin, fetchUsersRouter);
 
 // Check Admin privileges
 app.use("/api/checkadmins", verifyOrigin, checkAdminsRouter);
+
+//Get Peer Review
+app.use("/api/get-peer-review", verifyOrigin, getPeerReviewRouter);
+
+//Get All Users
+app.use("/api/get-all-users", verifyOrigin, getAllUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
