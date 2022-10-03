@@ -98,6 +98,10 @@ const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
 //Get All Users
 const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
 
+const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+
+const getAllPeerReviewsRouter = require("./pharmacy_routes/getAllPeerReviews");
+
 dotEnv.config();
 
 var app = express();
@@ -185,6 +189,8 @@ app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 app.use("/api/self-review-form", verifyOrigin, selfReviewFormRouter);
 app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
 
+app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+
 // Evidence Review Info
 app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
 
@@ -249,6 +255,8 @@ app.use("/api/get-peer-review", verifyOrigin, getPeerReviewRouter);
 
 //Get All Users
 app.use("/api/get-all-users", verifyOrigin, getAllUsersRouter);
+
+app.use("/api/get-all-peer-reviews", verifyOrigin, getAllPeerReviewsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

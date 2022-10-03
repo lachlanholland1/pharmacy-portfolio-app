@@ -26,6 +26,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
+  const [answers, setAnswers] = useState(false);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -40,11 +41,20 @@ export default function PeerReviewForm({ evidenceCriteria }) {
 
   const handleChange = (event, reviewId) => {
     console.log(reviewId);
+    if (event.target.value == "No") {
+      console.log("NO");
+      setAnswers(true);
+    }
+    if (event.target.value == "Yes") {
+      console.log("YES");
+      setAnswers(false);
+    }
     setFormData({
       name: event.target.name,
       value: event.target.value,
       reviewId: reviewId,
     });
+    console.log(formData);
   };
 
   useEffect(() => {
@@ -117,18 +127,18 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     navigate("/evidence?id=" + id);
   }
 
-  if (reviewers == false) {
-    console.log("Not authorised.");
-    return (
-      <div>
-        <label>You are unauthorised to access this page.</label>
-        <br />
-        <Link to={"/login"}>
-          <button>Login</button>
-        </Link>
-      </div>
-    );
-  }
+  // if (reviewers == false) {
+  //   console.log("Not authorised.");
+  //   return (
+  //     <div>
+  //       <label>You are unauthorised to access this page.</label>
+  //       <br />
+  //       <Link to={"/login"}>
+  //         <button>Login</button>
+  //       </Link>
+  //     </div>
+  //   );
+  // }
 
   console.log(formData);
 
@@ -256,6 +266,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           step="1"
                         />
                         <label className="">{"No"}</label>
+                        {/* {answers === true ? (
+                          <button>Peer Review</button>
+                        ) : (
+                          <></>
+                        )} */}
                         <p>What level do you believe the evidence meets?</p>
                         <div>
                           <input
