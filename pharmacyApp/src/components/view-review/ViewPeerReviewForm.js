@@ -46,7 +46,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
         setReviewData(data);
         console.log(data);
       });
-    const evidenceRequest = { evidenceitems_id: id };
+    const evidenceRequest = { idevidenceitems: id };
     fetch("/api/viewevidence", {
       method: "POST",
       body: JSON.stringify(evidenceRequest),
@@ -56,6 +56,8 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       .then((evidenceData) => {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
+        console.log(evidenceDataTitle);
+        console.log("ASDASDSADSDA");
       });
 
     const peerreviewRequest = { evidenceitems_id: id, peerreview_id: peerid };
