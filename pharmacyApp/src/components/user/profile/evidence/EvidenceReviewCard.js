@@ -11,6 +11,7 @@ function EvidenceReviewCard({ review }) {
     fileName: file,
     fileType: type,
   };
+  const evidence_id = localStorage.getItem("evidence_id");
   useEffect(
     () =>
       fetch("/api/download", {
@@ -28,7 +29,9 @@ function EvidenceReviewCard({ review }) {
 
   return (
     <div>
-      <Link to={"/evidence-review/" + review.idevidencereview}>
+      <Link
+        to={`/view-review/?id=${evidence_id}&reviewid=${review.idevidencereview}`}
+      >
         <img src={profileData.signedUrl} className={style.photo}></img>
         <div>{review.username}</div>
         <div>

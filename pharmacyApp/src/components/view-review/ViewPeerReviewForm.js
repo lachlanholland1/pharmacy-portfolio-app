@@ -15,6 +15,9 @@ const formreducer = (state, event) => {
 };
 
 export default function ViewPeerReviewForm({ evidenceCriteria }) {
+  const [domainsDisplay, setDomainsDisplay] = useState(
+    Array(evidenceCriteria.domains.length).fill(0)
+  );
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { auth, setAuth } = useAuth();
@@ -28,6 +31,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
   const evidencereviews_id = searchParams.get("reviewid");
+  const peerid = searchParams.get("peerid");
 
   useEffect(() => {
     const request = { review_id: evidencereviews_id };
@@ -54,7 +58,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
         setEvidenceDataTitle(evidenceData.evidence_data.title);
       });
 
-    const peerreviewRequest = { evidenceitems_id: id };
+    const peerreviewRequest = { evidenceitems_id: id, peerreview_id: peerid };
     fetch("/api/get-peer-review", {
       method: "POST",
       body: JSON.stringify(peerreviewRequest),
@@ -65,7 +69,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
         if (peerReviewData.length > 0) {
           setisPeerReview(true);
           setPeerReview(peerReviewData);
-          console.log("PEER REVIEW DATA");
           console.log(peerReviewData);
         } else {
           setisPeerReview(false);
@@ -79,7 +82,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((userData) => {
-        console.log("USERSSS");
         setUsers(userData);
         console.log(userData);
       });
@@ -90,6 +92,13 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
   var competenecyIndex = null;
   var peerReviewInfo = null;
   var username = null;
+
+  function handleDisplayDomain(index) {
+    const domainsDisplayCopy = [...domainsDisplay];
+    domainsDisplayCopy[index] = !domainsDisplayCopy[index];
+    setDomainsDisplay(domainsDisplayCopy);
+  }
+
   return (
     <div>
       <div className={style.container}>
@@ -114,127 +123,132 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                 }
               />
 
-              <h2>
-                {evidenceCriteria.domains[domainIndex].title}{" "}
-                {evidenceCriteria.domains[domainIndex].description}
-              </h2>
+              <div className={style.domain_dropdown}>
+                <h2 onClick={() => handleDisplayDomain(index)}>
+                  {evidenceCriteria.domains[domainIndex].title}{" "}
+                  {evidenceCriteria.domains[domainIndex].description}
+                </h2>
+              </div>
+              {domainsDisplay[index] ? (
+                data.standards.map((standard, index) => (
+                  <div key={index}>
+                    <input
+                      type="hidden"
+                      name="inputTwo"
+                      value={
+                        (standardIndex = getIndexOfStandard(
+                          evidenceCriteria,
+                          domainIndex,
+                          standard.standards_id
+                        ))
+                      }
+                    />
 
-              {data.standards.map((standard, index) => (
-                <div key={index}>
-                  <input
-                    type="hidden"
-                    name="inputTwo"
-                    value={
-                      (standardIndex = getIndexOfStandard(
-                        evidenceCriteria,
-                        domainIndex,
-                        standard.standards_id
-                      ))
-                    }
-                  />
+                    <h4>
+                      {
+                        evidenceCriteria.domains[domainIndex].standards[
+                          standardIndex
+                        ].title
+                      }{" "}
+                      {
+                        evidenceCriteria.domains[domainIndex].standards[
+                          standardIndex
+                        ].description
+                      }
+                    </h4>
 
-                  <h4>
-                    {
-                      evidenceCriteria.domains[domainIndex].standards[
-                        standardIndex
-                      ].title
-                    }{" "}
-                    {
-                      evidenceCriteria.domains[domainIndex].standards[
-                        standardIndex
-                      ].description
-                    }
-                  </h4>
+                    {standard.competencies.map((competency, index) => (
+                      <div key={index}>
+                        <input
+                          type="hidden"
+                          name="inputTwo"
+                          value={
+                            (competenecyIndex = getIndexOfCompetency(
+                              evidenceCriteria,
+                              domainIndex,
+                              standardIndex,
+                              competency.competencies_id
+                            ))
+                          }
+                        />
 
-                  {standard.competencies.map((competency, index) => (
-                    <div key={index}>
-                      <input
-                        type="hidden"
-                        name="inputTwo"
-                        value={
-                          (competenecyIndex = getIndexOfCompetency(
-                            evidenceCriteria,
-                            domainIndex,
-                            standardIndex,
-                            competency.competencies_id
-                          ))
-                        }
-                      />
+                        <label>
+                          {
+                            evidenceCriteria.domains[domainIndex].standards[
+                              standardIndex
+                            ].competencies[competenecyIndex].title
+                          }{" "}
+                          {
+                            evidenceCriteria.domains[domainIndex].standards[
+                              standardIndex
+                            ].competencies[competenecyIndex].description
+                          }
+                        </label>
 
-                      <label>
-                        {
-                          evidenceCriteria.domains[domainIndex].standards[
-                            standardIndex
-                          ].competencies[competenecyIndex].title
-                        }{" "}
-                        {
-                          evidenceCriteria.domains[domainIndex].standards[
-                            standardIndex
-                          ].competencies[competenecyIndex].description
-                        }
-                      </label>
+                        <br />
+                        <input type="radio" defaultChecked />
 
-                      <br />
-                      <input type="radio" defaultChecked />
+                        <label>
+                          {
+                            evidenceCriteria.performance_criteria[
+                              competency.performancecriterias_id - 2
+                            ].title
+                          }
+                        </label>
+                        <br />
+                        <p>Users Comments: {competency.comments}</p>
+                        {/* //////////////////////// */}
+                        {/* //////////////////////// */}
+                        {/* //////////////////////// */}
+                        {ispeerReview === true ? (
+                          <div>
+                            <input
+                              type="hidden"
+                              name="inputThree"
+                              value={
+                                ((peerReviewInfo = PeerReviewData(
+                                  peerReviewData,
+                                  competency.review_id
+                                )),
+                                (username = getUser(
+                                  users,
+                                  peerReviewInfo.reviewers_id
+                                )))
+                              }
+                            />
+                            <h3>Peer Reviews</h3>
+                            <p>Reviewer: {username}</p>
+                            <p>Reviewers Comments: {peerReviewInfo.comments}</p>
 
-                      <label>
-                        {
-                          evidenceCriteria.performance_criteria[
-                            competency.performancecriterias_id - 2
-                          ].title
-                        }
-                      </label>
-                      <br />
-                      <p>Users Comments: {competency.comments}</p>
-                      {/* //////////////////////// */}
-                      {/* //////////////////////// */}
-                      {/* //////////////////////// */}
-                      {ispeerReview === true ? (
-                        <div>
-                          <input
-                            type="hidden"
-                            name="inputThree"
-                            value={
-                              ((peerReviewInfo = PeerReviewData(
-                                peerReviewData,
-                                competency.review_id
-                              )),
-                              (username = getUser(
-                                users,
-                                peerReviewInfo.reviewers_id
-                              )))
-                            }
-                          />
-                          <h3>Peer Reviews</h3>
-                          <p>Reviewer: {username}</p>
-                          <p>Reviewers Comments: {peerReviewInfo.comments}</p>
-
-                          <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
-                          {peerReviewInfo.agreeoncompetency === "No" ? (
-                            <div>
-                              <p>
-                                Performance Criteria Met:{" "}
-                                {
-                                  evidenceCriteria.performance_criteria[
-                                    peerReviewInfo.performancecriterias_id - 2
-                                  ].title
-                                }
-                              </p>
-                            </div>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                      {/* //////////////////////// */}
-                      {/* //////////////////////// */}
-                      {/* //////////////////////// */}
-                    </div>
-                  ))}
-                </div>
-              ))}
+                            <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
+                            {peerReviewInfo.agreeoncompetency === "No" ? (
+                              <div>
+                                <p>
+                                  Performance Criteria Met:{" "}
+                                  {
+                                    evidenceCriteria.performance_criteria[
+                                      peerReviewInfo.performancecriterias_id - 2
+                                    ].title
+                                  }
+                                </p>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                        {/* //////////////////////// */}
+                        {/* //////////////////////// */}
+                        {/* //////////////////////// */}
+                      </div>
+                    ))}
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
             </div>
           ))}
         </div>

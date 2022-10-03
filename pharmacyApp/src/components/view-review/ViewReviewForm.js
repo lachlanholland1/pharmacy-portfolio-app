@@ -22,11 +22,16 @@ export default function ViewReviewForm({ evidenceCriteria }) {
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
+  const [evidenceReviews, setEvidenceReviews] = useState([]);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
   const evidencereviews_id = searchParams.get("reviewid");
-
+  let review_id = null;
+  if (evidenceReviews[0] != null) {
+    localStorage.setItem("review_id", evidenceReviews[0].idevidencereview);
+    review_id = localStorage.getItem("review_id");
+  }
   useEffect(() => {
     const request = { review_id: evidencereviews_id };
     fetch("/api/get-evidence-review", {
@@ -49,6 +54,7 @@ export default function ViewReviewForm({ evidenceCriteria }) {
       .then((evidenceData) => {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
+        setEvidenceReviews(evidenceData.evidence_reviews);
       });
     const reviewerRequest = { users_id: auth.user_id };
     fetch("/api/viewreviewers", {
@@ -80,7 +86,13 @@ export default function ViewReviewForm({ evidenceCriteria }) {
 
           <p>Description</p>
           <p>{evidenceData}</p>
-
+          {/* {reviewers === true && auth.user_id != evidenceData.users_id ? ( */}
+          <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
+            <button className={style.myButton}>Create Peer Review</button>
+          </Link>
+          {/* ) : (
+            <></>
+          )} */}
           {reviewData.data?.map((data, index) => (
             <div>
               <input
