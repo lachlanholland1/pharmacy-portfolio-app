@@ -1,26 +1,23 @@
 import React from "react";
+import AddStandardForm from "./AddStandardForm";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import DomainsTable from "./DomainsTable";
-import style from "./DomainsTableStyle.css";
 import useAuth from "../../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import style from "./AddStandardStyle.css";
 
-function ViewDomains(props) {
+function AddStandard(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
   return (
     <div>
-      <Link to={"/" + auth.username}>
+      <Link to={"/view-domains"}>
         <button className={style.myButton}>Back</button>
       </Link>
-      <Link to={"/create-domain"}>
-        <button className={style.myButton}>New Domain</button>
-      </Link>
-      <DomainsTable/>
+      <AddStandardForm />
     </div>
   );
 }
 
-export default ViewDomains;
+export default AddStandard;

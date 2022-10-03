@@ -2,32 +2,32 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import style from "./DomainsTableStyle.css";
+import style from "./PerformancecriteriasTableStyle.css";
 import { confirmAlert } from "react-confirm-alert";
 
 
-export default function DomainsTable(props) {
+export default function PerformancecriteriasTable(props) {
   const params = useParams();
   const { auth } = useAuth();
-  const [domainData, setdomainData] = useState([]);
+  const [performancecriteriaData, setperformancecriteriaData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/domains-table", {
+    fetch("/api/performancecriterias-table", {
       method: "POST",
       body: JSON.stringify({ user: params.user }),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => {
-        setdomainData(data.domains_data);
+        setperformancecriteriaData(data.performancecriterias_data);
       });
   }, []);
 
   return (
     <div>
       <div className={style.padding}>
-        <h2>Domains</h2>
+        <h2>Performance Criterias</h2>
       </div>
       <table className={style.table}>
         <tr table className={style.tr}>
@@ -37,18 +37,18 @@ export default function DomainsTable(props) {
           <th>Action</th>
         </tr>
         <tbody>
-          {domainData.length ? (
-            domainData.map((domain) => (
+          {performancecriteriaData.length ? (
+            performancecriteriaData.map((performancecriteria) => (
               <tr table className={style.tr1}>
-                <td>{domain.title}</td>
+                <td>{performancecriteria.title}</td>
                 <td>
-                  {domain.description}
+                  {performancecriteria.description}
                 </td>
                 <td>
-                  {domain.status}
+                  {performancecriteria.status}
                 </td>
                 <td >
-                    <Link to={`/edit-domains/?id=${domain.iddomains}`}>
+                    <Link to={`/edit-performancecriterias/?id=${performancecriteria.idperformancecriteria}`}>
                       <button className={style.myButton}>Edit</button>
                     </Link>
                 </td>
@@ -56,7 +56,7 @@ export default function DomainsTable(props) {
             ))
           ) : (
             <>
-              <div>No domains.</div>
+              <div>No performance criterias.</div>
             </>
           )}
         </tbody>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
-import style from "./AddDomainStyle.css";
+import style from "./AddCompetencyStyle.css";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
@@ -11,15 +11,34 @@ const formreducer = (state, event) => {
       [event.name]: event.value,
     };
   };
-export default function AddDomainForm(){
+export default function AddCompetencyForm(){
     const [formIsVisible, setFormIsVisible] = useState(true);
     const [isSuccess, setIsSuccess] = useState(-1);
     const [formData, setFormData] = useReducer(formreducer, {});
     const [submitting, setSubmitting] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [frameworkData, setFrameworkData] = useState([]);
     let navigate = useNavigate();
     const params = useParams();
     const { auth } = useAuth();
+    
+    const request = {
+      framework: "standards",
+    };
+
+    useEffect(() => {
+      fetch("/api/fetch-frameworks", {
+        method: "POST",
+        body: JSON.stringify(request),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setFrameworkData(data.frameworks_data);
+        });
+    }, []);
+
 
     const {
         // handleSubmit,
@@ -41,13 +60,13 @@ export default function AddDomainForm(){
         setFormIsVisible(false);
         setLoading(true);
         setSubmitting(true);
-        fetch("/api/createdomain", {
+        fetch("/api/createcompetency", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: { "Content-Type": "application/json" },
         })
-        //view domains not existent yet.
-        .then(navigate("/view-domains"))
+        //view competencies not existent yet.
+        .then(navigate("/view-competencies"))
         .then((response) => {
           setLoading(false);
           if (!response.ok) {
@@ -61,34 +80,48 @@ export default function AddDomainForm(){
       }
     return (
         <div>
-            <h1>Add Domain</h1>
+            <h1>Add Competency</h1>
             <form onSubmit={handleSubmit}>
            
-            <label className={style.padding}>Domain Title</label>
+            <label className={style.padding}>Competency Title</label>
             <br />
             <input
             className={style.myForm1}
             maxLength={65}
             type="text"
             id="title"
-            placeholder="Enter the domain title"
+            placeholder="Enter the Competency title"
             name="title"
             required
             onChange={handleChange}
             />
             <br />
-            <label className={style.padding}>Domain Description</label>
+            <label className={style.padding}>Competency Description</label>
             <br />
             <input
             className={style.myForm1}
             maxLength={65}
             type="text"
             id="description"
-            placeholder="Enter the domains description"
+            placeholder="Enter the competencies description"
             name="description"
             required
             onChange={handleChange}
             />
+            <br/>
+            <label>Standard</label>
+            <br />
+            <br />
+            <select required id="standards_id" name="standards_id" onChange={handleChange}  className={style.classic}>
+              <option value=""></option>
+              {frameworkData.length ? (
+                  frameworkData.map((data) => (
+                    <option value={data.idstandards}>{data.title} ({data.description.substring(0, 60)} {data.description.length > 60 ? ("...") :("") } )</option>
+                  ))
+                ) : (
+                  <option value=""></option>
+                )}
+            </select> 
             <br/>
             <label>Status</label>
             <br />

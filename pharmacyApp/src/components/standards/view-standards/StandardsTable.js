@@ -2,53 +2,56 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import style from "./DomainsTableStyle.css";
-import { confirmAlert } from "react-confirm-alert";
+import style from "./StandardsTableStyle.css";
 
 
-export default function DomainsTable(props) {
+export default function StandardsTable(props) {
   const params = useParams();
   const { auth } = useAuth();
-  const [domainData, setdomainData] = useState([]);
+  const [standardData, setstandardData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/domains-table", {
+    fetch("/api/standards-table", {
       method: "POST",
       body: JSON.stringify({ user: params.user }),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => {
-        setdomainData(data.domains_data);
+        setstandardData(data.standards_data);
       });
   }, []);
 
   return (
     <div>
       <div className={style.padding}>
-        <h2>Domains</h2>
+        <h2>Standards</h2>
       </div>
       <table className={style.table}>
         <tr table className={style.tr}>
-          <th>Title</th>
+          <th>Domain Title</th>
+          <th>Standard Title</th>
           <th>Description</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
         <tbody>
-          {domainData.length ? (
-            domainData.map((domain) => (
+          {standardData.length ? (
+            standardData.map((standard) => (
               <tr table className={style.tr1}>
-                <td>{domain.title}</td>
                 <td>
-                  {domain.description}
+                  {standard.domainstitle}
+                </td>
+                <td>{standard.standardstitle}</td>
+                <td>
+                  {standard.description}
                 </td>
                 <td>
-                  {domain.status}
+                  {standard.status}
                 </td>
                 <td >
-                    <Link to={`/edit-domains/?id=${domain.iddomains}`}>
+                    <Link to={`/edit-standards/?id=${standard.idstandards}`}>
                       <button className={style.myButton}>Edit</button>
                     </Link>
                 </td>
@@ -56,7 +59,7 @@ export default function DomainsTable(props) {
             ))
           ) : (
             <>
-              <div>No domains.</div>
+              <div>No standards.</div>
             </>
           )}
         </tbody>
