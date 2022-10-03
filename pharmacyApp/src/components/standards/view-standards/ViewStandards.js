@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import DomainsTable from "./DomainsTable";
-import style from "./DomainsTableStyle.css";
+import StandardsTable from "./StandardsTable";
 import useAuth from "../../../hooks/useAuth";
+import style from "./StandardsTableStyle.css";
 
-function ViewDomains(props) {
+function ViewStandards(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
@@ -15,12 +15,12 @@ function ViewDomains(props) {
       <Link to={"/" + auth.username}>
         <button className={style.myButton}>Back</button>
       </Link>
-      <Link to={"/create-domain"}>
-        <button className={style.myButton}>New Domain</button>
+      <Link to={"/create-standard"}>
+        <button className={style.myButton}>New Standard</button>
       </Link>
-      <DomainsTable/>
+      <StandardsTable/>
     </div>
   );
 }
 
-export default ViewDomains;
+export default ViewStandards;
