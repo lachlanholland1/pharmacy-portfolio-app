@@ -1,66 +1,70 @@
 .container {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height: 98vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98vh;
 }
 
 .sign {
-    border: 2px solid lightgray;
-    padding: 25px 125px 50px 125px;
-    border-radius: 25px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-    margin-top: -150px;
-  }
+  border: 2px solid lightgray;
+  padding: 25px 125px 50px 125px;
+  border-radius: 25px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+  margin-top: -150px;
+}
 
 .myButton {
-	background-color:#000000;
-	border-radius:42px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	height: 40px;
-    width: 300px;
-	text-decoration:none;
-    margin-top: 10px;
+  background-color: #000000;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  height: 25px;
+  width: 75px;
+  text-decoration: none;
+
+
 }
+
 .myButton:hover {
-	background-color:#707070;
+  background-color: #707070;
 }
+
 .myButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .myForm {
-    border: 2px solid lightgray;
-    border-radius:42px;
-    margin-bottom: 15px;
-    text-align: left;
-    text-indent: 10px;
-    height: 40px;
-    width: 300px;
+  border: 2px solid lightgray;
+  border-radius: 42px;
+  margin-bottom: 15px;
+  text-align: left;
+  text-indent: 10px;
+  height: 40px;
+  width: 300px;
 }
 
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 .padding {
-    display: inline-block;
-    padding-bottom: 5px;
-    align-items: center;
+  display: inline-block;
+  padding-bottom: 5px;
+  align-items: center;
 }
 
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 /* Select */
+<<<<<<< HEAD
 select {
 
   /* styling */
@@ -89,6 +93,34 @@ select.classic {
   background-position:
     calc(100% - 15px) 1em,
     calc(100% - 10px) 1em,
+=======
+.classic {
+  /* styling */
+  background-color: white;
+  border: thin solid purple;
+  border-radius: 4px;
+  display: inline-block;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 4px 50px 4px 50px;
+  width: 100px;
+
+  /* reset */
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* arrows */
+  background-image:
+    linear-gradient(45deg, transparent 50%, black 50%),
+    linear-gradient(135deg, black 50%, transparent 50%),
+    linear-gradient(to right, purple, purple);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
     100% 0;
   background-size:
     5px 5px,
@@ -97,7 +129,30 @@ select.classic {
   background-repeat: no-repeat;
 }
 
+.classic:focus {
+  background-image:
+    linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    linear-gradient(to right, gray, gray);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+>>>>>>> main
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+<<<<<<< HEAD
+}
+
 select.classic:focus {
   outline-style: thin solid;
   outline-color: blue;
 }
+=======
+  border-color: grey;
+  outline: 0;
+}
+>>>>>>> main

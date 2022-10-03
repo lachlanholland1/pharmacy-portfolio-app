@@ -6,7 +6,7 @@ dotEnv.config();
 
 router.post("/", function (req, res, next) {
   console.log(req.body);
-  if (!req.body.user_id) {
+  if (!req.session.userid) {
     console.log("hi");
     return res.sendStatus(401);
   }
@@ -17,7 +17,6 @@ router.post("/", function (req, res, next) {
     !req.body.form_data.new_password ||
     !req.body.form_data.confirm_password
   ) {
-    console.log("hi0");
     return res.sendStatus(401);
   }
 
@@ -26,16 +25,14 @@ router.post("/", function (req, res, next) {
   const confirmPassword = req.body.form_data.confirm_password;
 
   if (oldPassword == newPassword) {
-    console.log("hi1");
     res.sendStatus(401);
   }
 
   if (newPassword != confirmPassword) {
-    console.log("hi2");
     res.sendStatus(401);
   }
 
-  const user_id = req.body.user_id;
+  const user_id = req.session.userid;
 
   db.query(
     "SELECT password from Users WHERE user_id = ?;",

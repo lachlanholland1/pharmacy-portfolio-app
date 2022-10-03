@@ -11,7 +11,6 @@ function EvidenceTable() {
   const params = useParams();
   const { auth } = useAuth();
   const [evidenceData, setEvidenceData] = useState([]);
-  console.log(params.user);
   useEffect(() => {
     fetch("/api/evidence-table", {
       method: "POST",
@@ -25,7 +24,6 @@ function EvidenceTable() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setEvidenceData(data.evidence_data);
       })
       .catch((err) => console.log(err));

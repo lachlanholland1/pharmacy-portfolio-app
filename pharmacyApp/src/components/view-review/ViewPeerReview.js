@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
+import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import ReviewEvidenceForm from "./ReviewEvidenceForm";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import style from "./style.css";
+import ViewPeerReviewForm from "./ViewPeerReviewForm";
 
-function ReviewEvidence(props) {
+function ViewPeerReview(props) {
   const { auth } = useAuth();
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
+  localStorage.removeItem("currentDomain");
 
   useEffect(() => {
     const request = {
@@ -17,15 +21,16 @@ function ReviewEvidence(props) {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((data) => setEvidenceCriteria(data));
+      .then((data) => {
+        console.log(data);
+        setEvidenceCriteria(data);
+      });
   }, []);
 
   return (
     <div>
-  
-
       {evidenceCriteria ? (
-        <ReviewEvidenceForm evidenceCriteria={evidenceCriteria} />
+        <ViewPeerReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (
         <></>
       )}
@@ -33,4 +38,4 @@ function ReviewEvidence(props) {
   );
 }
 
-export default ReviewEvidence;
+export default ViewPeerReview;

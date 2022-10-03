@@ -7,10 +7,11 @@ import { confirmAlert } from "react-confirm-alert";
 
 
 export default function DomainsTable(props) {
-  let navigate = useNavigate();
   const params = useParams();
   const { auth } = useAuth();
   const [domainData, setdomainData] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch("/api/domains-table", {
       method: "POST",
@@ -23,35 +24,6 @@ export default function DomainsTable(props) {
       });
   }, []);
 
-  // const submit = (domain_id) => {
-  //   confirmAlert({
-  //     title: "Confirm to Delete",
-  //     message: "Are you sure want to delete the user as a domain?",
-  //     buttons: [
-  //       {
-  //         label: "Yes",
-  //         // onClick: () => alert("Click Yes")
-  //         onClick: () => fetch("/api/deletedomain", {
-  //           method: "POST",
-  //           body: JSON.stringify({domain_id: domain_id}),
-  //           headers: { "Content-Type": "application/json" }
-  //         })
-  //           .then((res) => res.json())
-  //           .then(navigate("/view-domains"))
-  //       },
-  //       {
-  //         label: "No",
-  //         onClick: () => navigate("/view-domains")
-  //         //onClick: () => alert("Click No")
-  //       }
-  //     ]
-  //   });
-  // };
-
-  // function handleOnClick(userid) {
-  //   return navigate(`/evidence?id=${userid}`);
-  // }
-
   return (
     <div>
       <div className={style.padding}>
@@ -59,22 +31,26 @@ export default function DomainsTable(props) {
       </div>
       <table className={style.table}>
         <tr table className={style.tr}>
-          <th>User Email</th>
-          <th>Name</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
         <tbody>
           {domainData.length ? (
             domainData.map((domain) => (
               <tr table className={style.tr1}>
-                <td>{domain.email}</td>
+                <td>{domain.title}</td>
                 <td>
-                  {domain.firstname} {domain.surname}
+                  {domain.description}
+                </td>
+                <td>
+                  {domain.status}
                 </td>
                 <td >
-                  {/* Need to validate that the current domain has Alter privileges */}
-                    {/* <button className={style.myButton} onClick={() => submit(domain.iddomains)}>Delete</button> */}
-                    <button className={style.myButton} >Edit</button>
+                    <Link to={`/edit-domains/?id=${domain.iddomains}`}>
+                      <button className={style.myButton}>Edit</button>
+                    </Link>
                 </td>
               </tr>
             ))

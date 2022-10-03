@@ -29,7 +29,8 @@ function Dashboard(props) {
   }, []);
   return (
     <div>
-      {profileLoaded ? (
+      <h1>DashBoard</h1>
+      {/* {profileLoaded ? (
         <div>
           <div>{firstName + " " + lastName}</div>
           <div>{username}</div>
@@ -37,7 +38,7 @@ function Dashboard(props) {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 }

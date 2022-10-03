@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SignUp from "../sign-up/SignUp";
 import SignInStyle from "./SignInStyle.css";
-import { Link } from "react-router-dom";
 
 const formreducer = (state, event) => {
   return {
@@ -13,7 +12,7 @@ const formreducer = (state, event) => {
 };
 
 function SignInForm(props) {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formData, setFormData] = useReducer(formreducer, {});
@@ -26,16 +25,23 @@ function SignInForm(props) {
       body: JSON.stringify(loginReq),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject();
+        }
+        return response.json();
+      })
       .then((data) => {
-        if (data.access_token) {
-          setAuth({
-            user: true,
-            user_id: data.user_id,
-            access_token: data.access_token,
-            username: data.username,
-          });
+        setAuth({
+          user: true,
+          user_id: data.user_id,
+          username: data.username,
+          admin: data.admin,
+        });
+        if (!data.admin) {
           navigate("/" + data.username);
+        } else {
+          navigate("/");
         }
       });
   }

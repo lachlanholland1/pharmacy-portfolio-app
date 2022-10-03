@@ -9,7 +9,6 @@ router.post("/", (req, res, next) => {
   const username = req.body.username;
   const firstName = req.body.first_name;
   const lastName = req.body.last_name;
-  console.log(req.body);
   db.query(
     "INSERT INTO Users (user_id, username, email, password, firstname, surname) VALUES (?, ?, ?, ?, ?, ?)",
     [userId, username, email, password, firstName, lastName],

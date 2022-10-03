@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import style from "./Profile.css";
+import Cookies from "js-cookie";
 
 function Profile(props) {
   const params = useParams();
@@ -16,7 +17,7 @@ function Profile(props) {
   const [evidenceData, setEvidenceData] = useState({});
   const location = useLocation();
   const profileUrl = window.location.hostname + ":8080" + location.pathname;
-
+  console.log(auth);
   localStorage.setItem("profile", params.user);
 
   useEffect(() => {
@@ -35,33 +36,36 @@ function Profile(props) {
       .then(() => setProfileLoaded(true));
   }, []);
 
-  console.log(userDetails);
-
   useEffect(() => {
-    //Method to download profile picture
-    if (!Object.keys(userDetails).length) {
-      return;
+    if (userDetails.attachment != null) {
+      //Method to download profile picture
+      if (!Object.keys(userDetails).length) {
+        return;
+      }
+      const file = userDetails.attachment;
+      console.log(Cookies.get("username"));
+      console.log(Cookies.get("username"));
+      console.log(Cookies.get("username"));
+      console.log(Cookies.get("username"));
+      console.log(Cookies.get("username"));
+      const type = file.substr(file.length - 3);
+      const requestObject = {
+        fileName: file,
+        fileType: type,
+      };
+      fetch("/api/download", {
+        method: "POST",
+        body: JSON.stringify(requestObject),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data1) => {
+          console.log(data1);
+          setEvidenceData(data1);
+        });
     }
-    const file = userDetails.attachment;
-    console.log(file);
-    console.log(file);
-    console.log(file);
-    const type = file.substr(file.length - 3);
-    const requestObject = {
-      fileName: file,
-      fileType: type,
-    };
-    fetch("/api/download", {
-      method: "POST",
-      body: JSON.stringify(requestObject),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data1) => {
-        console.log(data1);
-        setEvidenceData(data1);
-      });
   }, [userDetails]);
+
   console.log(window.location.hostname);
 
   function copyProfileLink() {
@@ -82,10 +86,17 @@ function Profile(props) {
                 {userDetails.first_name + " " + userDetails.last_name}
               </h1>
               <h3 className={style.padding}>{userDetails.username}</h3>
-              {auth.user && auth.username === params.user ? (
+              {Cookies.get("username") === params.user ? (
                 <div>
-                  <input className={style.margin} value={profileUrl} readOnly id="profileLink" />
-                  <button className={style.myButton} onClick={copyProfileLink}>Copy</button>
+                  <input
+                    className={style.margin}
+                    value={profileUrl}
+                    readOnly
+                    id="profileLink"
+                  />
+                  <button className={style.myButton} onClick={copyProfileLink}>
+                    Copy
+                  </button>
                 </div>
               ) : (
                 <></>
@@ -108,18 +119,13 @@ export default Profile;
 
 function PrivateAccount(userDetails) {
   const { auth, setAuth } = useAuth();
-  if (userDetails.userDetails.private_account === 1){
-    if (userDetails.userDetails.user_id = auth.user_id){
-      console.log("if statement auth");
-      return (<EvidenceTable />);
+  if (userDetails.userDetails.private_account === 1) {
+    if ((userDetails.userDetails.user_id = auth.user_id)) {
+      return <EvidenceTable />;
+    } else {
+      return <div>This Account is Private.</div>;
     }
-    else {
-      console.log("if statement unauth");
-      return (<div>This Account is Private.</div>);
-    }
-  }
-  else {
-    console.log("fine to show");
-    return (<EvidenceTable />);
+  } else {
+    return <EvidenceTable />;
   }
 }

@@ -71,7 +71,7 @@ export default function AddDomainForm(){
             maxLength={65}
             type="text"
             id="title"
-            placeholder="Enter the a domain title"
+            placeholder="Enter the domain title"
             name="title"
             required
             onChange={handleChange}

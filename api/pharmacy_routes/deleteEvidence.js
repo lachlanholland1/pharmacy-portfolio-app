@@ -4,7 +4,6 @@ const db = require("../connection.js");
 
 router.post("/", (req, res, next) => {
   const idevidenceitems = req.body.idevidenceitems;
-  console.log(req.body);
   db.query(
     "DELETE FROM evidenceitems WHERE idevidenceitems = ?",
     [idevidenceitems],
@@ -12,7 +11,8 @@ router.post("/", (req, res, next) => {
       if (err) {
         console.log(err);
         res.sendStatus(401);
-        return;}
+        return;
+      }
       res.sendStatus(200);
     }
   );

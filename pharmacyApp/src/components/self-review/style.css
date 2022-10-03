@@ -1,0 +1,44 @@
+.container {
+    display:flex;
+    align-items: center;
+    justify-content: left;
+    height: 100%;
+}
+
+.sign {
+    border: 2px solid lightgray;
+    padding: 25px 25px 50px 25px;
+    border-radius: 25px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    text-align: left;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .domain_dropdown {
+    cursor: pointer;
+  }
+
+
+  .myButton {
+    background-color:#000000;
+    border-radius:42px;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:17px;
+    height: 40px;
+      width: 300px;
+    text-decoration:none;
+      border: none;
+  }
+  .myButton:hover {
+    background-color:#707070;
+  }
+  .myButton:active {
+    position:relative;
+    top:1px;
+  }
