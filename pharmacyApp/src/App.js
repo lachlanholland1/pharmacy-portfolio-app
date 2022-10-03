@@ -26,6 +26,7 @@ import PeerReview from "./components/peer-review/PeerReview";
 import ViewReview from "./components/view-review/ViewReview";
 import PublicRoute from "./PublicRoute";
 import SelfReview from "./components/self-review/SelfReview";
+import ViewPeerReview from "./components/view-review/ViewPeerReview";
 import EditDomains from "./components/domains/edit-domains/EditDomains";
 import AddStandard from "./components/standards/add-standards/AddStandard";
 import ViewStandards from "./components/standards/view-standards/ViewStandards";
@@ -48,6 +49,7 @@ function App(props) {
         <Route path="/:user" element={<Profile />} />       
         <Route path="/add-evidence" element={<AddEvidence />} />
         <Route path="/view-review" element={<ViewReview />} />
+        <Route path="/view-peer-review" element={<ViewPeerReview />} />
         <Route path="/evidence" element={<ViewEvidence />} />
         <Route path="/evidence-review/:id" element={<EvidenceReview />} />
         {/* User Only */}
