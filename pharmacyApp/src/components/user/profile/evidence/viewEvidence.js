@@ -6,6 +6,7 @@ import DownloadImageToS3 from "../../../../DownloadFileToS3";
 import style from "./viewEvidence.css";
 import EvidenceReviews from "./EvidenceReviews";
 import Moment from "moment";
+import PeerReviewTable from "./PeerReviewTable";
 
 export default function ViewEvidence(props) {
   const navigate = useNavigate();
@@ -13,19 +14,11 @@ export default function ViewEvidence(props) {
   const id = searchParams.get("id");
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceReviews, setEvidenceReviews] = useState([]);
-  const [reviewers, setReviewers] = useState(false);
   const { auth, setAuth } = useAuth();
 
   let viewingProfile = localStorage.getItem("profile");
-  let review_id = null;
   localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
   localStorage.setItem("attachment", evidenceData.attachment);
-  console.log(evidenceReviews[0]);
-  if (evidenceReviews[0] != null) {
-    localStorage.setItem("review_id", evidenceReviews[0].idevidencereview);
-    console.log("set");
-    review_id = localStorage.getItem("review_id");
-  }
 
   console.log(auth.user_id);
   console.log(evidenceData.users_id);
@@ -41,20 +34,6 @@ export default function ViewEvidence(props) {
       .then((details) => {
         setEvidenceData(details.evidence_data);
         setEvidenceReviews(details.evidence_reviews);
-      });
-    const reviewerRequest = { users_id: auth.user_id };
-    fetch("/api/viewreviewers", {
-      method: "POST",
-      body: JSON.stringify(reviewerRequest),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((reviewerDetails) => {
-        if (reviewerDetails.length > 0) {
-          setReviewers(true);
-        } else {
-          setReviewers(false);
-        }
       });
   }, []);
   return (
@@ -94,20 +73,13 @@ export default function ViewEvidence(props) {
             <></>
           )}
           <br />
-          {reviewers === true && auth.user_id != evidenceData.users_id ? (
-            <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
-              <button className={style.myButton}>Peer Review</button>
-            </Link>
-          ) : (
-            <></>
-          )}
-
           <br />
           <Link to={"/" + viewingProfile}>
             <button className={style.myButton}>Back</button>
           </Link>
           <h3>Self Reviews</h3>
           <EvidenceReviews reviews={evidenceReviews} />
+          <PeerReviewTable />
         </div>
       </div>
     </div>

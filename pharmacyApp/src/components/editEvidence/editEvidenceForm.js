@@ -37,7 +37,10 @@ export default function EditEvidenceForm({ evidenceData }) {
       name: event.target.name,
       value: event.target.value,
     });
-    setFormData({ name: "idevidenceitems", value: evidenceData.idevidenceitems });
+    setFormData({
+      name: "idevidenceitems",
+      value: evidenceData.idevidenceitems,
+    });
   };
   const handleChangeDate = (date) => {
     setUserChanged(true);
@@ -45,8 +48,11 @@ export default function EditEvidenceForm({ evidenceData }) {
       name: "date",
       value: date.toString().concat(" 00:00:00"),
     });
-    setFormData({ name: "idevidenceitems", value: evidenceData.idevidenceitems });
-  }
+    setFormData({
+      name: "idevidenceitems",
+      value: evidenceData.idevidenceitems,
+    });
+  };
 
   function handleSubmit(e) {
     if (!userChanged) return;
@@ -74,45 +80,46 @@ export default function EditEvidenceForm({ evidenceData }) {
 
   const submit = () => {
     confirmAlert({
-      title: "Confirm to Delete",
-      message: "Are you sure to do this?",
+      title: "Confirm Delete",
+      message: "Are you sure you want to do this?",
       buttons: [
         {
           label: "Yes",
           // onClick: () => alert("Click Yes")
-          onClick: () => fetch("/api/deleteevidence", {
-            method: "POST",
-            body: JSON.stringify({idevidenceitems: evidenceData.idevidenceitems}),
-            headers: { "Content-Type": "application/json" }
-          })
-            .then((res) => res.json())
-            .then(navigate("/" + auth.username))
+          onClick: () =>
+            fetch("/api/deleteevidence", {
+              method: "POST",
+              body: JSON.stringify({
+                idevidenceitems: evidenceData.idevidenceitems,
+              }),
+              headers: { "Content-Type": "application/json" },
+            })
+              .then((res) => res.json())
+              .then(navigate("/" + auth.username)),
         },
         {
           label: "No",
-          onClick: () => navigate("/" + auth.username)
+          onClick: () => navigate("/" + auth.username),
           //onClick: () => alert("Click No")
-        }
-      ]
+        },
+      ],
     });
   };
 
-console.log(auth.user_id, evidenceData.users_id);
+  console.log(auth.user_id, evidenceData.users_id);
   if (auth.user_id != evidenceData.users_id) {
     console.log("Not authorised.");
-    return(
+    return (
       <div>
-        <label>You are unauthorised to access this page.
-        </label>
+        <label>You are unauthorised to access this page.</label>
         <br />
         <Link to={"/login"}>
-        <button>Login</button>
-      </Link>
-        </div>
-    )
+          <button>Login</button>
+        </Link>
+      </div>
+    );
   }
 
-    
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -173,22 +180,21 @@ console.log(auth.user_id, evidenceData.users_id);
             Submit
           </button>
           {/* temp fix */}
-          <Link to={'/' + auth.username}>
-        <button>Back</button>
-      </Link>
+          <Link to={"/" + auth.username}>
+            <button>Back</button>
+          </Link>
           {/* <Link to={`/evidence?id=${evidenceData.idevidenceitems}`}>
         <button>Back</button>
       </Link> */}
-      <br />
+          <br />
         </div>
       </form>
       <div>
         <button onClick={submit}>Delete Evidence</button>
-        </div>
+      </div>
     </div>
   );
-//}
-
+  //}
 }
 
 // function DeleteEvidence(id) {
@@ -199,10 +205,10 @@ console.log(auth.user_id, evidenceData.users_id);
 //             body: JSON.stringify(),
 //             headers: { "Content-Type": "application/json" }
 //           })
-//             .then((res) => res.json())      
+//             .then((res) => res.json())
 //             // .then(navigate("/" + auth.username))
 //       }
-    
+
 //     return(
 //     <div>
 //     <label>

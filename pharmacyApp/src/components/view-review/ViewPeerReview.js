@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
+import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import PeerReviewForm from "./PeerReviewForm";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import style from "./style.css";
+import ViewPeerReviewForm from "./ViewPeerReviewForm";
 
-function PeerReview(props) {
+function ViewPeerReview(props) {
   const { auth } = useAuth();
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
   localStorage.removeItem("currentDomain");
@@ -27,7 +30,7 @@ function PeerReview(props) {
   return (
     <div>
       {evidenceCriteria ? (
-        <PeerReviewForm evidenceCriteria={evidenceCriteria} />
+        <ViewPeerReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (
         <></>
       )}
@@ -35,4 +38,4 @@ function PeerReview(props) {
   );
 }
 
-export default PeerReview;
+export default ViewPeerReview;

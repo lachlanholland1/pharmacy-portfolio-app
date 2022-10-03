@@ -92,6 +92,17 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
 
+
+//Get Peer Review
+const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
+
+//Get All Users
+const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
+
+const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+
+const getAllPeerReviewsRouter = require("./pharmacy_routes/getAllPeerReviews");
+
 // Grab domains
 const getDomainsRouter = require("./pharmacy_routes/getDomains");
 
@@ -121,8 +132,6 @@ const getPerformancecriteriasRouter = require("./pharmacy_routes/getPerformancec
 
 //Create performance criteria
 const createPerformancecriteriasRouter = require("./pharmacy_routes/createPerformancecriterias");
-
-
 
 dotEnv.config();
 
@@ -211,6 +220,8 @@ app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 app.use("/api/self-review-form", verifyOrigin, selfReviewFormRouter);
 app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
 
+app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+
 // Evidence Review Info
 app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
 
@@ -270,6 +281,14 @@ app.use("/api/fetch-users", verifyOrigin, fetchUsersRouter);
 // Check Admin privileges
 app.use("/api/checkadmins", verifyOrigin, checkAdminsRouter);
 
+//Get Peer Review
+app.use("/api/get-peer-review", verifyOrigin, getPeerReviewRouter);
+
+//Get All Users
+app.use("/api/get-all-users", verifyOrigin, getAllUsersRouter);
+
+app.use("/api/get-all-peer-reviews", verifyOrigin, getAllPeerReviewsRouter);
+
 // Create Domain
 app.use("/api/createdomain", verifyOrigin, createDomainRouter);
 
@@ -302,8 +321,6 @@ app.use("/api/performancecriterias-table", verifyOrigin, getPerformancecriterias
 
 // create performancecriterias 
 app.use("/api/createperformancecriterias", verifyOrigin, createPerformancecriteriasRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
