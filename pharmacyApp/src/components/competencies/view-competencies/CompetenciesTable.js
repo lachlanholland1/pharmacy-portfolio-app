@@ -2,53 +2,56 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import style from "./DomainsTableStyle.css";
-import { confirmAlert } from "react-confirm-alert";
+import style from "./CompetenciesTableStyle.css";
 
 
-export default function DomainsTable(props) {
+export default function CompetenciesTable(props) {
   const params = useParams();
   const { auth } = useAuth();
-  const [domainData, setdomainData] = useState([]);
+  const [competencyData, setcompetencyData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/domains-table", {
+    fetch("/api/competencies-table", {
       method: "POST",
       body: JSON.stringify({ user: params.user }),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => {
-        setdomainData(data.domains_data);
+        setcompetencyData(data.competencies_data);
       });
   }, []);
 
   return (
     <div>
       <div className={style.padding}>
-        <h2>Domains</h2>
+        <h2>Competencies</h2>
       </div>
       <table className={style.table}>
         <tr table className={style.tr}>
-          <th>Title</th>
+          <th>Standard Title</th>
+          <th>Competency Title</th>
           <th>Description</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
         <tbody>
-          {domainData.length ? (
-            domainData.map((domain) => (
+          {competencyData.length ? (
+            competencyData.map((competency) => (
               <tr table className={style.tr1}>
-                <td>{domain.title}</td>
                 <td>
-                  {domain.description}
+                  {competency.standardstitle}
+                </td>
+                <td>{competency.competenciestitle}</td>
+                <td>
+                  {competency.description}
                 </td>
                 <td>
-                  {domain.status}
+                  {competency.status}
                 </td>
                 <td >
-                    <Link to={`/edit-domains/?id=${domain.iddomains}`}>
+                    <Link to={`/edit-competencies/?id=${competency.idCompetencies}`}>
                       <button className={style.myButton}>Edit</button>
                     </Link>
                 </td>
@@ -56,7 +59,7 @@ export default function DomainsTable(props) {
             ))
           ) : (
             <>
-              <div>No domains.</div>
+              <div>No Competencies.</div>
             </>
           )}
         </tbody>

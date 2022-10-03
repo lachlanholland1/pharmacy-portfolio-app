@@ -82,8 +82,8 @@ const viewReviewersRouter = require("./pharmacy_routes/viewReviewers");
 
 //Peer Review
 const peerReviewRouter = require("./pharmacy_routes/peerReview");
-//Create Domain
 
+//Create Domain
 const createDomainRouter = require("./pharmacy_routes/createDomain");
 
 //Delete Reviewer
@@ -91,6 +91,7 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
+
 
 //Get Peer Review
 const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
@@ -101,6 +102,36 @@ const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
 const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
 
 const getAllPeerReviewsRouter = require("./pharmacy_routes/getAllPeerReviews");
+
+// Grab domains
+const getDomainsRouter = require("./pharmacy_routes/getDomains");
+
+// Grab domains
+const editDomainsRouter = require("./pharmacy_routes/editDomains");
+
+// Grab single domain
+const getDomainRouter = require("./pharmacy_routes/getDomain");
+
+//Create Standard
+const createStandardRouter = require("./pharmacy_routes/createStandard");
+
+//Fetch Frameworks
+const fetchFrameworksRouter = require("./pharmacy_routes/fetchFrameworks");
+
+// Grab standards
+const getStandardsRouter = require("./pharmacy_routes/getStandards");
+
+// Grab competencies
+const getCompetenciesRouter = require("./pharmacy_routes/getCompetencies");
+
+//Create Competency
+const createCompetencyRouter = require("./pharmacy_routes/createCompetency");
+
+// Grab Performancecriterias
+const getPerformancecriteriasRouter = require("./pharmacy_routes/getPerformancecriterias");
+
+//Create performance criteria
+const createPerformancecriteriasRouter = require("./pharmacy_routes/createPerformancecriterias");
 
 dotEnv.config();
 
@@ -257,6 +288,39 @@ app.use("/api/get-peer-review", verifyOrigin, getPeerReviewRouter);
 app.use("/api/get-all-users", verifyOrigin, getAllUsersRouter);
 
 app.use("/api/get-all-peer-reviews", verifyOrigin, getAllPeerReviewsRouter);
+
+// Create Domain
+app.use("/api/createdomain", verifyOrigin, createDomainRouter);
+
+// Domains table
+app.use("/api/domains-table", verifyOrigin, getDomainsRouter);
+
+// Edit domains
+app.use("/api/editdomains", verifyOrigin, editDomainsRouter);
+
+// get domain
+app.use("/api/getdomain", verifyOrigin, getDomainRouter);
+
+//Create Standard
+app.use("/api/createstandard", verifyOrigin, createStandardRouter);
+
+// fetch framework data 
+app.use("/api/fetch-frameworks", verifyOrigin, fetchFrameworksRouter);
+
+// standards table
+app.use("/api/standards-table", verifyOrigin, getStandardsRouter);
+
+// competencies table
+app.use("/api/competencies-table", verifyOrigin, getCompetenciesRouter);
+
+// create competency
+app.use("/api/createcompetency", verifyOrigin, createCompetencyRouter);
+
+// performancecriterias table
+app.use("/api/performancecriterias-table", verifyOrigin, getPerformancecriteriasRouter);
+
+// create performancecriterias 
+app.use("/api/createperformancecriterias", verifyOrigin, createPerformancecriteriasRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

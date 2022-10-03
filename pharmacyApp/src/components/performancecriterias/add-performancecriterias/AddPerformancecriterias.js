@@ -1,26 +1,23 @@
 import React from "react";
+import AddPerformancecriteriasForm from "./AddPerformancecriteriasForm";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import DomainsTable from "./DomainsTable";
-import style from "./DomainsTableStyle.css";
 import useAuth from "../../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import style from "./AddPerformancecriteriasStyle.css";
 
-function ViewDomains(props) {
+function AddPerformancecriterias(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
   return (
     <div>
-      <Link to={"/" + auth.username}>
+      <Link to={"/view-Performancecriterias"}>
         <button className={style.myButton}>Back</button>
       </Link>
-      <Link to={"/create-domain"}>
-        <button className={style.myButton}>New Domain</button>
-      </Link>
-      <DomainsTable/>
+      <AddPerformancecriteriaForm />
     </div>
   );
 }
 
-export default ViewDomains;
+export default AddPerformancecriteriasForm;
