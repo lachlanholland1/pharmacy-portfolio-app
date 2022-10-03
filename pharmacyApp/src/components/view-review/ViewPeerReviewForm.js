@@ -27,6 +27,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
   const [users, setUsers] = useState([]);
   const [ispeerReview, setisPeerReview] = useState(null);
   const [peerReviewData, setPeerReview] = useState([]);
+  const [reviewers, setReviewers] = useState(null);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -87,6 +88,21 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
         setUsers(userData);
         console.log(userData);
       });
+
+    const reviewerRequest = { users_id: auth.user_id };
+    fetch("/api/viewreviewers", {
+      method: "POST",
+      body: JSON.stringify(reviewerRequest),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((reviewerDetails) => {
+        if (reviewerDetails.length > 0) {
+          setReviewers(true);
+        } else {
+          setReviewers(false);
+        }
+      });
   }, []);
 
   var domainIndex = null;
@@ -111,7 +127,16 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
 
           <p>Description</p>
           <p>{evidenceData}</p>
-
+          {reviewers === true ? (
+            <button
+              className={style.myButton}
+              onClick={DeletePeerReview(peerid)}
+            >
+              Delete Peer Review
+            </button>
+          ) : (
+            <></>
+          )}
           {reviewData.data?.map((data, index) => (
             <div>
               <input
@@ -324,5 +349,9 @@ function getUser(users, user_id) {
       return username;
     }
   }
+  return null;
+}
+
+function DeletePeerReview(peerid) {
   return null;
 }
