@@ -3,6 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import style from "./style.css";
+import { confirmAlert } from "react-confirm-alert";
 
 const formreducer = (state, event) => {
   return {
@@ -105,6 +106,34 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       });
   }, []);
 
+  const DeletePeerReview = () => {
+    confirmAlert({
+      title: "Confirm Delete",
+      message: "Are you sure you want to do this?",
+      buttons: [
+        {
+          label: "Yes",
+          // onClick: () => alert("Click Yes")
+          onClick: () =>
+            fetch("/api/delete-peer-review", {
+              method: "POST",
+              body: JSON.stringify({
+                peerreview_id: peerid,
+              }),
+              headers: { "Content-Type": "application/json" },
+            })
+              .then((res) => res.json())
+              .then(navigate(`/evidence?id=${id}`)),
+        },
+        {
+          label: "No",
+          onClick: () => navigate(navigate(`/evidence?id=${id}`)),
+          //onClick: () => alert("Click No")
+        },
+      ],
+    });
+  };
+
   var domainIndex = null;
   var standardIndex = null;
   var competenecyIndex = null;
@@ -127,16 +156,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
 
           <p>Description</p>
           <p>{evidenceData}</p>
-          {reviewers === true ? (
-            <button
-              className={style.myButton}
-              onClick={DeletePeerReview(peerid)}
-            >
-              Delete Peer Review
-            </button>
-          ) : (
-            <></>
-          )}
+
           {reviewData.data?.map((data, index) => (
             <div>
               <input
@@ -278,6 +298,13 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
               )}
             </div>
           ))}
+          {reviewers === true ? (
+            <button className={style.myButton} onClick={DeletePeerReview}>
+              Delete Peer Review
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
@@ -349,9 +376,5 @@ function getUser(users, user_id) {
       return username;
     }
   }
-  return null;
-}
-
-function DeletePeerReview(peerid) {
   return null;
 }

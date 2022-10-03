@@ -92,7 +92,6 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
 
-
 //Get Peer Review
 const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
 
@@ -132,6 +131,9 @@ const getPerformancecriteriasRouter = require("./pharmacy_routes/getPerformancec
 
 //Create performance criteria
 const createPerformancecriteriasRouter = require("./pharmacy_routes/createPerformancecriterias");
+
+//Delete Peer Review
+const deletePeerReviewRouter = require("./pharmacy_routes/deletePeerReview");
 
 dotEnv.config();
 
@@ -304,7 +306,7 @@ app.use("/api/getdomain", verifyOrigin, getDomainRouter);
 //Create Standard
 app.use("/api/createstandard", verifyOrigin, createStandardRouter);
 
-// fetch framework data 
+// fetch framework data
 app.use("/api/fetch-frameworks", verifyOrigin, fetchFrameworksRouter);
 
 // standards table
@@ -317,10 +319,21 @@ app.use("/api/competencies-table", verifyOrigin, getCompetenciesRouter);
 app.use("/api/createcompetency", verifyOrigin, createCompetencyRouter);
 
 // performancecriterias table
-app.use("/api/performancecriterias-table", verifyOrigin, getPerformancecriteriasRouter);
+app.use(
+  "/api/performancecriterias-table",
+  verifyOrigin,
+  getPerformancecriteriasRouter
+);
 
-// create performancecriterias 
-app.use("/api/createperformancecriterias", verifyOrigin, createPerformancecriteriasRouter);
+// create performancecriterias
+app.use(
+  "/api/createperformancecriterias",
+  verifyOrigin,
+  createPerformancecriteriasRouter
+);
+
+//Delete Peer Review
+app.use("/api/delete-peer-review", verifyOrigin, deletePeerReviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
