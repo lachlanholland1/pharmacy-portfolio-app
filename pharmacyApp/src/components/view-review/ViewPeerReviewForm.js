@@ -44,7 +44,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setReviewData(data);
         console.log(data);
       });
@@ -58,8 +57,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       .then((evidenceData) => {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
-        console.log(evidenceDataTitle);
-        console.log("ASDASDSADSDA");
       });
 
     const peerreviewRequest = { evidenceitems_id: id, peerreview_id: peerid };
