@@ -6,6 +6,7 @@ import DownloadImageToS3 from "../../../../DownloadFileToS3";
 import style from "./viewEvidence.css";
 import EvidenceReviews from "./EvidenceReviews";
 import Moment from "moment";
+import PeerReviewTable from "./PeerReviewTable";
 
 export default function ViewEvidence(props) {
   const navigate = useNavigate();
@@ -16,9 +17,11 @@ export default function ViewEvidence(props) {
   const { auth, setAuth } = useAuth();
 
   let viewingProfile = localStorage.getItem("profile");
-
   localStorage.setItem("evidence_id", evidenceData.idevidenceitems);
   localStorage.setItem("attachment", evidenceData.attachment);
+
+  console.log(auth.user_id);
+  console.log(evidenceData.users_id);
 
   useEffect(() => {
     const request = { idevidenceitems: id };
@@ -32,7 +35,6 @@ export default function ViewEvidence(props) {
         setEvidenceData(details.evidence_data);
         setEvidenceReviews(details.evidence_reviews);
       });
-    //   .catch((err) => console.log("err"));
   }, []);
   return (
     <div>
@@ -64,13 +66,12 @@ export default function ViewEvidence(props) {
           <br />
           <br />
           {auth.user_id === evidenceData.users_id ? (
-            <Link to={`/review-evidence/?id=${id}`}>
+            <Link to={`/create-self-review/?id=${id}`}>
               <button className={style.myButton}>Self Review</button>
             </Link>
           ) : (
             <></>
           )}
-
           <br />
           <br />
           <Link to={"/" + viewingProfile}>
@@ -78,6 +79,7 @@ export default function ViewEvidence(props) {
           </Link>
           <h3>Self Reviews</h3>
           <EvidenceReviews reviews={evidenceReviews} />
+          <PeerReviewTable />
         </div>
       </div>
     </div>
@@ -89,7 +91,7 @@ function Flagged(id) {
   if ((id = auth.user_id)) {
     return (
       <Link to={`/edit-evidence?id=${evidence_id}`}>
-        <button className={style.myButton}>Edit</button>
+        <button className={style.myButton}>Edit Evidence</button>
       </Link>
     );
   } else {

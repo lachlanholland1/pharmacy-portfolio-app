@@ -9,6 +9,8 @@ const dotEnv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 
+const session = require("express-session");
+
 //Middleware
 
 const privateAccountMiddleware = require("./middleware/privateAccount.js");
@@ -36,7 +38,7 @@ const signUpRouter = require("./pharmacy_routes/signUp");
 const createEvidenceRouter = require("./pharmacy_routes/createEvidence");
 
 //Review Evidence
-const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+const selfReviewFormRouter = require("./pharmacy_routes/selfReviewForm");
 const reviewEvidenceRouter = require("./pharmacy_routes/reviewEvidence");
 
 // Evidence Review Info
@@ -72,13 +74,79 @@ const reviewerTableRouter = require("./pharmacy_routes/reviewersTable.js");
 //Delete Reviewer
 const deleteReviewerRouter = require("./pharmacy_routes/deleteReviewer");
 
-//Delete Reviewer
+//Get Evidence Review
+const getEvidenceReviewRouter = require("./pharmacy_routes/getEvidenceReview");
+
+//View Reviewers
+const viewReviewersRouter = require("./pharmacy_routes/viewReviewers");
+
+//Peer Review
+const peerReviewRouter = require("./pharmacy_routes/peerReview");
+
+//Create Domain
 const createDomainRouter = require("./pharmacy_routes/createDomain");
 
+//Delete Reviewer
+const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
+
+// Check admin privileges
+const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
+
+
+//Get Peer Review
+const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
+
+//Get All Users
+const getAllUsersRouter = require("./pharmacy_routes/getAllUsers");
+
+const evidenceCriteriaRouter = require("./pharmacy_routes/evidenceCriteria");
+
+const getAllPeerReviewsRouter = require("./pharmacy_routes/getAllPeerReviews");
+
+// Grab domains
+const getDomainsRouter = require("./pharmacy_routes/getDomains");
+
+// Grab domains
+const editDomainsRouter = require("./pharmacy_routes/editDomains");
+
+// Grab single domain
+const getDomainRouter = require("./pharmacy_routes/getDomain");
+
+//Create Standard
+const createStandardRouter = require("./pharmacy_routes/createStandard");
+
+//Fetch Frameworks
+const fetchFrameworksRouter = require("./pharmacy_routes/fetchFrameworks");
+
+// Grab standards
+const getStandardsRouter = require("./pharmacy_routes/getStandards");
+
+// Grab competencies
+const getCompetenciesRouter = require("./pharmacy_routes/getCompetencies");
+
+//Create Competency
+const createCompetencyRouter = require("./pharmacy_routes/createCompetency");
+
+// Grab Performancecriterias
+const getPerformancecriteriasRouter = require("./pharmacy_routes/getPerformancecriterias");
+
+//Create performance criteria
+const createPerformancecriteriasRouter = require("./pharmacy_routes/createPerformancecriterias");
 
 dotEnv.config();
 
 var app = express();
+
+const oneDay = 1000 * 60 * 60 * 24;
+
+app.use(
+  session({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
+  })
+);
 
 app.options("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -105,18 +173,22 @@ app.use(bodyParser.json({ limit: "100mb" }));
 app.use(cookieParser());
 
 //IMPROVE ROUTING - not setting header
-function authenticateToken(req, res, next) {
+function authenticateUser(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
   res.header("Access-Control-Allow-Headers", "*");
-  const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    // req.user = user;
-    next();
-  });
+  if (!req.session.userid) {
+    return res.sendStatus(401);
+  }
+  next();
+  // const authHeader = req.headers["authorization"];
+  // const token = authHeader.split(" ")[1];
+  // if (token == null) return res.sendStatus(401);
+  // jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  //   if (err) return res.sendStatus(403);
+  //   // req.user = user;
+  //   next();
+  // });
 }
 
 //AUTH
@@ -126,7 +198,7 @@ app.use("/api/token", verifyOrigin, tokenRouter);
 app.use(
   "/api/authenticate",
   verifyOrigin,
-  authenticateToken,
+  authenticateUser,
   authenticateRouter
 );
 
@@ -135,7 +207,7 @@ app.use("/api/profile", verifyOrigin, profileRouter);
 app.use("/api/auth-user", verifyOrigin, authUserRouter);
 
 //Edit Account
-app.use("/api/edit-account", verifyOrigin, editAccountRouter);
+app.use("/api/edit-account", verifyOrigin, authenticateUser, editAccountRouter);
 app.use("/api/accounts/password/change", verifyOrigin, passwordChangeRouter);
 
 //Sign Up
@@ -145,8 +217,10 @@ app.use("/api/sign-up", verifyOrigin, signUpRouter);
 app.use("/api/createevidence", verifyOrigin, createEvidenceRouter);
 
 //Review Evidence
-app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
+app.use("/api/self-review-form", verifyOrigin, selfReviewFormRouter);
 app.use("/api/review-evidence", verifyOrigin, reviewEvidenceRouter);
+
+app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
 
 // Evidence Review Info
 app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
@@ -191,6 +265,62 @@ app.use("/api/reviewers-table", verifyOrigin, reviewerTableRouter);
 
 //Delete Reviewer
 app.use("/api/deletereviewer", verifyOrigin, deleteReviewerRouter);
+
+//Get Self Review
+app.use("/api/get-evidence-review", verifyOrigin, getEvidenceReviewRouter);
+
+//Peer Review
+app.use("/api/peer-review", verifyOrigin, peerReviewRouter);
+
+//View Reviewers
+app.use("/api/viewreviewers", verifyOrigin, viewReviewersRouter);
+
+//Fetch Users
+app.use("/api/fetch-users", verifyOrigin, fetchUsersRouter);
+
+// Check Admin privileges
+app.use("/api/checkadmins", verifyOrigin, checkAdminsRouter);
+
+//Get Peer Review
+app.use("/api/get-peer-review", verifyOrigin, getPeerReviewRouter);
+
+//Get All Users
+app.use("/api/get-all-users", verifyOrigin, getAllUsersRouter);
+
+app.use("/api/get-all-peer-reviews", verifyOrigin, getAllPeerReviewsRouter);
+
+// Create Domain
+app.use("/api/createdomain", verifyOrigin, createDomainRouter);
+
+// Domains table
+app.use("/api/domains-table", verifyOrigin, getDomainsRouter);
+
+// Edit domains
+app.use("/api/editdomains", verifyOrigin, editDomainsRouter);
+
+// get domain
+app.use("/api/getdomain", verifyOrigin, getDomainRouter);
+
+//Create Standard
+app.use("/api/createstandard", verifyOrigin, createStandardRouter);
+
+// fetch framework data 
+app.use("/api/fetch-frameworks", verifyOrigin, fetchFrameworksRouter);
+
+// standards table
+app.use("/api/standards-table", verifyOrigin, getStandardsRouter);
+
+// competencies table
+app.use("/api/competencies-table", verifyOrigin, getCompetenciesRouter);
+
+// create competency
+app.use("/api/createcompetency", verifyOrigin, createCompetencyRouter);
+
+// performancecriterias table
+app.use("/api/performancecriterias-table", verifyOrigin, getPerformancecriteriasRouter);
+
+// create performancecriterias 
+app.use("/api/createperformancecriterias", verifyOrigin, createPerformancecriteriasRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

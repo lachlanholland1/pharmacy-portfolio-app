@@ -16,6 +16,9 @@ function ViewAdmins(props) {
       <Link to={"/" + auth.username}>
         <button className={style.myButton}>Back</button>
       </Link>
+      <Link to={"/create-admin"}>
+        <button className={style.myButton}>New Admin</button>
+      </Link>
       </div>
       <AdminsTable />
     </div>

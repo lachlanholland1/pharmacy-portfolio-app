@@ -7,7 +7,7 @@ dotEnv.config();
 
 router.post("/", function (req, res, next) {
   const reviewEvidenceId = Math.floor(Math.random() * 1000000000);
-  const user_id = req.body.user_id;
+  const user_id = req.session.userid;
   const evidence_id = req.body.evidence_id;
   const self_review = req.body.review;
   var date = new Date();
@@ -25,7 +25,7 @@ router.post("/", function (req, res, next) {
         reviewFormatted[self_review[key].competency] = {
           ...reviewFormatted[self_review[key].competency],
           domain: self_review[key].domain,
-          standard: self_review[key].domain,
+          standard: self_review[key].standard,
           competency: self_review[key].competency,
           comment: self_review[key].value,
         };
@@ -33,7 +33,7 @@ router.post("/", function (req, res, next) {
         reviewFormatted[self_review[key].competency] = {
           ...reviewFormatted[self_review[key].competency],
           domain: self_review[key].domain,
-          standard: self_review[key].domain,
+          standard: self_review[key].standard,
           competency: self_review[key].competency,
           criteria: self_review[key].value,
         };
