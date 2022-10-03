@@ -21,11 +21,19 @@ import ViewAdmins from "./components/admin/view-admin/ViewAdmins";
 import ViewReviewers from "./components/reviewers/view-reviewers/ViewReviewers";
 import EvidenceReview from "./components/evidence-review/EvidenceReview";
 import AddDomain from "./components/domains/add-domains/AddDomain";
+import ViewDomains from "./components/domains/view-domains/ViewDomains";
 import PeerReview from "./components/peer-review/PeerReview";
 import ViewReview from "./components/view-review/ViewReview";
 import PublicRoute from "./PublicRoute";
 import SelfReview from "./components/self-review/SelfReview";
 import ViewPeerReview from "./components/view-review/ViewPeerReview";
+import EditDomains from "./components/domains/edit-domains/EditDomains";
+import AddStandard from "./components/standards/add-standards/AddStandard";
+import ViewStandards from "./components/standards/view-standards/ViewStandards";
+import ViewCompetencies from "./components/competencies/view-competencies/ViewCompetencies";
+import AddCompetency from "./components/competencies/add-competencies/AddCompetency";
+import ViewPerformancecriterias from "./components/performancecriterias/view-performancecriterias/ViewPerformancecriterias";
+import AddPerformancecriterias from "./components/performancecriterias/add-performancecriterias/AddPerformancecriterias";
 
 function App(props) {
   return (
@@ -38,7 +46,7 @@ function App(props) {
       {/* User*/}
       <Route element={<UserLayout />}>
         {/* User and Public*/}
-        <Route path="/:user" element={<Profile />} />
+        <Route path="/:user" element={<Profile />} />       
         <Route path="/add-evidence" element={<AddEvidence />} />
         <Route path="/view-review" element={<ViewReview />} />
         <Route path="/view-peer-review" element={<ViewPeerReview />} />
@@ -62,7 +70,15 @@ function App(props) {
           <Route path="/" element={<Dashboard />} />
           <Route path="/view-admins" element={<ViewAdmins />} />
           <Route path="/view-reviewers" element={<ViewReviewers />} />
+          <Route path="/create-standard" element={<AddStandard />} />
+          <Route path="/view-standards" element={<ViewStandards />} />
           <Route path="/create-domain" element={<AddDomain />} />
+          <Route path="/view-domains" element={<ViewDomains />} />
+          <Route path="/edit-domains" element={<EditDomains />} />
+          <Route path="/create-competency" element={<AddCompetency />} />
+          <Route path="/view-competencies" element={<ViewCompetencies />} />
+          <Route path="/view-performancecriterias" element={<ViewPerformancecriterias />} />
+          <Route path="/create-performancecriteria" element={<AddPerformancecriterias />} />
           <Route path="/create-admin" element={<CreateAdmin />} />
           <Route path="/create-reviewer" element={<CreateReviewer />} />
         </Route>

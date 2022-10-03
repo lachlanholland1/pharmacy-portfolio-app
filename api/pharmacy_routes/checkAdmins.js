@@ -4,7 +4,6 @@ const db = require("../connection.js");
 
 router.post("/", (req, res, next) => {
     const users_id = req.body.users_id;
-    console.log("HereBruv" + users_id);
     
     db.query(
     "SELECT users_id FROM administrators WHERE users_id = ? and alterprivileges = 'Yes'",
