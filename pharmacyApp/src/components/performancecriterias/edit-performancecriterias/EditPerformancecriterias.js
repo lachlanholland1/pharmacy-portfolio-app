@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../../hooks/useAuth";
-import EditDomainsForm from "./EditDomainsForm";
+import EditPerformancecriteriasForm from "./EditPerformancecriteriasForm";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-function EditDomains(props) {
+function EditPerformancecriterias(props) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
-    const [domainData, setdomainData] = useState({}); //changed from ([]);
+    const [performancecriteriaData, setperformancecriteriaData] = useState({}); //changed from ([]);
     const { auth, setAuth } = useAuth();
 
 //   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    const request = {iddomainitems: id};
-    fetch("/api/getdomain", { 
+    const request = {idperformancecriteriaitems: id};
+    fetch("/api/getperformancecriteria", { 
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
         .then((data) => {
-            setdomainData(data.domains_data);
+            setperformancecriteriaData(data.performancecriterias_data);
           });
   }, []);
 
   return (
     <div>
-      {domainData ? <EditDomainsForm domainData={domainData} /> : <></>}
+      {performancecriteriaData ? <EditPerformancecriteriasForm performancecriteriaData={performancecriteriaData} /> : <></>}
     </div>
   );
 }
 
-export default EditDomains;
+export default EditPerformancecriterias;
