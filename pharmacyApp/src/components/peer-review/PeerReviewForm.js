@@ -26,7 +26,8 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
-
+  const [checkedItems, setCheckedItems] = useState({});
+  //var check = [];
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
   const evidencereviews_id = searchParams.get("reviewid");
@@ -39,6 +40,39 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const onSubmit = (data) => console.log(data);
 
   const handleChange = (event, reviewId) => {
+    if (
+      event.target.value == "1" ||
+      event.target.value == "2" ||
+      event.target.value == "3" ||
+      event.target.value == "4"
+    ) {
+      // setCheckedItems({
+      //   ...checkedItems,
+      //   [event.target.name + "4"]: false,
+      // });
+      // setCheckedItems({
+      //   ...checkedItems,
+      //   [event.target.name + "3"]: false,
+      // });
+      // setCheckedItems({
+      //   ...checkedItems,
+      //   [event.target.name + "2"]: false,
+      // });
+      // setCheckedItems({
+      //   ...checkedItems,
+      //   [event.target.name + event.target.value]: true,
+      // });
+      setCheckedItems({
+        ...checkedItems,
+        [event.target.name]: event.target.value,
+      });
+      console.log("The value:");
+      console.log(event.target.value);
+      console.log("ASDSADSDAD");
+      //check[event.target.name] = event.target.value;
+      console.log(checkedItems);
+      console.log("ASDSADSDAD");
+    }
     console.log(reviewId);
     setFormData({
       name: event.target.name,
@@ -133,39 +167,32 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   // }
 
   function NewFields(value) {
+    // console.log(value);
+    var competencyID = value.value2;
+    // console.log(competencyID);
     if (value.value != null) {
       if (value.value.value == "No") {
         return (
           <div>
             <p>What level do you believe the evidence meets?</p>
             <div>
-              <input
-                type="radio"
-                name={"c" + competencyID}
-                value="1"
-                onChange={(event) => handleChange(event, competencyID)}
-                step="1"
-                // checked={formData.["c" + competencyID].value}
-              />
-              <label className="">{"Transition"}</label>
-              <br />
-              <input
-                type="radio"
-                name={"c" + competencyID}
-                value="2"
-                onChange={(event) => handleChange(event, competencyID)}
-                step="1"
-              />
-              <label className="">{"Consolidation"}</label>
-              <br />
-              <input
-                type="radio"
-                name={"c" + competencyID}
-                value="3"
-                onChange={(event) => handleChange(event, competencyID)}
-                step="1"
-              />
-              <label className="">{"Advanced"}</label>
+              {evidenceCriteria.performance_criteria.map((criteria, index) => (
+                <div className="" key={index}>
+                  <input
+                    type="radio"
+                    name={"c" + competencyID}
+                    value={criteria.idperformancecriteria}
+                    onChange={(event) => handleChange(event, competencyID)}
+                    onClick={(event) => handleChange(event, competencyID)}
+                    step="1"
+                    checked={
+                      checkedItems["c" + competencyID] ==
+                      criteria.idperformancecriteria
+                    }
+                  />
+                  <label className="">{criteria.title}</label>
+                </div>
+              ))}
             </div>
             <br />
             <label className="">Comments</label>
@@ -205,7 +232,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   var standardIndex = null;
   var competenecyIndex = null;
   var val = null;
-  var competencyID = null;
   return (
     <div>
       <div className={style.container}>
@@ -325,21 +351,23 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           }
                           step="1"
                         />
-                        {/* {(val = "a-" + competency.review_id)} */}
                         <label className="">{"No"}</label>
                         <input
                           type="hidden"
                           name="inputFour"
                           value={(val = "a-" + competency.review_id)}
                         />
-                        <input
+                        {/* <input
                           type="hidden"
                           name="inputFive"
                           value={(competencyID = competency.review_id)}
-                        />
+                        /> */}
 
                         {val != null ? (
-                          <NewFields value={formData[val]} />
+                          <NewFields
+                            value={formData[val]}
+                            value2={competency.review_id}
+                          />
                         ) : (
                           <></>
                         )}
@@ -420,7 +448,7 @@ function getIndexOfCompetency(
     var max =
       evidenceCriteria.domains[domains_id].standards[standard_id].competencies
         .length;
-    console.log(max);
+
     for (let i = 0; i < max; i++) {
       if (
         evidenceCriteria.domains[domains_id].standards[standard_id]
@@ -436,7 +464,6 @@ function getIndexOfCompetency(
 function getIndexOfStandard(evidenceCriteria, domains_id, standard_id) {
   if (evidenceCriteria != null) {
     var max = evidenceCriteria.domains[domains_id].standards.length;
-    console.log(max);
     for (let i = 0; i < max; i++) {
       if (
         evidenceCriteria.domains[domains_id].standards[i].idstandards ==
