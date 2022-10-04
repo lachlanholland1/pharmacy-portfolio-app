@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../../hooks/useAuth";
-import EditDomainsForm from "./EditDomainsForm";
+import EditStandardsForm from "./EditStandardsForm";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-function EditDomains(props) {
+function EditStandards(props) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
-    const [domainData, setdomainData] = useState({}); //changed from ([]);
+    const [standardData, setstandardData] = useState({}); //changed from ([]);
     const { auth, setAuth } = useAuth();
 
 //   const [userData, setUserData] = useState({});
-
+  
   useEffect(() => {
-    const request = {iddomainitems: id};
-    fetch("/api/getdomain", { 
+    const request = {idstandarditems: id};
+    fetch("/api/getstandard", { 
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
         .then((data) => {
-            setdomainData(data.domains_data);
+            setstandardData(data.standards_data);
           });
   }, []);
 
   return (
     <div>
-      {domainData ? <EditDomainsForm domainData={domainData} /> : <></>}
+      {standardData ? <EditStandardsForm standardData={standardData} /> : <></>}
     </div>
   );
 }
 
-export default EditDomains;
+export default EditStandards;

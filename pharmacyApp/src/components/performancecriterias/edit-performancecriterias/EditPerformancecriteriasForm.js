@@ -4,7 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import style from "./EditDomainsStyle.css";
+import style from "./EditPerformancecriteriasStyle.css";
 
 const formreducer = (state, event) => {
   return {
@@ -12,7 +12,7 @@ const formreducer = (state, event) => {
     [event.name]: event.value,
   };
 };
-export default function EditDomainsForm({ domainData }) {
+export default function EditPerformancecriteriasForm({ performancecriteriaData }) {
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
   const [formData, setFormData] = useReducer(formreducer, {});
@@ -35,7 +35,7 @@ export default function EditDomainsForm({ domainData }) {
       name: event.target.name,
       value: event.target.value,
     });
-    setFormData({ name: "iddomains", value: domainData.iddomains });
+    setFormData({ name: "idperformancecriteria", value: performancecriteriaData.idperformancecriteria });
   };
   
   function handleSubmit(e) {
@@ -45,7 +45,7 @@ export default function EditDomainsForm({ domainData }) {
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/editdomains", {
+    fetch("/api/editperformancecriterias", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
@@ -59,13 +59,13 @@ export default function EditDomainsForm({ domainData }) {
         setIsSuccess(1);
       }
     });
-    navigate("/view-domains");
+    navigate("/view-performancecriterias");
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Edit Domain</label>
+        <label className={style.padding}>Edit Performance Criteria</label>
         <br />
         <label>Title</label>
         <br />
@@ -74,8 +74,8 @@ export default function EditDomainsForm({ domainData }) {
           maxLength={65}
           type="text"
           id="title"
-          placeholder={domainData.title}
-          // value={domainData.title}
+          placeholder={performancecriteriaData.title}
+          // value={performancecriteriaData.title}
           name="title"
           onChange={handleChange}
         />
@@ -85,7 +85,7 @@ export default function EditDomainsForm({ domainData }) {
         <input
           className={style.myForm1}
           type="text"
-          placeholder={domainData.description}
+          placeholder={performancecriteriaData.description}
           id="description"
           name="description"
           onChange={handleChange}
@@ -98,9 +98,9 @@ export default function EditDomainsForm({ domainData }) {
           required
           id="status"
           name="status"
-          placeholder={domainData.status}
+          placeholder={performancecriteriaData.status}
           onChange={handleChange}>
-              <option value={domainData.status}>{domainData.status}</option>
+              <option value={performancecriteriaData.status}>{performancecriteriaData.status}</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
         </select>     
@@ -111,10 +111,10 @@ export default function EditDomainsForm({ domainData }) {
             Submit
           </button>
           {/* temp fix */}
-          <Link to={'/view-domains'}>
+          <Link to={'/view-performancecriterias'}>
         <button>Back</button>
       </Link>
-          {/* <Link to={`/Domain?id=${DomainData.idDomainitems}`}>
+          {/* <Link to={`/Performancecriteria?id=${performancecriteriaData.idPerformancecriteriaitems}`}>
         <button>Back</button>
       </Link> */}
       <br />
