@@ -27,6 +27,9 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
   const [checkedItems, setCheckedItems] = useState({});
+  const [domainsDisplay, setDomainsDisplay] = useState(
+    Array(evidenceCriteria.domains.length).fill(0)
+  );
   //var check = [];
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -232,6 +235,13 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   var standardIndex = null;
   var competenecyIndex = null;
   var val = null;
+
+  function handleDisplayDomain(index) {
+    const domainsDisplayCopy = [...domainsDisplay];
+    domainsDisplayCopy[index] = !domainsDisplayCopy[index];
+    setDomainsDisplay(domainsDisplayCopy);
+  }
+
   return (
     <div>
       <div className={style.container}>
@@ -257,122 +267,126 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                   }
                 />
 
-                <h2>
-                  {evidenceCriteria.domains[domainIndex].title}{" "}
-                  {evidenceCriteria.domains[domainIndex].description}
-                </h2>
+                <div className={style.domain_dropdown}>
+                  <h2 onClick={() => handleDisplayDomain(index)}>
+                    {evidenceCriteria.domains[domainIndex].title}{" "}
+                    {evidenceCriteria.domains[domainIndex].description}
+                  </h2>
+                </div>
+                {domainsDisplay[index] ? (
+                  data.standards.map((standard, index) => (
+                    <div key={index}>
+                      <input
+                        type="hidden"
+                        name="inputTwo"
+                        value={
+                          (standardIndex = getIndexOfStandard(
+                            evidenceCriteria,
+                            domainIndex,
+                            standard.standards_id
+                          ))
+                        }
+                      />
 
-                {data.standards.map((standard, index) => (
-                  <div key={index}>
-                    <input
-                      type="hidden"
-                      name="inputTwo"
-                      value={
-                        (standardIndex = getIndexOfStandard(
-                          evidenceCriteria,
-                          domainIndex,
-                          standard.standards_id
-                        ))
-                      }
-                    />
+                      <h4>
+                        {
+                          evidenceCriteria.domains[domainIndex].standards[
+                            standardIndex
+                          ].title
+                        }{" "}
+                        {
+                          evidenceCriteria.domains[domainIndex].standards[
+                            standardIndex
+                          ].description
+                        }
+                      </h4>
 
-                    <h4>
-                      {
-                        evidenceCriteria.domains[domainIndex].standards[
-                          standardIndex
-                        ].title
-                      }{" "}
-                      {
-                        evidenceCriteria.domains[domainIndex].standards[
-                          standardIndex
-                        ].description
-                      }
-                    </h4>
+                      {standard.competencies.map((competency, index) => (
+                        <div key={index}>
+                          <input
+                            type="hidden"
+                            name="inputTwo"
+                            value={
+                              (competenecyIndex = getIndexOfCompetency(
+                                evidenceCriteria,
+                                domainIndex,
+                                standardIndex,
+                                competency.competencies_id
+                              ))
+                            }
+                          />
 
-                    {standard.competencies.map((competency, index) => (
-                      <div key={index}>
-                        <input
-                          type="hidden"
-                          name="inputTwo"
-                          value={
-                            (competenecyIndex = getIndexOfCompetency(
-                              evidenceCriteria,
-                              domainIndex,
-                              standardIndex,
-                              competency.competencies_id
-                            ))
-                          }
-                        />
+                          <label>
+                            {
+                              evidenceCriteria.domains[domainIndex].standards[
+                                standardIndex
+                              ].competencies[competenecyIndex].title
+                            }{" "}
+                            {
+                              evidenceCriteria.domains[domainIndex].standards[
+                                standardIndex
+                              ].competencies[competenecyIndex].description
+                            }
+                          </label>
 
-                        <label>
-                          {
-                            evidenceCriteria.domains[domainIndex].standards[
-                              standardIndex
-                            ].competencies[competenecyIndex].title
-                          }{" "}
-                          {
-                            evidenceCriteria.domains[domainIndex].standards[
-                              standardIndex
-                            ].competencies[competenecyIndex].description
-                          }
-                        </label>
+                          <br />
+                          <input type="radio" defaultChecked />
 
-                        <br />
-                        <input type="radio" defaultChecked />
-
-                        <label>
-                          {
-                            evidenceCriteria.performance_criteria[
-                              competency.performancecriterias_id - 2
-                            ].title
-                          }
-                        </label>
-                        <br />
-                        <p>Users Comments: {competency.comments}</p>
-                        <p>Do you believe the evidence meets the Competency?</p>
-                        <input
-                          required
-                          type="radio"
-                          name={"a-" + competency.review_id}
-                          value="Yes"
-                          onChange={(event) =>
-                            handleChange(event, competency.review_id)
-                          }
-                          step="1"
-                        />
-                        <label className="">{"Yes"}</label>
-                        <input
-                          required
-                          type="radio"
-                          name={"a-" + competency.review_id}
-                          value="No"
-                          onChange={(event) =>
-                            handleChange(event, competency.review_id)
-                          }
-                          step="1"
-                        />
-                        <label className="">{"No"}</label>
-                        <input
-                          type="hidden"
-                          name="inputFour"
-                          value={(val = "a-" + competency.review_id)}
-                        />
-                        {/* <input
+                          <label>
+                            {
+                              evidenceCriteria.performance_criteria[
+                                competency.performancecriterias_id - 2
+                              ].title
+                            }
+                          </label>
+                          <br />
+                          <p>Users Comments: {competency.comments}</p>
+                          <p>
+                            Do you believe the evidence meets the Competency?
+                          </p>
+                          <input
+                            required
+                            type="radio"
+                            name={"a-" + competency.review_id}
+                            value="Yes"
+                            onChange={(event) =>
+                              handleChange(event, competency.review_id)
+                            }
+                            step="1"
+                          />
+                          <label className="">{"Yes"}</label>
+                          <input
+                            required
+                            type="radio"
+                            name={"a-" + competency.review_id}
+                            value="No"
+                            onChange={(event) =>
+                              handleChange(event, competency.review_id)
+                            }
+                            step="1"
+                          />
+                          <label className="">{"No"}</label>
+                          <input
+                            type="hidden"
+                            name="inputFour"
+                            value={(val = "a-" + competency.review_id)}
+                          />
+                          {/* <input
                           type="hidden"
                           name="inputFive"
                           value={(competencyID = competency.review_id)}
                         /> */}
 
-                        {val != null ? (
-                          <NewFields
-                            value={formData[val]}
-                            value2={competency.review_id}
-                          />
-                        ) : (
-                          <></>
-                        )}
+                          {val != null ? (
+                            <NewFields
+                              value={formData[val]}
+                              value2={competency.review_id}
+                            />
+                          ) : (
+                            <></>
+                          )}
 
-                        {/* <p>What level do you believe the evidence meets?</p>
+                          {/* <p>What level do you believe the evidence meets?</p>
                         <div>
                           <input
                             type="radio"
@@ -420,10 +434,13 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                             handleChange(event, competency.review_id)
                           }
                         /> */}
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
               </div>
             ))}
             <div className="">
