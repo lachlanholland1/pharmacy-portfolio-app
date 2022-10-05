@@ -15,7 +15,7 @@ function ViewPeerReview(props) {
       access_token: auth.access_token,
       username: auth.username,
     };
-    fetch("/api/evidence-criteria", {
+    fetch("/api/get-all-evidence-criteria", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
