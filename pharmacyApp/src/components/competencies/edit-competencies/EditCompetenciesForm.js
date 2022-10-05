@@ -4,7 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import style from "./EditDomainsStyle.css";
+import style from "./EditCompetenciesStyle.css";
 
 const formreducer = (state, event) => {
   return {
@@ -12,7 +12,8 @@ const formreducer = (state, event) => {
     [event.name]: event.value,
   };
 };
-export default function EditDomainsForm({ domainData }) {
+
+export default function EditCompetenciesForm({ competencyData }) {
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
   const [formData, setFormData] = useReducer(formreducer, {});
@@ -21,6 +22,24 @@ export default function EditDomainsForm({ domainData }) {
   const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
   const [userChanged, setUserChanged] = useState(false);
+  const [frameworkData, setFrameworkData] = useState([]);
+
+  const request = {
+    framework: "standards",
+  };
+
+  useEffect(() => {
+    fetch("/api/fetch-frameworks", {
+      method: "POST",
+      body: JSON.stringify(request),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFrameworkData(data.frameworks_data);
+      });
+  }, []);
+
 
   const {
     watch,
@@ -35,7 +54,7 @@ export default function EditDomainsForm({ domainData }) {
       name: event.target.name,
       value: event.target.value,
     });
-    setFormData({ name: "iddomains", value: domainData.iddomains });
+    setFormData({ name: "idcompetencies", value: competencyData.idcompetencies });
   };
   
   function handleSubmit(e) {
@@ -45,7 +64,7 @@ export default function EditDomainsForm({ domainData }) {
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    fetch("/api/editdomains", {
+    fetch("/api/editcompetencies", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
@@ -59,13 +78,13 @@ export default function EditDomainsForm({ domainData }) {
         setIsSuccess(1);
       }
     });
-    navigate("/view-domains");
+    navigate("/view-competencies");
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Edit Domain</label>
+        <label className={style.padding}>Edit Competency</label>
         <br />
         <label>Title</label>
         <br />
@@ -74,8 +93,8 @@ export default function EditDomainsForm({ domainData }) {
           maxLength={65}
           type="text"
           id="title"
-          placeholder={domainData.title}
-          // value={domainData.title}
+          placeholder={competencyData.title}
+          // value={competencyData.title}
           name="title"
           onChange={handleChange}
         />
@@ -85,11 +104,26 @@ export default function EditDomainsForm({ domainData }) {
         <input
           className={style.myForm1}
           type="text"
-          placeholder={domainData.description}
+          placeholder={competencyData.description}
           id="description"
           name="description"
           onChange={handleChange}
         />
+        <br />
+        <label>Standard</label>
+            <br />
+            <br />
+            <select required id="standards_id" name="standards_id" onChange={handleChange}  className={style.classic}>
+              <option value={competencyData.standards_id}>{competencyData.standardstitle}</option>
+              {frameworkData.length ? (
+                  frameworkData.map((data) => (
+                    <option value={data.idstandards}>{data.title} ({data.description.substring(0, 60)} {data.description.length > 60 ? ("...") :("") } )</option>
+                  ))
+                ) : (
+                  <option value=""></option>
+                )}
+            </select> 
+
         <br />
         <label>Status</label>
         <br />
@@ -98,9 +132,9 @@ export default function EditDomainsForm({ domainData }) {
           required
           id="status"
           name="status"
-          placeholder={domainData.status}
+          placeholder={competencyData.status}
           onChange={handleChange}>
-              <option value={domainData.status}>{domainData.status}</option>
+              <option value={competencyData.status}>{competencyData.status}</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
         </select>     
@@ -111,10 +145,10 @@ export default function EditDomainsForm({ domainData }) {
             Submit
           </button>
           {/* temp fix */}
-          <Link to={'/view-domains'}>
+          <Link to={'/view-competencies'}>
         <button>Back</button>
       </Link>
-          {/* <Link to={`/Domain?id=${DomainData.idDomainitems}`}>
+          {/* <Link to={`/Competencie?id=${competencyData.idCompetencieitems}`}>
         <button>Back</button>
       </Link> */}
       <br />

@@ -4,7 +4,7 @@ const db = require("../connection.js");
 
 router.post("/", (req, res, next) => {
   db.query(
-    "SELECT domains.title as domainstitle, standards.title as standardstitle, standards.description, standards.status FROM standards INNER JOIN domains ON domains.iddomains = standards.domains_id ORDER BY domains.title ASC, standards.title ",
+    "SELECT standards.idstandards, domains.title as domainstitle, standards.title as standardstitle, standards.description, standards.status FROM standards INNER JOIN domains ON domains.iddomains = standards.domains_id ORDER BY domains.title ASC, standards.title ",
     (err, result) => {
       res.send({ standards_data: result });
     }

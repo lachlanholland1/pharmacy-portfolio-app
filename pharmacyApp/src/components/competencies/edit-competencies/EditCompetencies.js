@@ -1,35 +1,34 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../../hooks/useAuth";
-import EditDomainsForm from "./EditDomainsForm";
+import EditCompetenciesForm from "./EditCompetenciesForm";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-function EditDomains(props) {
+function EditCompetencies(props) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
-    const [domainData, setdomainData] = useState({}); //changed from ([]);
+    const [competencyData, setcompetencyData] = useState({}); //changed from ([]);
     const { auth, setAuth } = useAuth();
 
 //   const [userData, setUserData] = useState({});
-
   useEffect(() => {
-    const request = {iddomainitems: id};
-    fetch("/api/getdomain", { 
+    const request = {idcompetency: id};
+    fetch("/api/getcompetency", { 
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
         .then((data) => {
-            setdomainData(data.domains_data);
+            setcompetencyData(data.competencies_data);
           });
   }, []);
 
   return (
     <div>
-      {domainData ? <EditDomainsForm domainData={domainData} /> : <></>}
+      {competencyData ? <EditCompetenciesForm competencyData={competencyData} /> : <></>}
     </div>
   );
 }
 
-export default EditDomains;
+export default EditCompetencies;
