@@ -135,6 +135,9 @@ const createPerformancecriteriasRouter = require("./pharmacy_routes/createPerfor
 //Delete Peer Review
 const deletePeerReviewRouter = require("./pharmacy_routes/deletePeerReview");
 
+//Get All Evidence Criteria
+const allEvidenceCriteriaRouter = require("./pharmacy_routes/getAllEvidenceCriteria");
+
 dotEnv.config();
 
 var app = express();
@@ -334,6 +337,13 @@ app.use(
 
 //Delete Peer Review
 app.use("/api/delete-peer-review", verifyOrigin, deletePeerReviewRouter);
+
+//Get ALl evidence criteria
+app.use(
+  "/api/get-all-evidence-criteria",
+  verifyOrigin,
+  allEvidenceCriteriaRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
