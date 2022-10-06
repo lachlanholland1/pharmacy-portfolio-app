@@ -88,7 +88,7 @@ export default function ViewEvidence(props) {
 function Flagged(id) {
   const { auth, setAuth } = useAuth();
   let evidence_id = localStorage.getItem("evidence_id");
-  if ((id = auth.user_id)) {
+  if (id.id === auth.user_id) {
     return (
       <Link to={`/edit-evidence?id=${evidence_id}`}>
         <button className={style.myButton}>Edit Evidence</button>
