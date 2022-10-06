@@ -125,12 +125,12 @@ export default function CreateAdminForm() {
         <label>Privileges</label>
         <br />
         <select
-          className={style.classic}
+
           required
           id="privileges"
           name="privileges"
           onChange={handleChange}
-        >
+          className={style.classic}>
           <option value=""></option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>

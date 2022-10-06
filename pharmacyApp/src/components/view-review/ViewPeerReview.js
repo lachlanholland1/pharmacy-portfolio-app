@@ -9,6 +9,8 @@ function ViewPeerReview(props) {
   const { auth } = useAuth();
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
   localStorage.removeItem("currentDomain");
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
   useEffect(() => {
     const request = {
@@ -29,6 +31,9 @@ function ViewPeerReview(props) {
 
   return (
     <div>
+      <Link to={`/evidence/?id=${id}`}>
+        <button>Back</button>
+      </Link>
       {evidenceCriteria ? (
         <ViewPeerReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (

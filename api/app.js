@@ -138,6 +138,24 @@ const deletePeerReviewRouter = require("./pharmacy_routes/deletePeerReview");
 //Get All Evidence Criteria
 const allEvidenceCriteriaRouter = require("./pharmacy_routes/getAllEvidenceCriteria");
 
+// Grab single Standard
+const getStandardRouter = require("./pharmacy_routes/getStandard");
+
+// Edit Standards
+const editStandardsRouter = require("./pharmacy_routes/editStandards");
+
+// Grab single Competency
+const getCompetencyRouter = require("./pharmacy_routes/getCompetency");
+
+// Edit Competencies
+const editCompetenciesRouter = require("./pharmacy_routes/editCompetencies");
+
+// Grab single Performancecriteria
+const getPerformancecriteriaRouter = require("./pharmacy_routes/getPerformancecriteria");
+
+// Edit Performancecriterias
+const editPerformancecriteriasRouter = require("./pharmacy_routes/editPerformancecriterias");
+
 dotEnv.config();
 
 var app = express();
@@ -344,6 +362,28 @@ app.use(
   verifyOrigin,
   allEvidenceCriteriaRouter
 );
+
+// edit domains 
+app.use("/api/editdomains", verifyOrigin, editDomainsRouter);
+
+// get Standard
+app.use("/api/getstandard", verifyOrigin, getStandardRouter);
+
+// edit standards 
+app.use("/api/editstandards", verifyOrigin, editStandardsRouter);
+
+// get competency
+app.use("/api/getcompetency", verifyOrigin, getCompetencyRouter);
+
+// edit competencies 
+app.use("/api/editcompetencies", verifyOrigin, editCompetenciesRouter);
+
+// get performancecriteria
+app.use("/api/getperformancecriteria", verifyOrigin, getPerformancecriteriaRouter);
+
+// edit performancecriterias 
+app.use("/api/editperformancecriterias", verifyOrigin, editPerformancecriteriasRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

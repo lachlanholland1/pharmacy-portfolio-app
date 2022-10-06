@@ -51,7 +51,7 @@ export default function CompetenciesTable(props) {
                   {competency.status}
                 </td>
                 <td >
-                    <Link to={`/edit-competencies/?id=${competency.idCompetencies}`}>
+                    <Link to={`/edit-competencies/?id=${competency.idcompetencies}`}>
                       <button className={style.myButton}>Edit</button>
                     </Link>
                 </td>

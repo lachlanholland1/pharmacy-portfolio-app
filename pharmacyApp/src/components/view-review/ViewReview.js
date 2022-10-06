@@ -10,6 +10,11 @@ function ViewReview(props) {
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
   localStorage.removeItem("currentDomain");
 
+
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+
+
   useEffect(() => {
     const request = {
       access_token: auth.access_token,
@@ -29,6 +34,9 @@ function ViewReview(props) {
 
   return (
     <div>
+      <Link to={`/evidence/?id=${id}`}>
+        <button>Back</button>
+      </Link>
       {evidenceCriteria ? (
         <ViewReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (
