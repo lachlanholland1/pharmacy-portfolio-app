@@ -184,6 +184,9 @@ export default function ViewReviewForm({ evidenceCriteria }) {
               ))}
             </div>
           ))}
+          <Link to={`/evidence?id=${id}`}>
+            <button className={style.myButton}>Back</button>
+          </Link>
         </div>
       </div>
     </div>

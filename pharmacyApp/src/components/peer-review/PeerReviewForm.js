@@ -449,6 +449,10 @@ export default function PeerReviewForm({ evidenceCriteria }) {
               </button>
             </div>
           </form>
+          <br />
+          <Link to={`/evidence?id=${id}`}>
+            <button className={style.myButton}>Back</button>
+          </Link>
         </div>
       </div>
     </div>
