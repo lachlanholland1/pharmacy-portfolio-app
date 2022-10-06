@@ -217,11 +217,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   var competenecyIndex = null;
   var val = null;
 
-  function handleDisplayDomain(index) {
-    const domainsDisplayCopy = [...domainsDisplay];
-    domainsDisplayCopy[index] = !domainsDisplayCopy[index];
-    setDomainsDisplay(domainsDisplayCopy);
-  }
+  // function handleDisplayDomain(index) {
+  //   const domainsDisplayCopy = [...domainsDisplay];
+  //   domainsDisplayCopy[index] = !domainsDisplayCopy[index];
+  //   setDomainsDisplay(domainsDisplayCopy);
+  // }
 
   return (
     <div>
@@ -254,122 +254,120 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                     {evidenceCriteria.domains[domainIndex].description}
                   </h2>
                 </div>
-                {domainsDisplay[index] ? (
-                  data.standards.map((standard, index) => (
-                    <div key={index}>
-                      <input
-                        type="hidden"
-                        name="inputTwo"
-                        value={
-                          (standardIndex = getIndexOfStandard(
-                            evidenceCriteria,
-                            domainIndex,
-                            standard.standards_id
-                          ))
-                        }
-                      />
+                {/* {domainsDisplay[index] ? ( */}
+                {data.standards.map((standard, index) => (
+                  <div key={index}>
+                    <input
+                      type="hidden"
+                      name="inputTwo"
+                      value={
+                        (standardIndex = getIndexOfStandard(
+                          evidenceCriteria,
+                          domainIndex,
+                          standard.standards_id
+                        ))
+                      }
+                    />
 
-                      <h4>
-                        {
-                          evidenceCriteria.domains[domainIndex].standards[
-                            standardIndex
-                          ].title
-                        }{" "}
-                        {
-                          evidenceCriteria.domains[domainIndex].standards[
-                            standardIndex
-                          ].description
-                        }
-                      </h4>
+                    <h4>
+                      {
+                        evidenceCriteria.domains[domainIndex].standards[
+                          standardIndex
+                        ].title
+                      }{" "}
+                      {
+                        evidenceCriteria.domains[domainIndex].standards[
+                          standardIndex
+                        ].description
+                      }
+                    </h4>
 
-                      {standard.competencies.map((competency, index) => (
-                        <div key={index}>
-                          <input
-                            type="hidden"
-                            name="inputTwo"
-                            value={
-                              (competenecyIndex = getIndexOfCompetency(
-                                evidenceCriteria,
-                                domainIndex,
-                                standardIndex,
-                                competency.competencies_id
-                              ))
-                            }
-                          />
+                    {standard.competencies.map((competency, index) => (
+                      <div key={index}>
+                        <input
+                          type="hidden"
+                          name="inputTwo"
+                          value={
+                            (competenecyIndex = getIndexOfCompetency(
+                              evidenceCriteria,
+                              domainIndex,
+                              standardIndex,
+                              competency.competencies_id
+                            ))
+                          }
+                        />
 
-                          <label>
-                            {
-                              evidenceCriteria.domains[domainIndex].standards[
-                                standardIndex
-                              ].competencies[competenecyIndex].title
-                            }{" "}
-                            {
-                              evidenceCriteria.domains[domainIndex].standards[
-                                standardIndex
-                              ].competencies[competenecyIndex].description
-                            }
-                          </label>
+                        <label>
+                          {
+                            evidenceCriteria.domains[domainIndex].standards[
+                              standardIndex
+                            ].competencies[competenecyIndex].title
+                          }{" "}
+                          {
+                            evidenceCriteria.domains[domainIndex].standards[
+                              standardIndex
+                            ].competencies[competenecyIndex].description
+                          }
+                        </label>
 
-                          <br />
-                          <input type="radio" defaultChecked />
+                        <br />
+                        <input type="radio" defaultChecked />
 
-                          <label>
-                            {
-                              evidenceCriteria.performance_criteria[
-                                competency.performancecriterias_id - 2
-                              ].title
-                            }
-                          </label>
-                          <br />
-                          <p>Users Comments: {competency.comments}</p>
-                          <p>
-                            Do you believe the evidence meets the Competency?
-                          </p>
-                          <input
-                            required
-                            type="radio"
-                            name={"a-" + competency.review_id}
-                            value="Yes"
-                            onChange={(event) =>
-                              handleChange(event, competency.review_id)
-                            }
-                            step="1"
-                          />
-                          <label className="">{"Yes"}</label>
-                          <input
-                            required
-                            type="radio"
-                            name={"a-" + competency.review_id}
-                            value="No"
-                            onChange={(event) =>
-                              handleChange(event, competency.review_id)
-                            }
-                            step="1"
-                          />
-                          <label className="">{"No"}</label>
-                          <input
-                            type="hidden"
-                            name="inputFour"
-                            value={(val = "a-" + competency.review_id)}
-                          />
-                          {/* <input
+                        <label>
+                          {
+                            evidenceCriteria.performance_criteria[
+                              competency.performancecriterias_id - 2
+                            ].title
+                          }
+                        </label>
+                        <br />
+                        <p>Users Comments: {competency.comments}</p>
+                        <p>Do you believe the evidence meets the Competency?</p>
+                        <input
+                          required
+                          type="radio"
+                          name={"a-" + competency.review_id}
+                          value="Yes"
+                          onChange={(event) =>
+                            handleChange(event, competency.review_id)
+                          }
+                          step="1"
+                        />
+                        <label className="">{"Yes"}</label>
+                        <input
+                          required
+                          type="radio"
+                          name={"a-" + competency.review_id}
+                          value="No"
+                          onChange={(event) =>
+                            handleChange(event, competency.review_id)
+                          }
+                          step="1"
+                        />
+                        <label className="">{"No"}</label>
+                        <input
+                          type="hidden"
+                          name="inputFour"
+                          value={(val = "a-" + competency.review_id)}
+                        />
+                        {/* <input
                           type="hidden"
                           name="inputFive"
                           value={(competencyID = competency.review_id)}
                         /> */}
 
-                          {val != null ? (
-                            <NewFields
-                              value={formData[val]}
-                              value2={competency.review_id}
-                            />
-                          ) : (
-                            <></>
-                          )}
+                        {val != null ? (
+                          <NewFields
+                            value={formData[val]}
+                            value2={competency.review_id}
+                          />
+                        ) : (
+                          <></>
+                        )}
 
-                          <p>What level do you believe the evidence meets?</p>
-                          {/* <div> */}
-                          {/* <input
+                        <p>What level do you believe the evidence meets?</p>
+                        {/* <div> */}
+                        {/* <input
                             type="radio"
                             name={"c" + competency.review_id}
                             value="1"
@@ -403,25 +401,26 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           <label className="">{"Advanced"}</label>
                         </div> */}
 
-                          <label className="">Comments</label>
-                          <br />
-                          <textarea
-                            className=""
-                            maxLength={255}
-                            type="text"
-                            placeholder={"Enter your reasons for Yes/No"}
-                            name={"comments-" + competency.review_id}
-                            onChange={(event) =>
-                              handleChange(event, competency.review_id)
-                            }
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ))
-                ) : (
-                  <></>
-                )}
+                        <label className="">Comments</label>
+                        <br />
+                        <textarea
+                          className=""
+                          maxLength={255}
+                          type="text"
+                          placeholder={"Enter your reasons for Yes/No"}
+                          name={"comments-" + competency.review_id}
+                          onChange={(event) =>
+                            handleChange(event, competency.review_id)
+                          }
+                        />
+                        <br />
+                      </div>
+                    ))}
+                  </div>
+                  //   ))
+                  // ) : (
+                  //   <></>
+                ))}
               </div>
             ))}
             <div className="">
