@@ -92,7 +92,6 @@ const fetchUsersRouter = require("./pharmacy_routes/fetchUsers");
 // Check admin privileges
 const checkAdminsRouter = require("./pharmacy_routes/checkAdmins");
 
-
 //Get Peer Review
 const getPeerReviewRouter = require("./pharmacy_routes/getPeerReview");
 
@@ -133,6 +132,12 @@ const getPerformancecriteriasRouter = require("./pharmacy_routes/getPerformancec
 //Create performance criteria
 const createPerformancecriteriasRouter = require("./pharmacy_routes/createPerformancecriterias");
 
+//Delete Peer Review
+const deletePeerReviewRouter = require("./pharmacy_routes/deletePeerReview");
+
+//Get All Evidence Criteria
+const allEvidenceCriteriaRouter = require("./pharmacy_routes/getAllEvidenceCriteria");
+
 // Grab single Standard
 const getStandardRouter = require("./pharmacy_routes/getStandard");
 
@@ -150,7 +155,6 @@ const getPerformancecriteriaRouter = require("./pharmacy_routes/getPerformancecr
 
 // Edit Performancecriterias
 const editPerformancecriteriasRouter = require("./pharmacy_routes/editPerformancecriterias");
-
 
 dotEnv.config();
 
@@ -323,7 +327,7 @@ app.use("/api/getdomain", verifyOrigin, getDomainRouter);
 //Create Standard
 app.use("/api/createstandard", verifyOrigin, createStandardRouter);
 
-// fetch framework data 
+// fetch framework data
 app.use("/api/fetch-frameworks", verifyOrigin, fetchFrameworksRouter);
 
 // standards table
@@ -336,10 +340,28 @@ app.use("/api/competencies-table", verifyOrigin, getCompetenciesRouter);
 app.use("/api/createcompetency", verifyOrigin, createCompetencyRouter);
 
 // performancecriterias table
-app.use("/api/performancecriterias-table", verifyOrigin, getPerformancecriteriasRouter);
+app.use(
+  "/api/performancecriterias-table",
+  verifyOrigin,
+  getPerformancecriteriasRouter
+);
 
-// create performancecriterias 
-app.use("/api/createperformancecriterias", verifyOrigin, createPerformancecriteriasRouter);
+// create performancecriterias
+app.use(
+  "/api/createperformancecriterias",
+  verifyOrigin,
+  createPerformancecriteriasRouter
+);
+
+//Delete Peer Review
+app.use("/api/delete-peer-review", verifyOrigin, deletePeerReviewRouter);
+
+//Get ALl evidence criteria
+app.use(
+  "/api/get-all-evidence-criteria",
+  verifyOrigin,
+  allEvidenceCriteriaRouter
+);
 
 // edit domains 
 app.use("/api/editdomains", verifyOrigin, editDomainsRouter);

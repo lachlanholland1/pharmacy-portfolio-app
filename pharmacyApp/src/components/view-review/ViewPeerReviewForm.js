@@ -3,6 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import style from "./style.css";
+import { confirmAlert } from "react-confirm-alert";
 
 const formreducer = (state, event) => {
   return {
@@ -27,6 +28,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
   const [users, setUsers] = useState([]);
   const [ispeerReview, setisPeerReview] = useState(null);
   const [peerReviewData, setPeerReview] = useState([]);
+  const [reviewers, setReviewers] = useState(null);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -42,7 +44,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setReviewData(data);
         console.log(data);
       });
@@ -56,8 +57,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       .then((evidenceData) => {
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
-        console.log(evidenceDataTitle);
-        console.log("ASDASDSADSDA");
       });
 
     const peerreviewRequest = { evidenceitems_id: id, peerreview_id: peerid };
@@ -87,7 +86,50 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
         setUsers(userData);
         console.log(userData);
       });
+
+    const reviewerRequest = { users_id: auth.user_id };
+    fetch("/api/viewreviewers", {
+      method: "POST",
+      body: JSON.stringify(reviewerRequest),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((reviewerDetails) => {
+        if (reviewerDetails.length > 0) {
+          setReviewers(true);
+        } else {
+          setReviewers(false);
+        }
+      });
   }, []);
+
+  const DeletePeerReview = () => {
+    confirmAlert({
+      title: "Confirm Delete",
+      message: "Are you sure you want to do this?",
+      buttons: [
+        {
+          label: "Yes",
+          // onClick: () => alert("Click Yes")
+          onClick: () =>
+            fetch("/api/delete-peer-review", {
+              method: "POST",
+              body: JSON.stringify({
+                peerreview_id: peerid,
+              }),
+              headers: { "Content-Type": "application/json" },
+            })
+              .then((res) => res.json())
+              .then(navigate(`/evidence?id=${id}`)),
+        },
+        {
+          label: "No",
+          onClick: () => navigate(navigate(`/evidence?id=${id}`)),
+          //onClick: () => alert("Click No")
+        },
+      ],
+    });
+  };
 
   var domainIndex = null;
   var standardIndex = null;
@@ -198,7 +240,15 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                           }
                         </label>
                         <br />
-                        <p>Users Comments: {competency.comments}</p>
+                        {/* <p>Reviewers Comments: {peerReviewInfo.comments}</p> */}
+                        {competency.comments != null ? (
+                          <div>
+                            <p>Users Comments: {competency.comments}</p>
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                        {/* <p>Users Comments: {competency.comments}</p> */}
                         {/* //////////////////////// */}
                         {/* //////////////////////// */}
                         {/* //////////////////////// */}
@@ -220,7 +270,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                             />
                             <h3>Peer Reviews</h3>
                             <p>Reviewer: {username}</p>
-                            <p>Reviewers Comments: {peerReviewInfo.comments}</p>
 
                             <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
                             {peerReviewInfo.agreeoncompetency === "No" ? (
@@ -232,6 +281,16 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                                       peerReviewInfo.performancecriterias_id - 2
                                     ].title
                                   }
+                                </p>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                            {/* <p>Reviewers Comments: {peerReviewInfo.comments}</p> */}
+                            {peerReviewInfo.comments != null ? (
+                              <div>
+                                <p>
+                                  Reviewers Comments: {peerReviewInfo.comments}
                                 </p>
                               </div>
                             ) : (
@@ -253,6 +312,17 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
               )}
             </div>
           ))}
+          {reviewers === true ? (
+            <button className={style.myButton} onClick={DeletePeerReview}>
+              Delete Peer Review
+            </button>
+          ) : (
+            <></>
+          )}
+          <br />
+          <Link to={`/evidence?id=${id}`}>
+            <button className={style.myButton}>Back</button>
+          </Link>
         </div>
       </div>
     </div>

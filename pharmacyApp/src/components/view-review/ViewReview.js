@@ -10,15 +10,17 @@ function ViewReview(props) {
   const [evidenceCriteria, setEvidenceCriteria] = useState(null);
   localStorage.removeItem("currentDomain");
 
+
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
+
 
   useEffect(() => {
     const request = {
       access_token: auth.access_token,
       username: auth.username,
     };
-    fetch("/api/evidence-criteria", {
+    fetch("/api/get-all-evidence-criteria", {
       method: "POST",
       body: JSON.stringify(request),
       headers: { "Content-Type": "application/json" },
