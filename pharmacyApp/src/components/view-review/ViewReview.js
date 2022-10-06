@@ -6,33 +6,42 @@ import style from "./style.css";
 import ViewReviewForm from "./ViewReviewForm";
 
 function ViewReview(props) {
-    const { auth } = useAuth();
-    const [evidenceCriteria, setEvidenceCriteria] = useState(null);
-    localStorage.removeItem("currentDomain");
-  
-    useEffect(() => {
-      const request = {
-        access_token: auth.access_token,
-        username: auth.username,
-      };
-      fetch("/api/evidence-criteria", {
-        method: "POST",
-        body: JSON.stringify(request),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => response.json())
-        .then((data) => {console.log(data);setEvidenceCriteria(data)});
-    }, []);
-  
-return (
+  const { auth } = useAuth();
+  const [evidenceCriteria, setEvidenceCriteria] = useState(null);
+  localStorage.removeItem("currentDomain");
+
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+
+  useEffect(() => {
+    const request = {
+      access_token: auth.access_token,
+      username: auth.username,
+    };
+    fetch("/api/evidence-criteria", {
+      method: "POST",
+      body: JSON.stringify(request),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setEvidenceCriteria(data);
+      });
+  }, []);
+
+  return (
     <div>
-        {evidenceCriteria ? (
+      <Link to={`/evidence/?id=${id}`}>
+        <button>Back</button>
+      </Link>
+      {evidenceCriteria ? (
         <ViewReviewForm evidenceCriteria={evidenceCriteria} />
-        ) : (
+      ) : (
         <></>
-        )}
+      )}
     </div>
-    );
+  );
 }
 
 export default ViewReview;
