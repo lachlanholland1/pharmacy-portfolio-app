@@ -10,13 +10,13 @@ function UserCard(props) {
   console.log(location.pathname);
   return (
     <div>
-      {location.pathname == "/accounts/edit/" ? (
+      {/* {location.pathname == "/accounts/edit/" ? (
         <Link to="/">
           <button className={style.myButton2}>Change profile photo</button>
         </Link>
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 }
