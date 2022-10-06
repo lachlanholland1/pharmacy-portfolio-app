@@ -49,22 +49,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
       event.target.value == "3" ||
       event.target.value == "4"
     ) {
-      // setCheckedItems({
-      //   ...checkedItems,
-      //   [event.target.name + "4"]: false,
-      // });
-      // setCheckedItems({
-      //   ...checkedItems,
-      //   [event.target.name + "3"]: false,
-      // });
-      // setCheckedItems({
-      //   ...checkedItems,
-      //   [event.target.name + "2"]: false,
-      // });
-      // setCheckedItems({
-      //   ...checkedItems,
-      //   [event.target.name + event.target.value]: true,
-      // });
       setCheckedItems({
         ...checkedItems,
         [event.target.name]: event.target.value,
@@ -72,9 +56,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
       console.log("The value:");
       console.log(event.target.value);
       console.log("ASDSADSDAD");
-      //check[event.target.name] = event.target.value;
       console.log(checkedItems);
-      console.log("ASDSADSDAD");
     }
     console.log(reviewId);
     setFormData({
@@ -198,7 +180,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
               ))}
             </div>
             <br />
-            <label className="">Comments</label>
+            {/* <label className="">Comments</label>
             <br />
             <textarea
               required
@@ -208,26 +190,25 @@ export default function PeerReviewForm({ evidenceCriteria }) {
               placeholder={"Enter your reasons for Yes/No"}
               name={"comments-" + competencyID}
               onChange={(event) => handleChange(event, competencyID)}
-            />
+            /> */}
           </div>
         );
       }
     }
-    return (
-      <div>
-        <label className="">Comments</label>
-        <br />
-        <textarea
-          className=""
-          maxLength={255}
-          type="text"
-          placeholder={"Enter your reasons for Yes/No"}
-          name={"comments-" + competencyID}
-          onChange={(event) => handleChange(event, competencyID)}
-        />
-        ;
-      </div>
-    );
+    return null;
+    //   <div>
+    //     <label className="">Comments</label>
+    //     <br />
+    //     <textarea
+    //       className=""
+    //       maxLength={255}
+    //       type="text"
+    //       placeholder={"Enter your reasons for Yes/No"}
+    //       name={"comments-" + competencyID}
+    //       onChange={(event) => handleChange(event, competencyID)}
+    //     />
+
+    //   </div>
   }
   console.log(formData);
 
@@ -386,9 +367,9 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                             <></>
                           )}
 
-                          {/* <p>What level do you believe the evidence meets?</p>
-                        <div>
-                          <input
+                          <p>What level do you believe the evidence meets?</p>
+                          {/* <div> */}
+                          {/* <input
                             type="radio"
                             name={"c" + competency.review_id}
                             value="1"
@@ -420,20 +401,20 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                             step="1"
                           />
                           <label className="">{"Advanced"}</label>
-                        </div>
-                        <br />
-                        <label className="">Comments</label>
-                        <br />
-                        <textarea
-                          className=""
-                          maxLength={255}
-                          type="text"
-                          placeholder={"Enter your reasons for Yes/No"}
-                          name={"comments-" + competency.review_id}
-                          onChange={(event) =>
-                            handleChange(event, competency.review_id)
-                          }
-                        /> */}
+                        </div> */}
+
+                          <label className="">Comments</label>
+                          <br />
+                          <textarea
+                            className=""
+                            maxLength={255}
+                            type="text"
+                            placeholder={"Enter your reasons for Yes/No"}
+                            name={"comments-" + competency.review_id}
+                            onChange={(event) =>
+                              handleChange(event, competency.review_id)
+                            }
+                          />
                         </div>
                       ))}
                     </div>
