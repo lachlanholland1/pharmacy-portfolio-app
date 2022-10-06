@@ -90,7 +90,7 @@ function PeerReviewTable() {
           </tbody>
         </table>
       ) : (
-        <>Evidence has not been peer reviewed yet.</>
+        <>This evidence has not been peer reviewed,</>
       )}
     </div>
   );
