@@ -28,8 +28,8 @@ export default function ViewReviewForm({ evidenceCriteria }) {
   const id = searchParams.get("id");
   const evidencereviews_id = searchParams.get("reviewid");
   let review_id = null;
-  if (evidenceReviews[0] != null) {
-    localStorage.setItem("review_id", evidenceReviews[0].idevidencereview);
+  if (evidenceReviews != null) {
+    localStorage.setItem("review_id", evidenceReviews.idevidencereview);
     review_id = localStorage.getItem("review_id");
   }
   useEffect(() => {
