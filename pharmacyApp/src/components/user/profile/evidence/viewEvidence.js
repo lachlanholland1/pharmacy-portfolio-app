@@ -69,7 +69,7 @@ export default function ViewEvidence(props) {
             <br />
             {auth.user_id === evidenceData.users_id && !evidenceReviews ? (
               <Link to={`/create-self-review/?id=${id}`}>
-                <button className={style.myButton}>Self Review</button>
+                <button className={style.myButton}>Write a Self Review</button>
               </Link>
             ) : (
               <></>
@@ -79,7 +79,7 @@ export default function ViewEvidence(props) {
             <Link to={"/" + viewingProfile}>
               <button className={style.myButton}>Back</button>
             </Link>
-            <h3>Self Reviews</h3>
+            <h3>Self Review</h3>
             <EvidenceReviews reviews={evidenceReviews} />
             <PeerReviewTable />
           </div>
