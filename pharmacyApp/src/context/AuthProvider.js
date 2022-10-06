@@ -3,12 +3,12 @@ import React, { createContext, useEffect, useState } from "react";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState({});
 
   useEffect(() => {
     fetch("/api/authenticate", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
         if (!response.ok) {
           return Promise.reject();
         }
+        console.log(response);
         return response.json();
       })
       .then((data) =>
