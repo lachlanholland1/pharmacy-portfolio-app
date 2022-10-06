@@ -104,6 +104,24 @@ export default function PeerReviewForm({ evidenceCriteria }) {
           setReviewers(false);
         }
       });
+
+    fetch("/api/get-all-peer-reviews", {
+      method: "POST",
+      body: JSON.stringify({ evidenceitems_id: id }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("ALL REVIEWED ACCOUNS");
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          if (auth.user_id == data[i].reviewers_id) {
+            console.log("ALREADY DONE A REVIEW!");
+            navigate("/evidence?id=" + id);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   function handleSubmit(e) {
@@ -136,25 +154,21 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     });
     navigate("/evidence?id=" + id);
   }
-  ////////////COMMENTED OUT FOR TESTING
-  //////////////////////////////UNCOMMENT OUT WHEN WE WANT AUTHORISATION THAT THE USER IS A REVIEWER
-  // if (reviewers == false) {
-  //   console.log("Not authorised.");
-  //   return (
-  //     <div>
-  //       <label>You are unauthorised to access this page.</label>
-  //       <br />
-  //       <Link to={"/login"}>
-  //         <button>Login</button>
-  //       </Link>
-  //     </div>
-  //   );
-  // }
+  if (reviewers == false) {
+    console.log("Not authorised.");
+    return (
+      <div>
+        <label>You are unauthorised to access this page.</label>
+        <br />
+        <Link to={"/login"}>
+          <button>Login</button>
+        </Link>
+      </div>
+    );
+  }
 
   function NewFields(value) {
-    // console.log(value);
     var competencyID = value.value2;
-    // console.log(competencyID);
     if (value.value != null) {
       if (value.value.value == "No") {
         return (
