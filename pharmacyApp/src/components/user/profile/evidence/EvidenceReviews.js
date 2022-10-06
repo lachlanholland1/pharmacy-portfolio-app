@@ -4,12 +4,10 @@ import EvidenceReviewCard from "./EvidenceReviewCard";
 function EvidenceReviews({ reviews }) {
   return (
     <div>
-      {reviews.length ? (
-        reviews.map((review, index) => (
-          <EvidenceReviewCard key={index} review={review} />
-        ))
+      {reviews ? (
+        <EvidenceReviewCard review={reviews} />
       ) : (
-        <div>Evidence has not been reviewed yet.</div>
+        <div>This evidence has not been self reviewd.</div>
       )}
     </div>
   );
