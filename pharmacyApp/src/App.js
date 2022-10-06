@@ -49,7 +49,7 @@ function App(props) {
       {/* User*/}
       <Route element={<UserLayout />}>
         {/* User and Public*/}
-        <Route path="/:user" element={<Profile />} />       
+        <Route path="/:user" element={<Profile />} />
         <Route path="/add-evidence" element={<AddEvidence />} />
         <Route path="/view-review" element={<ViewReview />} />
 
@@ -84,9 +84,18 @@ function App(props) {
           <Route path="/view-competencies" element={<ViewCompetencies />} />
           <Route path="/edit-competencies" element={<EditCompetencies />} />
           <Route path="/view-competencies" element={<ViewCompetencies />} />
-          <Route path="/view-performancecriterias" element={<ViewPerformancecriterias />} />
-          <Route path="/edit-performancecriterias" element={<EditPerformancecriterias />} />
-          <Route path="/create-performancecriteria" element={<AddPerformancecriterias />} />
+          <Route
+            path="/view-performancecriterias"
+            element={<ViewPerformancecriterias />}
+          />
+          <Route
+            path="/edit-performancecriterias"
+            element={<EditPerformancecriterias />}
+          />
+          <Route
+            path="/create-performancecriteria"
+            element={<AddPerformancecriterias />}
+          />
           <Route path="/create-admin" element={<CreateAdmin />} />
           <Route path="/create-reviewer" element={<CreateReviewer />} />
         </Route>
