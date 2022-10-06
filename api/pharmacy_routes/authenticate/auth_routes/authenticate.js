@@ -2,17 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { cookies } = req;
-
-  console.log("cookies");
-  console.log(cookies);
-  return res.send({
+  const response = {
     authenticated: "true",
     user_id: parseInt(cookies.user_id),
     username: cookies.username,
     admin: cookies.admin,
-  });
+  };
+  console.log(response);
+  return res.send(response);
 });
 
 module.exports = router;
