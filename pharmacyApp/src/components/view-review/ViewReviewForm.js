@@ -177,13 +177,24 @@ export default function ViewReviewForm({ evidenceCriteria }) {
                         }
                       </label>
                       <br />
-                      <p>Users Comments: {competency.comments}</p>
+                      {competency.comments != null ? (
+                        <div>
+                          <p>Users Comments: {competency.comments}</p>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      <br />
+                      {/* <p>Users Comments: {competency.comments}</p> */}
                     </div>
                   ))}
                 </div>
               ))}
             </div>
           ))}
+          <Link to={`/evidence?id=${id}`}>
+            <button className={style.myButton}>Back</button>
+          </Link>
         </div>
       </div>
     </div>

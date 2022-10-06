@@ -26,7 +26,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
-
+  const [checkedItems, setCheckedItems] = useState({});
+  const [domainsDisplay, setDomainsDisplay] = useState(
+    Array(evidenceCriteria.domains.length).fill(0)
+  );
+  //var check = [];
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
   const evidencereviews_id = searchParams.get("reviewid");
@@ -39,6 +43,21 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   const onSubmit = (data) => console.log(data);
 
   const handleChange = (event, reviewId) => {
+    if (
+      event.target.value == "1" ||
+      event.target.value == "2" ||
+      event.target.value == "3" ||
+      event.target.value == "4"
+    ) {
+      setCheckedItems({
+        ...checkedItems,
+        [event.target.name]: event.target.value,
+      });
+      console.log("The value:");
+      console.log(event.target.value);
+      console.log("ASDSADSDAD");
+      console.log(checkedItems);
+    }
     console.log(reviewId);
     setFormData({
       name: event.target.name,
@@ -85,6 +104,24 @@ export default function PeerReviewForm({ evidenceCriteria }) {
           setReviewers(false);
         }
       });
+
+    fetch("/api/get-all-peer-reviews", {
+      method: "POST",
+      body: JSON.stringify({ evidenceitems_id: id }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("ALL REVIEWED ACCOUNS");
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          if (auth.user_id == data[i].reviewers_id) {
+            console.log("ALREADY DONE A REVIEW!");
+            navigate("/evidence?id=" + id);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   function handleSubmit(e) {
@@ -117,58 +154,47 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     });
     navigate("/evidence?id=" + id);
   }
-  ////////////COMMENTED OUT FOR TESTING
-  //////////////////////////////UNCOMMENT OUT WHEN WE WANT AUTHORISATION THAT THE USER IS A REVIEWER
-  // if (reviewers == false) {
-  //   console.log("Not authorised.");
-  //   return (
-  //     <div>
-  //       <label>You are unauthorised to access this page.</label>
-  //       <br />
-  //       <Link to={"/login"}>
-  //         <button>Login</button>
-  //       </Link>
-  //     </div>
-  //   );
-  // }
+  if (reviewers == false) {
+    console.log("Not authorised.");
+    return (
+      <div>
+        <label>You are unauthorised to access this page.</label>
+        <br />
+        <Link to={"/login"}>
+          <button>Login</button>
+        </Link>
+      </div>
+    );
+  }
 
   function NewFields(value) {
+    var competencyID = value.value2;
     if (value.value != null) {
       if (value.value.value == "No") {
         return (
           <div>
             <p>What level do you believe the evidence meets?</p>
             <div>
-              <input
-                type="radio"
-                name={"c" + competencyID}
-                value="1"
-                onChange={(event) => handleChange(event, competencyID)}
-                step="1"
-                // checked={formData.["c" + competencyID].value}
-              />
-              <label className="">{"Transition"}</label>
-              <br />
-              <input
-                type="radio"
-                name={"c" + competencyID}
-                value="2"
-                onChange={(event) => handleChange(event, competencyID)}
-                step="1"
-              />
-              <label className="">{"Consolidation"}</label>
-              <br />
-              <input
-                type="radio"
-                name={"c" + competencyID}
-                value="3"
-                onChange={(event) => handleChange(event, competencyID)}
-                step="1"
-              />
-              <label className="">{"Advanced"}</label>
+              {evidenceCriteria.performance_criteria.map((criteria, index) => (
+                <div className="" key={index}>
+                  <input
+                    type="radio"
+                    name={"c" + competencyID}
+                    value={criteria.idperformancecriteria}
+                    onChange={(event) => handleChange(event, competencyID)}
+                    onClick={(event) => handleChange(event, competencyID)}
+                    step="1"
+                    checked={
+                      checkedItems["c" + competencyID] ==
+                      criteria.idperformancecriteria
+                    }
+                  />
+                  <label className="">{criteria.title}</label>
+                </div>
+              ))}
             </div>
             <br />
-            <label className="">Comments</label>
+            {/* <label className="">Comments</label>
             <br />
             <textarea
               required
@@ -178,26 +204,25 @@ export default function PeerReviewForm({ evidenceCriteria }) {
               placeholder={"Enter your reasons for Yes/No"}
               name={"comments-" + competencyID}
               onChange={(event) => handleChange(event, competencyID)}
-            />
+            /> */}
           </div>
         );
       }
     }
-    return (
-      <div>
-        <label className="">Comments</label>
-        <br />
-        <textarea
-          className=""
-          maxLength={255}
-          type="text"
-          placeholder={"Enter your reasons for Yes/No"}
-          name={"comments-" + competencyID}
-          onChange={(event) => handleChange(event, competencyID)}
-        />
-        ;
-      </div>
-    );
+    return null;
+    //   <div>
+    //     <label className="">Comments</label>
+    //     <br />
+    //     <textarea
+    //       className=""
+    //       maxLength={255}
+    //       type="text"
+    //       placeholder={"Enter your reasons for Yes/No"}
+    //       name={"comments-" + competencyID}
+    //       onChange={(event) => handleChange(event, competencyID)}
+    //     />
+
+    //   </div>
   }
   console.log(formData);
 
@@ -205,7 +230,13 @@ export default function PeerReviewForm({ evidenceCriteria }) {
   var standardIndex = null;
   var competenecyIndex = null;
   var val = null;
-  var competencyID = null;
+
+  // function handleDisplayDomain(index) {
+  //   const domainsDisplayCopy = [...domainsDisplay];
+  //   domainsDisplayCopy[index] = !domainsDisplayCopy[index];
+  //   setDomainsDisplay(domainsDisplayCopy);
+  // }
+
   return (
     <div>
       <div className={style.container}>
@@ -231,11 +262,13 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                   }
                 />
 
-                <h2>
-                  {evidenceCriteria.domains[domainIndex].title}{" "}
-                  {evidenceCriteria.domains[domainIndex].description}
-                </h2>
-
+                <div className={style.domain_dropdown}>
+                  <h2 onClick={() => handleDisplayDomain(index)}>
+                    {evidenceCriteria.domains[domainIndex].title}{" "}
+                    {evidenceCriteria.domains[domainIndex].description}
+                  </h2>
+                </div>
+                {/* {domainsDisplay[index] ? ( */}
                 {data.standards.map((standard, index) => (
                   <div key={index}>
                     <input
@@ -325,28 +358,30 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           }
                           step="1"
                         />
-                        {/* {(val = "a-" + competency.review_id)} */}
                         <label className="">{"No"}</label>
                         <input
                           type="hidden"
                           name="inputFour"
                           value={(val = "a-" + competency.review_id)}
                         />
-                        <input
+                        {/* <input
                           type="hidden"
                           name="inputFive"
                           value={(competencyID = competency.review_id)}
-                        />
+                        /> */}
 
                         {val != null ? (
-                          <NewFields value={formData[val]} />
+                          <NewFields
+                            value={formData[val]}
+                            value2={competency.review_id}
+                          />
                         ) : (
                           <></>
                         )}
 
-                        {/* <p>What level do you believe the evidence meets?</p>
-                        <div>
-                          <input
+                        <p>What level do you believe the evidence meets?</p>
+                        {/* <div> */}
+                        {/* <input
                             type="radio"
                             name={"c" + competency.review_id}
                             value="1"
@@ -378,8 +413,8 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                             step="1"
                           />
                           <label className="">{"Advanced"}</label>
-                        </div>
-                        <br />
+                        </div> */}
+
                         <label className="">Comments</label>
                         <br />
                         <textarea
@@ -391,10 +426,14 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           onChange={(event) =>
                             handleChange(event, competency.review_id)
                           }
-                        /> */}
+                        />
+                        <br />
                       </div>
                     ))}
                   </div>
+                  //   ))
+                  // ) : (
+                  //   <></>
                 ))}
               </div>
             ))}
@@ -404,6 +443,10 @@ export default function PeerReviewForm({ evidenceCriteria }) {
               </button>
             </div>
           </form>
+          <br />
+          <Link to={`/evidence?id=${id}`}>
+            <button className={style.myButton}>Back</button>
+          </Link>
         </div>
       </div>
     </div>
@@ -420,7 +463,7 @@ function getIndexOfCompetency(
     var max =
       evidenceCriteria.domains[domains_id].standards[standard_id].competencies
         .length;
-    console.log(max);
+
     for (let i = 0; i < max; i++) {
       if (
         evidenceCriteria.domains[domains_id].standards[standard_id]
@@ -436,7 +479,6 @@ function getIndexOfCompetency(
 function getIndexOfStandard(evidenceCriteria, domains_id, standard_id) {
   if (evidenceCriteria != null) {
     var max = evidenceCriteria.domains[domains_id].standards.length;
-    console.log(max);
     for (let i = 0; i < max; i++) {
       if (
         evidenceCriteria.domains[domains_id].standards[i].idstandards ==
