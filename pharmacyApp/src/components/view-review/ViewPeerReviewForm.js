@@ -240,7 +240,15 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                           }
                         </label>
                         <br />
-                        <p>Users Comments: {competency.comments}</p>
+                        {/* <p>Reviewers Comments: {peerReviewInfo.comments}</p> */}
+                        {competency.comments != null ? (
+                          <div>
+                            <p>Users Comments: {competency.comments}</p>
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                        {/* <p>Users Comments: {competency.comments}</p> */}
                         {/* //////////////////////// */}
                         {/* //////////////////////// */}
                         {/* //////////////////////// */}
@@ -262,7 +270,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                             />
                             <h3>Peer Reviews</h3>
                             <p>Reviewer: {username}</p>
-                            <p>Reviewers Comments: {peerReviewInfo.comments}</p>
 
                             <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
                             {peerReviewInfo.agreeoncompetency === "No" ? (
@@ -274,6 +281,16 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                                       peerReviewInfo.performancecriterias_id - 2
                                     ].title
                                   }
+                                </p>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                            {/* <p>Reviewers Comments: {peerReviewInfo.comments}</p> */}
+                            {peerReviewInfo.comments != null ? (
+                              <div>
+                                <p>
+                                  Reviewers Comments: {peerReviewInfo.comments}
                                 </p>
                               </div>
                             ) : (
