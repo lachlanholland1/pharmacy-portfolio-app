@@ -1,11 +1,10 @@
 .table {
     border: 2px solid lightgray;
-    width: 98%;
+    width: 100%;
     /* border-collapse: collapse; */
     overflow: hidden;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     border-radius: 5px;
-
     margin-left: auto;
     margin-right: auto;
 }
@@ -37,8 +36,6 @@
     height: 30px;
     width: 175px;
     text-decoration: none;
-
-
 }
 
 .myButton:hover {
@@ -52,4 +49,38 @@
 
 .padding {
     padding-left: 20px;
+}
+.myButton2 {
+    background-color: #000000;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 13px;
+    height: 30px;
+    width: 175px;
+    text-decoration: none;
+}
+
+.myButton2:hover {
+    background-color: #707070;
+}
+
+.myButton2:active {
+    position: relative;
+    top: 1px;
+}
+
+.border{
+	padding: 20px;
+}
+
+.space {
+    /* border: solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 375px;
 }

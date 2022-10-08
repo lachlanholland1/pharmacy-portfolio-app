@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import SignOutButton from "../../../SignOutButton";
+import style from "./navBar.css";
 
 function AdminNavbar(props) {
   return (
-    <nav className="">
-      <a className="" href="/view-reviewers">
+    <nav className={style.navBox}>
+      <a className={style.nav} href="/view-reviewers">
         Reviewers
       </a>
-      <a className="" href="/view-admins">
+      <a className={style.nav} href="/view-admins">
         Administrators
       </a>
-      <a className="" href="/view-domains">
+      <a className={style.nav} href="/view-domains">
         Domains
       </a>
-      <a className="" href="/view-standards">
+      <a className={style.nav} href="/view-standards">
         Standards
       </a>
-      <a className="" href="/view-competencies">
+      <a className={style.nav} href="/view-competencies">
         Competencies
       </a>
-      <a className="" href="/view-performancecriterias">
+      <a className={style.nav} href="/view-performancecriterias">
         Performance Criteria
       </a>
       <SignOutButton />

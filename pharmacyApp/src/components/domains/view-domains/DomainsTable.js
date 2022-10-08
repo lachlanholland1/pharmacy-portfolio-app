@@ -26,9 +26,7 @@ export default function DomainsTable(props) {
 
   return (
     <div>
-      <div className={style.padding}>
         <h2>Domains</h2>
-      </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>Title</th>

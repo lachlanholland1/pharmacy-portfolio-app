@@ -1,6 +1,6 @@
 .table {
     border: 2px solid lightgray;
-    width: 98%;
+    width: 100%;
     /* border-collapse: collapse; */
     overflow: hidden;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
@@ -52,4 +52,17 @@
 
 .padding {
     padding-left: 20px;
+}
+
+.border{
+	padding: 20px;
+}
+
+.space {
+    /* border: solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 375px;
 }

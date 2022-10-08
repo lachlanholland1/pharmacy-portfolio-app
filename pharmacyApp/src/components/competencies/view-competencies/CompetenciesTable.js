@@ -25,9 +25,7 @@ export default function CompetenciesTable(props) {
 
   return (
     <div>
-      <div className={style.padding}>
         <h2>Competencies</h2>
-      </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>Standard Title</th>

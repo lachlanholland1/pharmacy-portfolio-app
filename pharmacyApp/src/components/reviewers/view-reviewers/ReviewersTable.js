@@ -54,9 +54,7 @@ export default function ReviewersTable(props) {
 
   return (
     <div>
-      <div className={style.padding}>
         <h2>Reviewers</h2>
-      </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>User Email</th>

@@ -12,12 +12,12 @@ function ViewReviewers(props) {
   const { auth } = useAuth();
   return (
     <div className={style.border}>
-      <div className={style.padding}>
+      <div className={style.space}>
       <Link to={"/" + auth.username}>
         <button className={style.myButton}>Back</button>
       </Link>
       <Link to={"/create-reviewer"}>
-        <button className={style.myButton}>New Admin</button>
+        <button className={style.myButton}>New Reviewer</button>
       </Link>
       </div>
       <ReviewersTable />
