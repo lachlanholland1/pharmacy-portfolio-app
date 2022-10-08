@@ -69,9 +69,7 @@ export default function AdminsTable(props) {
   };
   return (
     <div>
-      <div className={style.padding}>
         <h2>Administrators</h2>
-      </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>User Email</th>

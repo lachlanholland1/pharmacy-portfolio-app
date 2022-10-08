@@ -5,9 +5,9 @@ import style from "./style.css";
 
 function CreateReviewer(props) {
   return (
-    <div>
+    <div className={style.border}>
         <Link to={"/view-reviewers"}>
-          <button className={style.myButton}>Back</button>
+          <button className={style.myButton2}>Back</button>
         </Link>
       <CreateReviewerForm />
     </div>

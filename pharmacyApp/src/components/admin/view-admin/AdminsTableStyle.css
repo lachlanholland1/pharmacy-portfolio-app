@@ -1,9 +1,7 @@
-.border{
-	padding: 20px;
-}
+
 .table {
     border: 2px solid lightgray;
-	width: 98%;
+	width: 100%;
 	overflow: hidden;
 	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     border-radius:5px;
@@ -29,27 +27,42 @@
 }
 
 .myButton {
-	background-color:#000000;
-	border-radius:5px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	height: 25px;
-    width: 75px;
-	text-decoration:none;
+    background-color: #000000;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    height: 30px;
+    width: 175px;
+    text-decoration: none;
 
 
 }
+
 .myButton:hover {
-	background-color:#707070;
+    background-color: #707070;
 }
+
 .myButton:active {
-	position:relative;
-	top:1px;
+    position: relative;
+    top: 1px;
 }
 
 .padding {
     padding-left: 20px;
+}
+
+.border{
+	padding: 20px;
+}
+
+.space {
+    /* border: solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 375px;
 }

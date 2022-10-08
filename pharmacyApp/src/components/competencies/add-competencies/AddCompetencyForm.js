@@ -21,7 +21,7 @@ export default function AddCompetencyForm(){
     let navigate = useNavigate();
     const params = useParams();
     const { auth } = useAuth();
-    
+
     const request = {
       framework: "standards",
     };
@@ -47,14 +47,14 @@ export default function AddCompetencyForm(){
         formState: { errors }
       } = useForm();
        const onSubmit = (data) => console.log(data);
-      
+
       const handleChange = (event) => {
         setFormData({
           name: event.target.name,
           value: event.target.value,
         });
       };
-  
+
       function handleSubmit(e) {
         e.preventDefault();
         setFormIsVisible(false);
@@ -80,9 +80,11 @@ export default function AddCompetencyForm(){
       }
     return (
         <div>
-            <h1>Add Competency</h1>
+          <div className={style.container}>
+          <div className={style.sign}>
+            <h1 className={style.center}>Add Competency</h1>
             <form onSubmit={handleSubmit}>
-           
+
             <label className={style.padding}>Competency Title</label>
             <br />
             <input
@@ -109,8 +111,8 @@ export default function AddCompetencyForm(){
             onChange={handleChange}
             />
             <br/>
+            <div className={style.center}>
             <label>Standard</label>
-            <br />
             <br />
             <select required id="standards_id" name="standards_id" onChange={handleChange}  className={style.classic}>
               <option value=""></option>
@@ -121,11 +123,13 @@ export default function AddCompetencyForm(){
                 ) : (
                   <option value=""></option>
                 )}
-            </select> 
+            </select>
+            <br/>
             <br/>
             <label>Status</label>
             <br />
             <select
+              className={style.classic}
                 required
                 id="status"
                 name="status"
@@ -133,16 +137,17 @@ export default function AddCompetencyForm(){
                     <option value=""></option>
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
-            </select>     
-            
-            <br />            
-                <br />
-                <div>
-                    <button type="submit" className={" button-primary"}>
+            </select>
+            </div>
+            <br />
+                <div className={style.center}>
+                    <button type="submit" className={style.myButton}>
                         Submit
                     </button>
                 </div>
             </form>
+        </div>
+        </div>
         </div>
     )
 }
