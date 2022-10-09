@@ -86,13 +86,13 @@ export default function ViewReviewForm({ evidenceCriteria }) {
 
           <p>Description</p>
           <p>{evidenceData}</p>
-          {/* {reviewers === true && auth.user_id != evidenceData.users_id ? ( */}
-          <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
-            <button className={style.myButton}>Create Peer Review</button>
-          </Link>
-          {/* ) : (
+          {reviewers === true && auth.user_id != evidenceData.users_id ? (
+            <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
+              <button className={style.myButton}>Create Peer Review</button>
+            </Link>
+          ) : (
             <></>
-          )} */}
+          )}
           {reviewData.data?.map((data, index) => (
             <div>
               <input

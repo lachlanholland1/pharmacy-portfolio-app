@@ -74,6 +74,7 @@ export default function SelfReviewForm({ evidenceCriteria }) {
         setIsSuccess(1);
       }
     });
+    navigate("/evidence?id=" + id);
   }
 
   function handleDisplayDomain(index) {

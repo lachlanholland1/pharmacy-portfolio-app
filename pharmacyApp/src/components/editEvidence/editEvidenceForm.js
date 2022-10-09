@@ -23,6 +23,8 @@ export default function EditEvidenceForm({ evidenceData }) {
   const navigate = useNavigate();
   const [userChanged, setUserChanged] = useState(false);
   var procureDate = String(evidenceData.procurementdate);
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
   const {
     watch,
@@ -75,7 +77,7 @@ export default function EditEvidenceForm({ evidenceData }) {
         setIsSuccess(1);
       }
     });
-    // navigate("/" + auth.username);
+    navigate("/evidence?id=" + id);
   }
 
   const submit = () => {

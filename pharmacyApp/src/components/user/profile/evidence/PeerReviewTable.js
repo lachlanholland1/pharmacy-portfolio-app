@@ -43,7 +43,6 @@ function PeerReviewTable() {
       {evidenceData.length ? (
         <table className={style.table}>
           <tr table className={style.tr}>
-            <th>Reviewer</th>
             <th>Review Date</th>
             <th>Discrepencies</th>
             <th>View</th>
@@ -62,10 +61,6 @@ function PeerReviewTable() {
                 className={style.tr2}
                 key={index}
               >
-                <td>
-                  {evidence.firstname} {evidence.surname}
-                </td>
-
                 <td>
                   {Moment(evidence.reviewdate, "YYYY-MM-DD").format(
                     "DD/MM/YYYY"
