@@ -8,10 +8,10 @@ router.post("/", function (req, res, next) {
   console.log(req.body);
   console.log(req.body);
   console.log(req.body);
-  if (!req.body.user_id) {
+  if (!req.session.userid) {
     res.sendStatus(401);
   }
-  const user_id = req.body.user_id;
+  const user_id = req.session.userid;
 
   const accountChanges = req.body.edit_account;
   if (Object.keys(accountChanges).includes("private_account")) {

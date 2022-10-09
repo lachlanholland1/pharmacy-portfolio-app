@@ -27,16 +27,21 @@ router.post("/", function (req, res, next) {
       }
       const user = result[0];
       if (user.password === reqPassword) {
+        const session = req.session;
+        session.userid = user.user_id;
         const accessToken = generateAccessToken(user.user_id);
         const refreshToken = jwt.sign(
           { id: user.user_id },
           process.env.REFRESH_TOKEN_SECRET
         );
         refreshTokens.push(refreshToken);
+        res.cookie("user_id", session.userid, { httpOnly: true });
+        res.cookie("username", user.username, { httpOnly: true });
+        res.cookie("admin", user.admin, { httpOnly: true });
         return res.send({
-          access_token: accessToken,
-          user_id: user.user_id,
+          user_id: session.userid,
           username: user.username,
+          admin: user.admin,
         });
       }
       return res.sendStatus(401);

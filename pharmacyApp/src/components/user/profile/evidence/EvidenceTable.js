@@ -11,7 +11,6 @@ function EvidenceTable() {
   const params = useParams();
   const { auth } = useAuth();
   const [evidenceData, setEvidenceData] = useState([]);
-
   useEffect(() => {
     fetch("/api/evidence-table", {
       method: "POST",
@@ -25,12 +24,9 @@ function EvidenceTable() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setEvidenceData(data.evidence_data);
       })
-      .catch(() => {
-        setAccountIsPrivate(true);
-      });
+      .catch((err) => console.log(err));
   }, []);
 
   function handleOnClick(userid) {

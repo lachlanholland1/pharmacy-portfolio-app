@@ -4,16 +4,22 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReviewersTable from "./ReviewersTable";
 import useAuth from "../../../hooks/useAuth";
+import style from "./ReviewersTableStyle.css";
 
 function ViewReviewers(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div>
+    <div className={style.border}>
+      <div className={style.padding}>
       <Link to={"/" + auth.username}>
-        <button className="">Back</button>
+        <button className={style.myButton}>Back</button>
       </Link>
+      <Link to={"/create-reviewer"}>
+        <button className={style.myButton}>New Admin</button>
+      </Link>
+      </div>
       <ReviewersTable />
     </div>
   );

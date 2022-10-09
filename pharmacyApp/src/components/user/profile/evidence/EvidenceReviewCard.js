@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./EvidenceReviewCard.css";
 import Moment from "moment";
 import { Link } from "react-router-dom";
+import useAuth from "../../../../hooks/useAuth";
 
 function EvidenceReviewCard({ review }) {
   const [profileData, setProfileData] = useState({});
@@ -11,6 +12,8 @@ function EvidenceReviewCard({ review }) {
     fileName: file,
     fileType: type,
   };
+  const { auth } = useAuth();
+  const evidence_id = localStorage.getItem("evidence_id");
   useEffect(
     () =>
       fetch("/api/download", {
@@ -28,13 +31,24 @@ function EvidenceReviewCard({ review }) {
 
   return (
     <div>
-      <Link to={"/evidence-review/" + review.idevidencereview}>
+      <Link
+        to={`/view-review/?id=${evidence_id}&reviewid=${review.idevidencereview}`}
+      >
         <img src={profileData.signedUrl} className={style.photo}></img>
         <div>{review.username}</div>
         <div>
           {Moment(review.reviewdate, "YYYY-MM-DD").format("DD/MM/YYYY")}
         </div>
         <br />
+        <div>
+          {auth.username == review.username ? (
+            <Link to="/edit-self-review">
+              <button>Edit</button>
+            </Link>
+          ) : (
+            <></>
+          )}
+        </div>
       </Link>
     </div>
   );

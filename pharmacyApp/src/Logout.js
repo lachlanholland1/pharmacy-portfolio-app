@@ -6,9 +6,6 @@ export function Logout(props) {
   const { auth, setAuth } = useAuth();
   return fetch("/api/logout", {
     method: "DELETE",
-    headers: {
-      authorization: `Bearer ${auth.access_token}`,
-    },
   }).then(() => {
     setAuth({ user: false, access_token: "" });
   });

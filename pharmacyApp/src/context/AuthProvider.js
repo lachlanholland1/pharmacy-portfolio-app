@@ -5,17 +5,30 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState({});
+
   useEffect(() => {
     fetch("/api/authenticate", {
-      method: "GET",
+      method: "POST",
       headers: {
-        authorization: `Bearer ${auth.access_token}`,
         "Content-Type": "application/json",
       },
     })
       .then((response) => {
-        setAuth({ ...auth, user: response.ok });
+        if (!response.ok) {
+          return Promise.reject();
+        }
+        console.log(response);
+        return response.json();
       })
+      .then((data) =>
+        setAuth({
+          ...auth,
+          user: true,
+          user_id: data.user_id,
+          username: data.username,
+          admin: data.admin,
+        })
+      )
       .catch((err) => setAuth({ ...auth, user: false }))
       .finally(() => setLoading(false));
   }, []);
