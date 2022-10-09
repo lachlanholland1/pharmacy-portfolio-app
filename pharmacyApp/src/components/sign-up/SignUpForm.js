@@ -15,6 +15,7 @@ const SignUpForm = () => {
   const [formData, setFormData] = useReducer(formreducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [flagged, setFlagged] = useState(false);
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
     setFormData({
@@ -22,27 +23,48 @@ const SignUpForm = () => {
       value: isCheckbox ? event.target.checked : event.target.value,
     });
     console.log(formData);
+    if (event.target.name === "password") {
+      if (formData.confirm_password != event.target.value) {
+        setFlagged(true);
+      } else {
+        setFlagged(false);
+      }
+    }
+    if (event.target.name === "confirm_password") {
+      if (formData.password != event.target.value) {
+        setFlagged(true);
+      } else {
+        setFlagged(false);
+      }
+    }
   };
 
   function handleSubmit(e) {
-    e.preventDefault();
-    setFormIsVisible(false);
-    setLoading(true);
-    setSubmitting(true);
-    fetch("/api/sign-up", {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
-    }).then((response) => {
-      setLoading(false);
-      if (!response.ok) {
-        setFormIsVisible(true);
-        setIsSuccess(0);
-      } else {
-        setFormIsVisible(false);
-        setIsSuccess(1);
-      }
-    });
+    if (formData.password != formData.confirm_password) {
+      console.log("Password does not match");
+      setFormIsVisible(true);
+      setFlagged(true);
+      // return <p>password does not match</p>;
+    } else {
+      e.preventDefault();
+      setFormIsVisible(false);
+      setLoading(true);
+      setSubmitting(true);
+      fetch("/api/sign-up", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      }).then((response) => {
+        setLoading(false);
+        if (!response.ok) {
+          setFormIsVisible(true);
+          setIsSuccess(0);
+        } else {
+          setFormIsVisible(false);
+          setIsSuccess(1);
+        }
+      });
+    }
   }
 
   return (
@@ -56,6 +78,7 @@ const SignUpForm = () => {
               <br />
               <input
                 className={SignUp.myForm}
+                maxLength={30}
                 type="text"
                 id="username"
                 placeholder="Enter a username"
@@ -68,6 +91,7 @@ const SignUpForm = () => {
               <br />
               <input
                 className={SignUp.myForm}
+                maxLength={45}
                 type="text"
                 id="first_name"
                 placeholder="Enter your first name"
@@ -80,6 +104,7 @@ const SignUpForm = () => {
               <br />
               <input
                 className={SignUp.myForm}
+                maxLength={45}
                 type="text"
                 id="last_name"
                 placeholder="Enter your last name"
@@ -92,6 +117,7 @@ const SignUpForm = () => {
               <br />
               <input
                 className={SignUp.myForm}
+                maxLength={150}
                 type="text"
                 id="email"
                 placeholder="Enter your email"
@@ -104,6 +130,7 @@ const SignUpForm = () => {
               <br />
               <input
                 className={SignUp.myForm}
+                maxLength={150}
                 type="text"
                 id="password"
                 placeholder="Enter a password"
@@ -116,6 +143,7 @@ const SignUpForm = () => {
               <br />
               <input
                 className={SignUp.myForm}
+                maxLength={150}
                 type="text"
                 id="confirm_password"
                 placeholder="Confirm your password"
@@ -124,6 +152,7 @@ const SignUpForm = () => {
                 onChange={handleChange}
               />
               <br />
+              {flagged === true ? <p>Passwords do not match</p> : <></>}
               {/* <div className={SignUp.myCheck}>
               <label>Admin</label>
               <input class="myCheck" type="checkbox" name="admin" onChange={handleChange} step="1" />
