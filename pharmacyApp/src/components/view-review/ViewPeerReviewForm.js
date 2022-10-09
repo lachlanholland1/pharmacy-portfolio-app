@@ -135,7 +135,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
   var standardIndex = null;
   var competenecyIndex = null;
   var peerReviewInfo = null;
-  var username = null;
 
   function handleDisplayDomain(index) {
     const domainsDisplayCopy = [...domainsDisplay];
@@ -240,7 +239,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                           }
                         </label>
                         <br />
-                        {/* <p>Reviewers Comments: {peerReviewInfo.comments}</p> */}
                         {competency.comments != null ? (
                           <div>
                             <p>Users Comments: {competency.comments}</p>
@@ -248,7 +246,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                         ) : (
                           <></>
                         )}
-                        {/* <p>Users Comments: {competency.comments}</p> */}
                         {/* //////////////////////// */}
                         {/* //////////////////////// */}
                         {/* //////////////////////// */}
@@ -258,18 +255,13 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                               type="hidden"
                               name="inputThree"
                               value={
-                                ((peerReviewInfo = PeerReviewData(
+                                (peerReviewInfo = PeerReviewData(
                                   peerReviewData,
                                   competency.review_id
-                                )),
-                                (username = getUser(
-                                  users,
-                                  peerReviewInfo.reviewers_id
-                                )))
+                                ))
                               }
                             />
-                            <h3>Peer Reviews</h3>
-                            <p>Reviewer: {username}</p>
+                            <h3>Peer Review</h3>
 
                             <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
                             {peerReviewInfo.agreeoncompetency === "No" ? (
@@ -286,7 +278,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                             ) : (
                               <></>
                             )}
-                            {/* <p>Reviewers Comments: {peerReviewInfo.comments}</p> */}
                             {peerReviewInfo.comments != null ? (
                               <div>
                                 <p>
@@ -382,16 +373,6 @@ function PeerReviewData(data, review_id) {
   for (let i = 0; i < data.length; i++) {
     if (data[i].review_id == review_id) {
       return data[i];
-    }
-  }
-  return null;
-}
-
-function getUser(users, user_id) {
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].user_id == user_id) {
-      let username = users[i].firstname + " " + users[i].surname;
-      return username;
     }
   }
   return null;
