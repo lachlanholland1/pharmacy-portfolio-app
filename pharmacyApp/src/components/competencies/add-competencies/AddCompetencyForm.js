@@ -111,8 +111,7 @@ export default function AddCompetencyForm(){
             onChange={handleChange}
             />
             <br/>
-            <div className={style.center}>
-            <label>Standard</label>
+            <label className={style.padding}>Standard</label>
             <br />
             <select required id="standards_id" name="standards_id" onChange={handleChange}  className={style.classic}>
               <option value=""></option>
@@ -126,10 +125,10 @@ export default function AddCompetencyForm(){
             </select>
             <br/>
             <br/>
-            <label>Status</label>
+            <label className={style.padding}>Status</label>
             <br />
             <select
-              className={style.classic}
+              className={style.myForm1}
                 required
                 id="status"
                 name="status"
@@ -138,7 +137,7 @@ export default function AddCompetencyForm(){
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
             </select>
-            </div>
+            <br />
             <br />
                 <div className={style.center}>
                     <button type="submit" className={style.myButton}>

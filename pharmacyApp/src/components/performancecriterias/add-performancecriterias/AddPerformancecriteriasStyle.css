@@ -43,30 +43,6 @@
     width: 400px;
 }
 
-.myForm2 {
-    border: 2px solid lightgray;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    /* text-align: left; */
-    /* text-indent: 10px;  */
-    padding-left: 10px;
-    height: 200px;
-    width: 390px;
-    resize: none;
-}
-
-.myForm3 {
-    border: 2px solid lightgray;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    /* text-align: center; */
-    /* text-indent: 10px;  */
-    padding-left: 10px;
-    height: 100px;
-    width: 390px;
-    resize: none;
-}
-
 .myCheck {
     margin-bottom: 15px;
     align-items: center;
