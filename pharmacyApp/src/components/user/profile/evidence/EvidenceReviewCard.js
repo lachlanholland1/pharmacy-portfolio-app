@@ -43,7 +43,7 @@ function EvidenceReviewCard({ review }) {
         <div>
           {auth.username == review.username ? (
             <Link to="/edit-self-review">
-              <button>Edit</button>
+              <button className={style.myButton2}>Edit</button>
             </Link>
           ) : (
             <></>

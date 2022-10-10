@@ -34,7 +34,7 @@ export default function CreateReviewerForm(){
           setUserData(data.users_data);
         });
     }, []);
-  
+
 
     const [date, setDate] = useState(new Date());
     const {
@@ -81,10 +81,9 @@ export default function CreateReviewerForm(){
 
                 {/* add a bit about onSubmit?? */}
                 <div className={style.center}>
-                <label>User</label>
+                <label className={style.padding}>User</label>
                 <br />
-                <br />
-                <select required id="user_id" name="user_id" onChange={handleChange}  className={style.classic}>
+                <select required id="user_id" name="user_id" onChange={handleChange}  className={style.myForm1}>
                   <option value=""></option>
                   {userData.length ? (
                       userData.map((user) => (
@@ -93,8 +92,8 @@ export default function CreateReviewerForm(){
                     ) : (
                       <option value=""></option>
                     )}
-                </select>  
-                </div>             
+                </select>
+                </div>
                 <br />
                 <div>
                     <button type="submit" className={style.myButton}>

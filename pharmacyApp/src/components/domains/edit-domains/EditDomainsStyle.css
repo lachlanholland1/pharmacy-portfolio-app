@@ -14,14 +14,14 @@
 
 .myButton {
     background-color: #000000;
-    border-radius: 5px;
+    border-radius: 42px;
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
     font-family: Arial;
     font-size: 17px;
     height: 40px;
-    width: 400px;
+    width: 170px;
     text-decoration: none;
 
 }
@@ -45,29 +45,6 @@
     width: 400px;
 }
 
-.myForm2 {
-    border: 2px solid lightgray;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    /* text-align: left; */
-    /* text-indent: 10px;  */
-    padding-left: 10px;
-    height: 200px;
-    width: 390px;
-    resize: none;
-}
-
-.myForm3 {
-    border: 2px solid lightgray;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    /* text-align: center; */
-    /* text-indent: 10px;  */
-    padding-left: 10px;
-    height: 100px;
-    width: 390px;
-    resize: none;
-}
 
 .myCheck {
     margin-bottom: 15px;
@@ -89,26 +66,9 @@
     width: 400px;
 }
 
-
-.myButton2 {
-    background-color: #000000;
-    border-radius: 5px;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Arial;
-    font-size: 17px;
-    height: 25px;
-    width: 75px;
-    text-decoration: none;
-
-}
-
-.myButton2:hover {
-    background-color: #707070;
-}
-
-.myButton2:active {
-    position: relative;
-    top: 1px;
+.buttonSpace {
+    display: flex;
+    justify-content: space-around;
+    /* border: solid black; */
+    /* width: 200px; */
 }

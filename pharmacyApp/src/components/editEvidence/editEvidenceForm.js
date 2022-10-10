@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import style from "./style.css";
 
 const formreducer = (state, event) => {
   return {
@@ -122,12 +123,14 @@ export default function EditEvidenceForm({ evidenceData }) {
 
   return (
     <div>
+      <div className={style.container}>
+          <div className={style.sign}>
+            <h1 className={style.center}>Edit Evidence</h1>
       <form onSubmit={handleSubmit}>
-        <label>Edit Evidence</label>
-        <br />
-        <label>Title</label>
+        <label className={style.padding}>Title</label>
         <br />
         <input
+          className={style.myForm1}
           maxLength={65}
           type="text"
           id="title"
@@ -136,9 +139,10 @@ export default function EditEvidenceForm({ evidenceData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Description</label>
+        <label className={style.padding}>Description</label>
         <br />
         <input
+          className={style.myForm1}
           maxLength={255}
           type="text"
           placeholder={evidenceData.description}
@@ -147,9 +151,10 @@ export default function EditEvidenceForm({ evidenceData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Impact Statement</label>
+        <label className={style.padding}>Impact Statement</label>
         <br />
         <input
+          className={style.myForm1}
           maxLength={255}
           type="text"
           placeholder={evidenceData.impactstatement}
@@ -158,13 +163,18 @@ export default function EditEvidenceForm({ evidenceData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Procurement Date</label>
+        <label className={style.padding}>Procurement Date</label>
         <br />
         <Controller
           control={control}
           name="dateInput"
           render={({ field }) => (
             <DatePicker
+            style={{"width": '390px',
+            'margin-bottom': '15px',
+             'border': '2px solid lightgray',
+             'border-radius': '5px',
+             'padding-left': '10px'}}
               name="date"
               id="date"
               placeholder={procureDate.slice(0, -14)}
@@ -175,13 +185,12 @@ export default function EditEvidenceForm({ evidenceData }) {
           )}
         />
         <br />
-        <div>
-          <button disabled={!userChanged} type="submit">
-            Submit
-          </button>
+        <br />
+        <div className={style.buttonSpace}>
+          <button className={style.myButton2} onClick={submit}>Delete Evidence</button>
           {/* temp fix */}
           <Link to={"/" + auth.username}>
-            <button>Back</button>
+            <button className={style.myButton2}>Back</button>
           </Link>
           {/* <Link to={`/evidence?id=${evidenceData.idevidenceitems}`}>
         <button>Back</button>
@@ -189,9 +198,14 @@ export default function EditEvidenceForm({ evidenceData }) {
           <br />
         </div>
       </form>
-      <div>
-        <button onClick={submit}>Delete Evidence</button>
+      <br />
+      <div className={style.center}>
+      <button className={style.myButton} disabled={!userChanged} type="submit">
+            Submit
+          </button>
       </div>
+    </div>
+    </div>
     </div>
   );
   //}

@@ -56,7 +56,7 @@ export default function EditCompetenciesForm({ competencyData }) {
     });
     setFormData({ name: "idcompetencies", value: competencyData.idcompetencies });
   };
-  
+
   function handleSubmit(e) {
     if (!userChanged) return;
     // uploadFile(selectedFile);
@@ -83,10 +83,11 @@ export default function EditCompetenciesForm({ competencyData }) {
 
   return (
     <div>
+      <div className={style.container}>
+          <div className={style.sign}>
+          <h1 className={style.center}>Edit Competency</h1>
       <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Edit Competency</label>
-        <br />
-        <label>Title</label>
+        <label className={style.padding}>Title</label>
         <br />
         <input
           className={style.myForm1}
@@ -110,10 +111,9 @@ export default function EditCompetenciesForm({ competencyData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Standard</label>
+        <label className={style.padding}>Standard</label>
             <br />
-            <br />
-            <select required id="standards_id" name="standards_id" onChange={handleChange}  className={style.classic}>
+            <select required id="standards_id" name="standards_id" onChange={handleChange}  className={style.myForm1}>
               <option value={competencyData.standards_id}>{competencyData.standardstitle}</option>
               {frameworkData.length ? (
                   frameworkData.map((data) => (
@@ -122,10 +122,10 @@ export default function EditCompetenciesForm({ competencyData }) {
                 ) : (
                   <option value=""></option>
                 )}
-            </select> 
+            </select>
 
         <br />
-        <label>Status</label>
+        <label className={style.padding}>Status</label>
         <br />
         <select
           className={style.myForm1}
@@ -137,16 +137,18 @@ export default function EditCompetenciesForm({ competencyData }) {
               <option value={competencyData.status}>{competencyData.status}</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
-        </select>     
-        
+        </select>
         <br />
-        <div>
-          <button type="submit">
+        <br />
+        <div className={style.buttonSpace}>
+          <button
+          className={style.myButton}
+          type="submit">
             Submit
           </button>
           {/* temp fix */}
           <Link to={'/view-competencies'}>
-        <button>Back</button>
+        <button className={style.myButton}>Back</button>
       </Link>
           {/* <Link to={`/Competencie?id=${competencyData.idCompetencieitems}`}>
         <button>Back</button>
@@ -154,6 +156,8 @@ export default function EditCompetenciesForm({ competencyData }) {
       <br />
         </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 //}

@@ -111,10 +111,9 @@ export default function AddStandardForm(){
             onChange={handleChange}
             />
             <br/>
-            <div className={style.center}>
-            <label>Domain</label>
+            <label className={style.padding}>Domain</label>
             <br />
-            <select required id="domains_id" name="domains_id" onChange={handleChange}  className={style.classic}>
+            <select required id="domains_id" name="domains_id" onChange={handleChange}  className={style.myForm1}>
               <option value=""></option>
               {frameworkData.length ? (
                   frameworkData.map((data) => (
@@ -125,11 +124,10 @@ export default function AddStandardForm(){
                 )}
             </select>
             <br/>
-            <br/>
-            <label>Status</label>
+            <label className={style.padding}>Status</label>
             <br />
             <select
-                className={style.classic}
+                className={style.myForm1}
                 required
                 id="status"
                 name="status"
@@ -138,7 +136,7 @@ export default function AddStandardForm(){
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
             </select>
-            </div>
+            <br />
             <br />
                 <div className={style.center}>
                     <button type="submit" className={style.myButton}>

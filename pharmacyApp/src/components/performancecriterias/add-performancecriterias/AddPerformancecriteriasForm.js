@@ -92,11 +92,10 @@ export default function AddPerformancecriteriasForm(){
             onChange={handleChange}
             />
             <br/>
-            <div className={style.center}>
-            <label>Status</label>
+            <label className={style.padding}>Status</label>
             <br />
             <select
-                className={style.classic}
+                className={style.myForm1}
                 required
                 id="status"
                 name="status"
@@ -105,7 +104,7 @@ export default function AddPerformancecriteriasForm(){
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
             </select>
-            </div>
+                <br />
                 <br />
                 <div className={style.center}>
                     <button type="submit" className={style.myButton}>
