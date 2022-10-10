@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 84vh;
 }
 
 .sign {
@@ -13,26 +13,24 @@
 }
 
 .myButton {
-    background-color: #000000;
-    border-radius: 5px;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Arial;
-    font-size: 17px;
-    height: 40px;
-    width: 400px;
-    text-decoration: none;
-
+	background-color:#000000;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	height: 40px;
+    width: 300px;
+	text-decoration:none;
+    border: none;
 }
-
 .myButton:hover {
-    background-color: #707070;
+	background-color:#707070;
 }
-
 .myButton:active {
-    position: relative;
-    top: 1px;
+	position:relative;
+	top:1px;
 }
 
 .myForm1 {
@@ -98,9 +96,10 @@
     color: #ffffff;
     font-family: Arial;
     font-size: 17px;
-    height: 25px;
-    width: 75px;
+    height: 30px;
+    width: 175px;
     text-decoration: none;
+
 
 }
 
@@ -108,7 +107,22 @@
     background-color: #707070;
 }
 
-.myButton2:active {
+.myButto2:active {
     position: relative;
     top: 1px;
 }
+
+.border{
+	padding: 20px;
+}
+
+/* Select */
+select {
+
+    /* styling */
+    background-color: white;
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    height: 35px;
+
+  }

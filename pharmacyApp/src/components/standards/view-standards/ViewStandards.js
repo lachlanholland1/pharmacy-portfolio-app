@@ -11,13 +11,15 @@ function ViewStandards(props) {
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div>
+    <div className={style.border}>
+      <div className={style.space}>
       <Link to={"/" + auth.username}>
         <button className={style.myButton}>Back</button>
       </Link>
       <Link to={"/create-standard"}>
         <button className={style.myButton}>New Standard</button>
       </Link>
+      </div>
       <StandardsTable/>
     </div>
   );

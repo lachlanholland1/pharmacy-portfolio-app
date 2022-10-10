@@ -25,9 +25,7 @@ export default function StandardsTable(props) {
 
   return (
     <div>
-      <div className={style.padding}>
         <h2>Standards</h2>
-      </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>Domain Title</th>
