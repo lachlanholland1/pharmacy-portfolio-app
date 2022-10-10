@@ -56,7 +56,7 @@ export default function EditStandardsForm({ standardData }) {
     });
     setFormData({ name: "idstandards", value: standardData.idstandards });
   };
-  
+
   function handleSubmit(e) {
     if (!userChanged) return;
     // uploadFile(selectedFile);
@@ -83,10 +83,11 @@ export default function EditStandardsForm({ standardData }) {
 
   return (
     <div>
+      <div className={style.container}>
+          <div className={style.sign}>
+          <h1 className={style.center}>Edit Standard</h1>
       <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Edit Standard</label>
-        <br />
-        <label>Title</label>
+        <label className={style.padding}>Title</label>
         <br />
         <input
           className={style.myForm1}
@@ -110,10 +111,9 @@ export default function EditStandardsForm({ standardData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Domain</label>
+        <label className={style.padding}>Domain</label>
             <br />
-            <br />
-            <select required id="domains_id" name="domains_id" onChange={handleChange}  className={style.classic}>
+            <select required id="domains_id" name="domains_id" onChange={handleChange}  className={style.myForm1}>
               <option value={standardData.domains_id}>{standardData.domainstitle}</option>
               {frameworkData.length ? (
                   frameworkData.map((data) => (
@@ -122,10 +122,9 @@ export default function EditStandardsForm({ standardData }) {
                 ) : (
                   <option value=""></option>
                 )}
-            </select> 
-
+            </select>
         <br />
-        <label>Status</label>
+        <label className={style.padding}>Status</label>
         <br />
         <select
           className={style.myForm1}
@@ -137,23 +136,24 @@ export default function EditStandardsForm({ standardData }) {
               <option value={standardData.status}>{standardData.status}</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
-        </select>     
-        
+        </select>
         <br />
-        <div>
-          <button type="submit">
+        <br />
+        <div className={style.buttonSpace}>
+          <button className={style.myButton} type="submit">
             Submit
           </button>
           {/* temp fix */}
           <Link to={'/view-standards'}>
-        <button>Back</button>
+        <button className={style.myButton}>Back</button>
       </Link>
           {/* <Link to={`/Standard?id=${standardData.idStandarditems}`}>
         <button>Back</button>
       </Link> */}
-      <br />
         </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 //}

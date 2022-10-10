@@ -26,9 +26,7 @@ export default function PerformancecriteriasTable(props) {
 
   return (
     <div>
-      <div className={style.padding}>
         <h2>Performance Criterias</h2>
-      </div>
       <table className={style.table}>
         <tr table className={style.tr}>
           <th>Title</th>
