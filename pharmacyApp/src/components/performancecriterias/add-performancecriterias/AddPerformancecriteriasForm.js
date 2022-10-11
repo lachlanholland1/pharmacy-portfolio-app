@@ -28,14 +28,14 @@ export default function AddPerformancecriteriasForm(){
         formState: { errors }
       } = useForm();
        const onSubmit = (data) => console.log(data);
-      
+
       const handleChange = (event) => {
         setFormData({
           name: event.target.name,
           value: event.target.value,
         });
       };
-  
+
       function handleSubmit(e) {
         e.preventDefault();
         setFormIsVisible(false);
@@ -61,9 +61,11 @@ export default function AddPerformancecriteriasForm(){
       }
     return (
         <div>
-            <h1>Add Performance Criteria</h1>
+          <div className={style.container}>
+          <div className={style.sign}>
+            <h1 className={style.center}>Add Performance Criteria</h1>
             <form onSubmit={handleSubmit}>
-           
+
             <label className={style.padding}>Performance Criteria Title</label>
             <br />
             <input
@@ -90,9 +92,10 @@ export default function AddPerformancecriteriasForm(){
             onChange={handleChange}
             />
             <br/>
-            <label>Status</label>
+            <label className={style.padding}>Status</label>
             <br />
             <select
+                className={style.myForm1}
                 required
                 id="status"
                 name="status"
@@ -100,16 +103,17 @@ export default function AddPerformancecriteriasForm(){
                     <option value=""></option>
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
-            </select>     
-            
-            <br />            
+            </select>
                 <br />
-                <div>
-                    <button type="submit" className={" button-primary"}>
+                <br />
+                <div className={style.center}>
+                    <button type="submit" className={style.myButton}>
                         Submit
                     </button>
                 </div>
             </form>
+            </div>
+        </div>
         </div>
     )
 }

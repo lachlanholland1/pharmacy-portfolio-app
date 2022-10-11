@@ -60,29 +60,6 @@ router.post("/", function (req, res, next) {
       }
     );
   }
-
-//   if (req.body.edit_account.mobile) {
-//     db.query(
-//       "UPDATE Users SET mobile = ? WHERE idevidenceitems = ?;",
-//       [req.body.edit_account.mobile, idevidenceitems],
-//       (err, result) => {
-//         if (err) {
-//         }
-//       }
-//     );
-//   }
-
-//   if (req.body.edit_account.username) {
-//     console.log("there is");
-//     db.query(
-//       "UPDATE Users SET username = ? WHERE idevidenceitems = ?;",
-//       [req.body.edit_account.username, idevidenceitems],
-//       (err, result) => {
-//         if (err) {
-//         }
-//       }
-//     );
-//   }
 });
 
 module.exports = router;

@@ -1,0 +1,42 @@
+.navBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    /* border: solid black; */
+    background-color: rgb(0, 174, 255);
+    margin-bottom: 15px;
+}
+
+.nav:link {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    }
+
+    /* visited link */
+    .nav:visited {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    }
+
+    /* mouse over link */
+    .nav:hover {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    }
+
+    /* selected link */
+    .nav:active {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    }
+
+    .current {
+        color: #FBDF07;
+        text-decoration: none;
+    }

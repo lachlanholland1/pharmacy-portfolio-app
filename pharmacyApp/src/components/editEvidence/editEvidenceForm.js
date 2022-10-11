@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import style from "./style.css";
 
 const formreducer = (state, event) => {
   return {
@@ -43,6 +44,7 @@ export default function EditEvidenceForm({ evidenceData }) {
       name: "idevidenceitems",
       value: evidenceData.idevidenceitems,
     });
+    console.log(formData);
   };
   const handleChangeDate = (date) => {
     setUserChanged(true);
@@ -124,104 +126,96 @@ export default function EditEvidenceForm({ evidenceData }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>Edit Evidence</label>
-        <br />
-        <label>Title</label>
-        <br />
-        <input
-          maxLength={65}
-          type="text"
-          id="title"
-          placeholder={evidenceData.title}
-          name="title"
-          onChange={handleChange}
-        />
-        <br />
-        <label>Description</label>
-        <br />
-        <input
-          maxLength={255}
-          type="text"
-          placeholder={evidenceData.description}
-          id="description"
-          name="description"
-          onChange={handleChange}
-        />
-        <br />
-        <label>Impact Statement</label>
-        <br />
-        <input
-          maxLength={255}
-          type="text"
-          placeholder={evidenceData.impactstatement}
-          id="impactstatement"
-          name="impactstatement"
-          onChange={handleChange}
-        />
-        <br />
-        <label>Procurement Date</label>
-        <br />
-        <Controller
-          control={control}
-          name="dateInput"
-          render={({ field }) => (
-            <DatePicker
-              name="date"
-              id="date"
-              placeholder={procureDate.slice(0, -14)}
-              format="YYYY-MM-DD"
-              onChange={(date) => handleChangeDate(date)}
-              selected={field.value}
+      <div className={style.container}>
+        <div className={style.sign}>
+          <h1 className={style.center}>Edit Evidence</h1>
+          <form onSubmit={handleSubmit}>
+            <label className={style.padding}>Title</label>
+            <br />
+            <input
+              className={style.myForm1}
+              maxLength={65}
+              type="text"
+              id="title"
+              placeholder={evidenceData.title}
+              name="title"
+              onChange={handleChange}
             />
-          )}
-        />
-        <br />
-        <div>
-          <button disabled={!userChanged} type="submit">
-            Submit
-          </button>
-          {/* temp fix */}
-          <Link to={"/" + auth.username}>
-            <button>Back</button>
-          </Link>
-          {/* <Link to={`/evidence?id=${evidenceData.idevidenceitems}`}>
-        <button>Back</button>
-      </Link> */}
-          <br />
+            <br />
+            <label className={style.padding}>Description</label>
+            <br />
+            <input
+              className={style.myForm1}
+              maxLength={255}
+              type="text"
+              placeholder={evidenceData.description}
+              id="description"
+              name="description"
+              onChange={handleChange}
+            />
+            <br />
+            <label className={style.padding}>Impact Statement</label>
+            <br />
+            <input
+              className={style.myForm1}
+              maxLength={255}
+              type="text"
+              placeholder={evidenceData.impactstatement}
+              id="impactstatement"
+              name="impactstatement"
+              onChange={handleChange}
+            />
+            <br />
+            <label className={style.padding}>Procurement Date</label>
+            <br />
+            <Controller
+              control={control}
+              name="dateInput"
+              render={({ field }) => (
+                <DatePicker
+                  style={{
+                    width: "390px",
+                    "margin-bottom": "15px",
+                    border: "2px solid lightgray",
+                    "border-radius": "5px",
+                    "padding-left": "10px",
+                  }}
+                  name="date"
+                  id="date"
+                  placeholder={procureDate.slice(0, -14)}
+                  format="YYYY-MM-DD"
+                  onChange={(date) => handleChangeDate(date)}
+                  selected={field.value}
+                />
+              )}
+            />
+            <br />
+            <br />
+            <div className={style.buttonSpace}>
+              <button className={style.myButton2} onClick={submit}>
+                Delete Evidence
+              </button>
+
+              <Link to={`/evidence?id=${id}`}>
+                <button className={style.myButton2}>Back</button>
+              </Link>
+              <br />
+            </div>
+
+            <br />
+            <div className={style.center}>
+              <button
+                className={style.myButton}
+                disabled={!userChanged}
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-      <div>
-        <button onClick={submit}>Delete Evidence</button>
       </div>
     </div>
   );
   //}
 }
-
-// function DeleteEvidence(id) {
-//     // let user_id = localStorage.getItem("user_id"); //REPLACE WHEN AUTH IMPLEMENTED
-//     function confirmedDelete() {
-//         return fetch("/api/deleteevidence", {
-//             method: "POST",
-//             body: JSON.stringify(),
-//             headers: { "Content-Type": "application/json" }
-//           })
-//             .then((res) => res.json())
-//             // .then(navigate("/" + auth.username))
-//       }
-
-//     return(
-//     <div>
-//     <label>
-//         Are you sure?
-//     </label>
-//         <button onClick={(e) => confirmedDelete}>
-//             Yes
-//           </button>
-//           <Link to={`/evidence?id=${id}`}>
-//         <button>No</button>
-//       </Link>
-//     </div>
-//     )
-// }

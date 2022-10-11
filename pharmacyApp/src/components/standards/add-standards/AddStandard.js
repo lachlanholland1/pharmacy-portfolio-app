@@ -11,9 +11,9 @@ function AddStandard(props) {
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div>
+    <div className={style.border}>
       <Link to={"/view-domains"}>
-        <button className={style.myButton}>Back</button>
+        <button className={style.myButton2}>Back</button>
       </Link>
       <AddStandardForm />
     </div>

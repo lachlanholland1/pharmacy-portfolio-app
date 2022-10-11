@@ -37,7 +37,7 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
     });
     setFormData({ name: "idperformancecriteria", value: performancecriteriaData.idperformancecriteria });
   };
-  
+
   function handleSubmit(e) {
     if (!userChanged) return;
     // uploadFile(selectedFile);
@@ -64,10 +64,12 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
 
   return (
     <div>
+      <div className={style.container}>
+          <div className={style.sign}>
+          <h1 className={style.center}>Edit Performance Criteria</h1>
       <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Edit Performance Criteria</label>
-        <br />
-        <label>Title</label>
+
+        <label className={style.padding}>Title</label>
         <br />
         <input
           className={style.myForm1}
@@ -91,7 +93,7 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
           onChange={handleChange}
         />
         <br />
-        <label>Status</label>
+        <label className={style.padding}>Status</label>
         <br />
         <select
           className={style.myForm1}
@@ -103,23 +105,26 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
               <option value={performancecriteriaData.status}>{performancecriteriaData.status}</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
-        </select>     
-        
+        </select>
         <br />
-        <div>
-          <button type="submit">
+        <br />
+        <div className={style.buttonSpace}>
+          <button
+            className={style.myButton}
+           type="submit">
             Submit
           </button>
           {/* temp fix */}
           <Link to={'/view-performancecriterias'}>
-        <button>Back</button>
+        <button className={style.myButton}>Back</button>
       </Link>
           {/* <Link to={`/Performancecriteria?id=${performancecriteriaData.idPerformancecriteriaitems}`}>
         <button>Back</button>
       </Link> */}
-      <br />
         </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 //}

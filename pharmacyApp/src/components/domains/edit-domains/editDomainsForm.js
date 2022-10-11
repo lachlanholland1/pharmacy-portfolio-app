@@ -37,7 +37,7 @@ export default function EditDomainsForm({ domainData }) {
     });
     setFormData({ name: "iddomains", value: domainData.iddomains });
   };
-  
+
   function handleSubmit(e) {
     if (!userChanged) return;
     // uploadFile(selectedFile);
@@ -64,6 +64,7 @@ export default function EditDomainsForm({ domainData }) {
 
   return (
     <div>
+      <h2></h2>
       <form onSubmit={handleSubmit}>
         <label className={style.padding}>Edit Domain</label>
         <br />
@@ -103,8 +104,8 @@ export default function EditDomainsForm({ domainData }) {
               <option value={domainData.status}>{domainData.status}</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
-        </select>     
-        
+        </select>
+
         <br />
         <div>
           <button type="submit">

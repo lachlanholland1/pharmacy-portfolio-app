@@ -44,7 +44,6 @@ const SignUpForm = () => {
       console.log("Password does not match");
       setFormIsVisible(true);
       setFlagged(true);
-      // return <p>password does not match</p>;
     } else {
       e.preventDefault();
       setFormIsVisible(false);

@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 84vh;
+    height: 90vh;
 }
 
 .sign {
@@ -40,9 +40,32 @@
     text-align: left;
     text-indent: 10px;
     height: 40px;
-    width: 423px;
+    width: 400px;
 }
 
+.myForm2 {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    /* text-align: left; */
+    /* text-indent: 10px;  */
+    padding-left: 10px;
+    height: 200px;
+    width: 390px;
+    resize: none;
+}
+
+.myForm3 {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    /* text-align: center; */
+    /* text-indent: 10px;  */
+    padding-left: 10px;
+    height: 100px;
+    width: 390px;
+    resize: none;
+}
 
 .myCheck {
     margin-bottom: 15px;
@@ -67,7 +90,7 @@
 
 .myButton2 {
     background-color: #000000;
-    border-radius: 5px;
+    border-radius: 42px;
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
@@ -89,6 +112,10 @@
     top: 1px;
 }
 
+.border{
+	padding: 20px;
+}
+
 /* Select */
 select {
 
@@ -100,6 +127,9 @@ select {
 
   }
 
-  .border{
-	padding: 20px;
+.buttonSpace {
+    display: flex;
+    justify-content: space-around;
+    /* border: solid black; */
+
 }
