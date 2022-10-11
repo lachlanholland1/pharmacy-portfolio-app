@@ -37,7 +37,7 @@ import AddPerformancecriterias from "./components/performancecriterias/add-perfo
 import EditStandards from "./components/standards/edit-standards/EditStandards";
 import EditCompetencies from "./components/competencies/edit-competencies/EditCompetencies";
 import EditPerformancecriterias from "./components/performancecriterias/edit-performancecriterias/EditPerformancecriterias";
-
+import EditSelfReview from "./components/user/editSelfReview/EditSelfReview";
 function App(props) {
   return (
     <Routes>
@@ -50,9 +50,7 @@ function App(props) {
       <Route element={<UserLayout />}>
         {/* User and Public*/}
         <Route path="/:user" element={<Profile />} />
-        <Route path="/add-evidence" element={<AddEvidence />} />
         <Route path="/view-review" element={<ViewReview />} />
-
         <Route path="/view-peer-review" element={<ViewPeerReview />} />
         <Route path="/evidence" element={<ViewEvidence />} />
         <Route path="/evidence-review/:id" element={<EvidenceReview />} />
@@ -62,6 +60,8 @@ function App(props) {
             path="/accounts/password/change"
             element={<PasswordChange />}
           />
+          <Route path="/edit-self-review" element={<EditSelfReview />} />
+          <Route path="/add-evidence" element={<AddEvidence />} />
           <Route path="/create-self-review" element={<SelfReview />} />
           <Route path="/peer-review" element={<PeerReview />} />
           <Route path="/accounts/edit/" element={<EditAccount />} />
