@@ -35,6 +35,7 @@ export default function ViewEvidence(props) {
       })
       .then(() => setLoaded(true));
   }, []);
+
   return (
     <div>
       {loaded ? (

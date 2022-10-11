@@ -86,7 +86,7 @@ function Profile(props) {
                 {userDetails.first_name + " " + userDetails.last_name}
               </h1>
               <h3 className={style.padding}>{userDetails.username}</h3>
-              {Cookies.get("username") === params.user ? (
+              {auth.username === params.user ? (
                 <div>
                   <input
                     className={style.margin}
