@@ -14,7 +14,7 @@ export default function AdminsTable(props) {
   const [admins, setAdmins] = useState(null);
 
   useEffect(() => {
-    const adminRequest = { users_id: auth.users_id };
+    const adminRequest = { users_id: auth.user_id };
     fetch("/api/checkadmins", {
       method: "POST",
       body: JSON.stringify(adminRequest),
@@ -42,7 +42,7 @@ export default function AdminsTable(props) {
 
   }, []);
 
-  const submit = (admin_id) => {
+  const submit = (admin_id, user_id) => {
 
     confirmAlert({
       title: "Confirm to Delete",
@@ -53,7 +53,7 @@ export default function AdminsTable(props) {
           // onClick: () => alert("Click Yes")
           onClick: () => fetch("/api/deleteadmin", {
             method: "POST",
-            body: JSON.stringify({admin_id: admin_id}),
+            body: JSON.stringify({admin_id: admin_id, user_id: user_id }),
             headers: { "Content-Type": "application/json" }
           })
             .then((res) => res.json())
@@ -89,7 +89,7 @@ export default function AdminsTable(props) {
                 <td >
                   {/* Need to validate that the current Admin has Alter privileges */}
                     {admins ? (
-                      <button className={style.myButton} onClick={() => submit(admin.idadministrators)}>Delete</button>
+                      <button className={style.myButton} onClick={() => submit(admin.idadministrators,admin.users_id)}>Delete</button>
                     ) : ("")}
                 </td>
               </tr>

@@ -12,7 +12,7 @@ function AddStandard(props) {
   const { auth } = useAuth();
   return (
     <div className={style.border}>
-      <Link to={"/view-domains"}>
+      <Link to={"/view-standards"}>
         <button className={style.myButton2}>Back</button>
       </Link>
       <AddStandardForm />
