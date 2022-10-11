@@ -13,7 +13,7 @@ function ViewReviewers(props) {
   return (
     <div className={style.border}>
       <div className={style.space}>
-      <Link to={"/" + auth.username}>
+      <Link to={"/"}>
         <button className={style.myButton}>Back</button>
       </Link>
       <Link to={"/create-reviewer"}>

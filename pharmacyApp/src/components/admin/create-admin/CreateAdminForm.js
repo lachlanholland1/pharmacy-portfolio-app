@@ -28,7 +28,7 @@ export default function CreateAdminForm() {
   };
   
   useEffect(() => {
-    const adminRequest = { users_id: auth.users_id };
+    const adminRequest = { users_id: auth.user_id };
     fetch("/api/checkadmins", {
       method: "POST",
       body: JSON.stringify(adminRequest),
