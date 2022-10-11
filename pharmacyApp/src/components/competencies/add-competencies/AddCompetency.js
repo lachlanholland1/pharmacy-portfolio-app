@@ -11,9 +11,9 @@ function AddCompetency(props) {
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div>
+    <div className={style.border}>
       <Link to={"/view-competencies"}>
-        <button className={style.myButton}>Back</button>
+        <button className={style.myButton2}>Back</button>
       </Link>
       <AddCompetencyForm />
     </div>

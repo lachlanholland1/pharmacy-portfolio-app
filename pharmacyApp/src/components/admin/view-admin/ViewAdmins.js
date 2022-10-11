@@ -12,7 +12,7 @@ function ViewAdmins(props) {
   const { auth } = useAuth();
   return (
     <div className={style.border}>
-      <div className={style.padding}>
+      <div className={style.space}>
       <Link to={"/" + auth.username}>
         <button className={style.myButton}>Back</button>
       </Link>
