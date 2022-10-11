@@ -23,6 +23,7 @@ export default function ViewReviewForm({ evidenceCriteria }) {
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
   const [evidenceReviews, setEvidenceReviews] = useState([]);
+  const [evidenceUser, setEvidenceUser] = useState([]);
 
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
@@ -52,6 +53,7 @@ export default function ViewReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((evidenceData) => {
+        setEvidenceUser(evidenceData.evidence_data.users_id);
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
         setEvidenceReviews(evidenceData.evidence_reviews);
@@ -86,13 +88,13 @@ export default function ViewReviewForm({ evidenceCriteria }) {
 
           <p>Description</p>
           <p>{evidenceData}</p>
-          {/* {reviewers === true && auth.user_id != evidenceData.users_id ? ( */}
-          <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
-            <button className={style.myButton}>Create Peer Review</button>
-          </Link>
-          {/* ) : (
+          {reviewers === true && auth.user_id != evidenceUser ? (
+            <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
+              <button className={style.myButton}>Create Peer Review</button>
+            </Link>
+          ) : (
             <></>
-          )} */}
+          )}
           {reviewData.data?.map((data, index) => (
             <div>
               <input
