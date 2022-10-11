@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import SignOutButton from "../../../SignOutButton";
 import style from "./navBar.css";
+import useAuth from "../../../hooks/useAuth";
 
 function AdminNavbar(props) {
+  const { auth, setAuth } = useAuth();
   return (
     <nav className={style.navBox}>
       <a className={style.nav} href="/view-reviewers">
@@ -22,6 +24,9 @@ function AdminNavbar(props) {
       </a>
       <a className={style.nav} href="/view-performancecriterias">
         Performance Criteria
+      </a>
+      <a className={style.nav} href={"/" + auth.username }>
+        Profile
       </a>
       <SignOutButton />
     </nav>

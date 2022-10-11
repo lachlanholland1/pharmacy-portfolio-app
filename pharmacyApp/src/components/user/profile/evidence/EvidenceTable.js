@@ -32,7 +32,6 @@ function EvidenceTable() {
   function handleOnClick(userid) {
     return navigate(`/evidence?id=${userid}`);
   }
-
   return (
     <div>
       <div className={style.padding}>
@@ -43,6 +42,7 @@ function EvidenceTable() {
         ) : (
           <></>
         )}
+
         <h2>Evidence</h2>
       </div>
       {evidenceData.length ? (
@@ -62,7 +62,7 @@ function EvidenceTable() {
                 key={index}
               >
                 <td>{evidence.title}</td>
-                <td>{evidence.description}</td>
+                <td>{evidence.description.substring(0, 80)} {evidence.description.length > 80 ? ("...") :("") }</td>
                 <td>
                   {Moment(evidence.procurementdate, "YYYY-MM-DD").format(
                     "DD/MM/YYYY"

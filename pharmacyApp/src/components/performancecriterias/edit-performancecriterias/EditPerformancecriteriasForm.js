@@ -58,8 +58,8 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
         setFormIsVisible(false);
         setIsSuccess(1);
       }
+      navigate("/view-performancecriterias");
     });
-    navigate("/view-performancecriterias");
   }
 
   return (

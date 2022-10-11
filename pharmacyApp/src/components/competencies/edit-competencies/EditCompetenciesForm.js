@@ -74,11 +74,12 @@ export default function EditCompetenciesForm({ competencyData }) {
         setFormIsVisible(true);
         setIsSuccess(0);
       } else {
+        navigate("/view-competencies");
         setFormIsVisible(false);
         setIsSuccess(1);
       }
+
     });
-    navigate("/view-competencies");
   }
 
   return (
