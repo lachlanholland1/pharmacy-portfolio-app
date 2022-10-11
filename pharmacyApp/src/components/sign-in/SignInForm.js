@@ -16,7 +16,7 @@ function SignInForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formData, setFormData] = useReducer(formreducer, {});
-
+  const [flagged, setFlagged] = useState(false);
   let navigate = useNavigate();
 
   function reqLogin(loginReq) {
@@ -27,6 +27,7 @@ function SignInForm(props) {
     })
       .then((response) => {
         if (!response.ok) {
+          setFlagged(true);
           return Promise.reject();
         }
         return response.json();
@@ -95,6 +96,11 @@ function SignInForm(props) {
                 onChange={handleChange}
                 step="1"
               /> */}
+              {flagged === true ? (
+                <p>You have entered an invalid username or password</p>
+              ) : (
+                <></>
+              )}
               <br />
               <button className={SignInStyle.myButton} type="submit">
                 Sign In

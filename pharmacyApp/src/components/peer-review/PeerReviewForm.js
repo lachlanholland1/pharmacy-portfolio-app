@@ -53,10 +53,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
         ...checkedItems,
         [event.target.name]: event.target.value,
       });
-      console.log("The value:");
-      console.log(event.target.value);
-      console.log("ASDSADSDAD");
-      console.log(checkedItems);
     }
     console.log(reviewId);
     setFormData({
