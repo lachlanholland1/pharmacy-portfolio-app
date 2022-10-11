@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useReducer, Alert } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import style from "./EditDomainsStyle.css";
 
@@ -59,16 +58,16 @@ export default function EditDomainsForm({ domainData }) {
         setIsSuccess(1);
       }
     });
-    navigate("/view-domains");
+    
   }
 
   return (
     <div>
-      <h2></h2>
+      <div className={style.container}>
+          <div className={style.sign}>
+          <h1 className={style.center}>Edit Domain</h1>
       <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Edit Domain</label>
-        <br />
-        <label>Title</label>
+        <label className={style.padding}>Title</label>
         <br />
         <input
           className={style.myForm1}
@@ -92,7 +91,7 @@ export default function EditDomainsForm({ domainData }) {
           onChange={handleChange}
         />
         <br />
-        <label>Status</label>
+        <label className={style.padding}>Status</label>
         <br />
         <select
           className={style.myForm1}
@@ -105,23 +104,27 @@ export default function EditDomainsForm({ domainData }) {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
         </select>
-
         <br />
-        <div>
-          <button type="submit">
+        <br />
+        <div className={style.buttonSpace}>
+          <button
+            className={style.myButton}
+           type="submit">
             Submit
           </button>
           {/* temp fix */}
           <Link to={'/view-domains'}>
-        <button>Back</button>
+        <button className={style.myButton}>Back</button>
       </Link>
-          {/* <Link to={`/Domain?id=${DomainData.idDomainitems}`}>
+          {/* <Link to={`/Performancecriteria?id=${performancecriteriaData.idPerformancecriteriaitems}`}>
         <button>Back</button>
       </Link> */}
-      <br />
         </div>
-      </form>
+        </form>
+    </div>
+    </div>
     </div>
   );
 //}
 }
+

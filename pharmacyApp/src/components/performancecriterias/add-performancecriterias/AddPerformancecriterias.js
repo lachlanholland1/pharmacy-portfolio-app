@@ -11,13 +11,13 @@ function AddPerformancecriterias(props) {
   const location = useLocation();
   const { auth } = useAuth();
   return (
-    <div>
+    <div className={style.border}>
       <Link to={"/view-Performancecriterias"}>
         <button className={style.myButton}>Back</button>
       </Link>
-      <AddPerformancecriteriaForm />
+      <AddPerformancecriteriasForm />
     </div>
   );
 }
 
-export default AddPerformancecriteriasForm;
+export default AddPerformancecriterias;
