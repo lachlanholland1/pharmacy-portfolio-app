@@ -4,21 +4,15 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
 const dotEnv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 
 const session = require("express-session");
 
-//Middleware
-
-const privateAccountMiddleware = require("./middleware/privateAccount.js");
-
 //Auth
 const loginRouter = require("./pharmacy_routes/authenticate/auth_routes/login.js");
 const logoutRouter = require("./pharmacy_routes/authenticate/auth_routes/logout.js");
-const tokenRouter = require("./pharmacy_routes/authenticate/auth_routes/token.js");
 const authenticateRouter = require("./pharmacy_routes/authenticate/auth_routes/authenticate.js");
 const createAdminRouter = require("./pharmacy_routes/createAdmin.js");
 const createReviewerRouter = require("./pharmacy_routes/createReviewer.js");
@@ -217,7 +211,6 @@ function authenticateUser(req, res, next) {
 //AUTH
 app.use("/api/login", verifyOrigin, loginRouter);
 app.use("/api/logout", verifyOrigin, logoutRouter);
-app.use("/api/token", verifyOrigin, tokenRouter);
 app.use(
   "/api/authenticate",
   verifyOrigin,
@@ -249,12 +242,7 @@ app.use("/api/evidence-criteria", verifyOrigin, evidenceCriteriaRouter);
 app.use("/api/evidence-review", verifyOrigin, evidenceReviewRouter);
 
 //Evidence Table
-app.use(
-  "/api/evidence-table",
-  verifyOrigin,
-  //privateAccountMiddleware,
-  evidenceTableRouter
-);
+app.use("/api/evidence-table", verifyOrigin, evidenceTableRouter);
 
 //Create admin
 app.use("/api/createadmin", verifyOrigin, createAdminRouter);
@@ -363,27 +351,34 @@ app.use(
   allEvidenceCriteriaRouter
 );
 
-// edit domains 
+// edit domains
 app.use("/api/editdomains", verifyOrigin, editDomainsRouter);
 
 // get Standard
 app.use("/api/getstandard", verifyOrigin, getStandardRouter);
 
-// edit standards 
+// edit standards
 app.use("/api/editstandards", verifyOrigin, editStandardsRouter);
 
 // get competency
 app.use("/api/getcompetency", verifyOrigin, getCompetencyRouter);
 
-// edit competencies 
+// edit competencies
 app.use("/api/editcompetencies", verifyOrigin, editCompetenciesRouter);
 
 // get performancecriteria
-app.use("/api/getperformancecriteria", verifyOrigin, getPerformancecriteriaRouter);
+app.use(
+  "/api/getperformancecriteria",
+  verifyOrigin,
+  getPerformancecriteriaRouter
+);
 
-// edit performancecriterias 
-app.use("/api/editperformancecriterias", verifyOrigin, editPerformancecriteriasRouter);
-
+// edit performancecriterias
+app.use(
+  "/api/editperformancecriterias",
+  verifyOrigin,
+  editPerformancecriteriasRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

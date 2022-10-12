@@ -1,5 +1,4 @@
 const express = require("express");
-const refreshTokens = require("../refreshTokens.js");
 
 const router = express.Router();
 
