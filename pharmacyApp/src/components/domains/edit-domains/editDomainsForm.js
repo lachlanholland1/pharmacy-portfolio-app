@@ -38,7 +38,7 @@ export default function EditDomainsForm({ domainData }) {
   };
 
   function handleSubmit(e) {
-    if (!userChanged) return;
+    if (!userChanged) navigate("/view-domains");
     // uploadFile(selectedFile);
     e.preventDefault();
     setFormIsVisible(false);
@@ -48,7 +48,9 @@ export default function EditDomainsForm({ domainData }) {
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
-    }).then((response) => {
+    })
+    .then(navigate("/view-domains"))
+    .then((response) => {
       setLoading(false);
       if (!response.ok) {
         setFormIsVisible(true);
