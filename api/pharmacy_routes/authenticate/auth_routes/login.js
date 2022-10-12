@@ -1,8 +1,5 @@
 const express = require("express");
 const db = require("../../../connection.js");
-const jwt = require("jsonwebtoken");
-const generateAccessToken = require("../generateAccessToken.js");
-const refreshTokens = require("../refreshTokens.js");
 const dotEnv = require("dotenv");
 
 const router = express.Router();
@@ -26,25 +23,33 @@ router.post("/", function (req, res, next) {
         return;
       }
       const user = result[0];
+      let isAdmin = 0;
       if (user.password === reqPassword) {
-        const session = req.session;
-        session.userid = user.user_id;
-        const accessToken = generateAccessToken(user.user_id);
-        const refreshToken = jwt.sign(
-          { id: user.user_id },
-          process.env.REFRESH_TOKEN_SECRET
+        console.log(user.user_id);
+        db.query(
+          "select * from administrators where users_id = ?",
+          [user.user_id],
+          (err, result) => {
+            if (err) {
+              return;
+            }
+            if (result.length) {
+              isAdmin = 1;
+            }
+            const session = req.session;
+            session.userid = user.user_id;
+            res.cookie("user_id", session.userid, { httpOnly: true });
+            res.cookie("username", user.username, { httpOnly: true });
+            res.cookie("admin", isAdmin, { httpOnly: true });
+            const response = {
+              user_id: session.userid,
+              username: user.username,
+              admin: isAdmin,
+            };
+            return res.send(response);
+          }
         );
-        refreshTokens.push(refreshToken);
-        res.cookie("user_id", session.userid, { httpOnly: true });
-        res.cookie("username", user.username, { httpOnly: true });
-        res.cookie("admin", user.admin, { httpOnly: true });
-        return res.send({
-          user_id: session.userid,
-          username: user.username,
-          admin: user.admin,
-        });
       }
-      return res.sendStatus(401);
     }
   );
 });
