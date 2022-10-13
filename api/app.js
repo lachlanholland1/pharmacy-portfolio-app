@@ -150,6 +150,9 @@ const getPerformancecriteriaRouter = require("./pharmacy_routes/getPerformancecr
 // Edit Performancecriterias
 const editPerformancecriteriasRouter = require("./pharmacy_routes/editPerformancecriterias");
 
+//Edit Self Review
+const editSelfReviewRouter = require("./pharmacy_routes/editSelfReview");
+
 dotEnv.config();
 
 var app = express();
@@ -379,6 +382,9 @@ app.use(
   verifyOrigin,
   editPerformancecriteriasRouter
 );
+
+//Edit Self Review
+app.use("/api/edit-self-review", verifyOrigin, editSelfReviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

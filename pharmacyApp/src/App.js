@@ -37,7 +37,7 @@ import AddPerformancecriterias from "./components/performancecriterias/add-perfo
 import EditStandards from "./components/standards/edit-standards/EditStandards";
 import EditCompetencies from "./components/competencies/edit-competencies/EditCompetencies";
 import EditPerformancecriterias from "./components/performancecriterias/edit-performancecriterias/EditPerformancecriterias";
-import EditSelfReview from "./components/user/editSelfReview/EditSelfReview";
+import EditSelfReview from "./components/self-review/EditSelfReview";
 function App(props) {
   return (
     <Routes>
