@@ -18,7 +18,7 @@ function UserNavbar(props) {
         ) : (
           <></>
         )}
-        {auth.user && auth.username === params.user && auth.admin ? (
+        {auth.user && auth.username === params.user && auth.admin == 1 ? (
             <Link to={"/"}>
               <button className={style.myButton}>Admin Dashboard</button>
             </Link>) : (
