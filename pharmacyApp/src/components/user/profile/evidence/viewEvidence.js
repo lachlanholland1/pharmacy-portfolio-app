@@ -43,19 +43,19 @@ export default function ViewEvidence(props) {
           <div className={style.sign}>
             <h1> {evidenceData.title} </h1>
             <p>
-              Date Created:{" "}
+              <strong>Date Created:</strong>{" "}
               {Moment(evidenceData.procurementdate, "YYYY-MM-DD").format(
                 "DD/MM/YYYY"
               )}
             </p>
             <p>
-              Date Uploaded:{" "}
+              <strong>Date Uploaded:</strong>{" "}
               {Moment(evidenceData.uploaddate, "YYYY-MM-DD").format(
                 "DD/MM/YYYY"
               )}
             </p>
-            <p> Description: {evidenceData.description}</p>
-            <p> Impact Statement: {evidenceData.impactstatement}</p>
+            <p className={style.textWrap}> <strong>Description:</strong> {evidenceData.description}</p>
+            <p> <strong>Impact Statement:</strong> {evidenceData.impactstatement}</p>
             {/* <p> Attachment: {evidenceData.attachment}</p> */}
             <button
               className={style.myButton}
