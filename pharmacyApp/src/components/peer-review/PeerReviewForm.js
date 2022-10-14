@@ -375,7 +375,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           <></>
                         )}
 
-                        <p>What level do you believe the evidence meets?</p>
                         {/* <div> */}
                         {/* <input
                             type="radio"

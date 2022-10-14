@@ -38,7 +38,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
   const [reviewers, setReviewers] = useState(null);
-  const [checkedItems, setCheckedItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState([]);
   const [domainsDisplay, setDomainsDisplay] = useState(
     Array(evidenceCriteria.domains.length).fill(0)
   );
@@ -55,9 +55,47 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
   const onSubmit = (data) => console.log(data);
 
   const handleChange = (event, domain, standard, competency) => {
+    const isCheckbox = event.target.type === "checkbox";
+    const isRadio = event.target.type === "radio";
+    // if (isRadio == true) {
+    //   console.log("is true radio button");
+    //   var Name = event.target.name;
+    //   if (checkedItems.some((item) => item[Name] === event.target.value)) {
+    //     console.log("includes in array");
+    //     var index = checkedItems.findIndex(
+    //       (x) => x[event.target.name] === event.target.value
+    //     );
+    //     console.log(index);
+    //     console.log(checkedItems[index]);
+    //     checkedItems.splice(index, 1);
+    //     console.log(checkedItems);
+    //   } else {
+    //     console.log("not included in array");
+    //     checkedItems.push({ [event.target.name]: event.target.value });
+    //     // setCheckedItems({
+    //     //   ...checkedItems,
+    //     //   [event.target.name]: event.target.value,
+    //     // });
+    //     console.log(checkedItems);
+    //   }
+
+    // if (
+    //   event.target.value == "1" ||
+    //   event.target.value == "2" ||
+    //   event.target.value == "3" ||
+    //   event.target.value == "4"
+    // ) {
+    //   setCheckedItems({
+    //     ...checkedItems,
+    //     [event.target.name]: event.target.value,
+    //   });
+    // }
+    //}
+
     setFormData({
       name: event.target.name,
-      value: event.target.value,
+      // value: event.target.value,
+      value: isCheckbox ? event.target.checked : event.target.value,
       domain: domain,
       standard: standard,
       competency: competency,
@@ -67,7 +105,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
     //   value: event.target.value,
     //   reviewId: reviewId,
     // });
-    console.log(formData);
+    // console.log(formData);
   };
 
   useEffect(() => {
@@ -162,7 +200,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
         setIsSuccess(1);
       }
     });
-    navigate("/evidence?id=" + id);
+    // navigate("/evidence?id=" + id);
   }
   // if (reviewers == false) {
   //   console.log("Not authorised.");
@@ -192,16 +230,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
   }
   return (
     <div>
-      <div className={style.container}>
-        <div className={style.sign}>
-          {/* <h1>Peer Review</h1> */}
-
-          <br />
-          <Link to={`/evidence?id=${id}`}>
-            <button className={style.myButton}>Back</button>
-          </Link>
-        </div>
-      </div>
       <div className={style.container}>
         <div className={style.sign}>
           <h1 className={style.container}>Review Evidence</h1>
@@ -253,7 +281,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                                           "d" +
                                                           domain.iddomains +
                                                           "-s" +
-                                                          currentStandardId +
+                                                          standard.standards_id +
                                                           "-c" +
                                                           competency.idcompetencies
                                                         }
@@ -261,7 +289,17 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                                           criteria.idperformancecriteria ==
                                                           competencies.performancecriterias_id
                                                         }
-                                                        // temparary ^^^
+                                                        // checked={
+                                                        //   checkedItems[
+                                                        //     "d" +
+                                                        //       domain.iddomains +
+                                                        //       "-s" +
+                                                        //       standard.standards_id +
+                                                        //       "-c" +
+                                                        //       competency.idcompetencies
+                                                        //   ] ==
+                                                        //   criteria.idperformancecriteria
+                                                        // }
                                                         value={
                                                           criteria.idperformancecriteria
                                                         }
@@ -269,7 +307,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                                           handleChange(
                                                             event,
                                                             domain.iddomains,
-                                                            currentStandardId,
+                                                            standard.standards_id,
                                                             competency.idcompetencies
                                                           )
                                                         }
@@ -296,7 +334,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                                     "comment-d" +
                                                     domain.iddomains +
                                                     "-s" +
-                                                    currentStandardId +
+                                                    standard.standards_id +
                                                     "-c" +
                                                     competency.idcompetencies
                                                   }
@@ -304,7 +342,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                                     handleChange(
                                                       event,
                                                       domain.iddomains,
-                                                      currentStandardId,
+                                                      standard.standards_id,
                                                       competency.idcompetencies
                                                     )
                                                   }
@@ -342,7 +380,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                         competency.idcompetencies
                                       }
                                       value={criteria.idperformancecriteria}
-                                      onChange={(event) =>
+                                      onClick={(event) =>
                                         handleChange(
                                           event,
                                           domain.iddomains,
@@ -401,6 +439,10 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                 Submit
               </button>
             </div>
+            <br />
+            <Link to={`/evidence?id=${id}`}>
+              <button className={style.myButton}>Back</button>
+            </Link>
           </form>
         </div>
       </div>
