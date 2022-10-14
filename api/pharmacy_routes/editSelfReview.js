@@ -6,10 +6,11 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
-  const reviewEvidenceId = Math.floor(Math.random() * 1000000000);
+  const reviewEvidenceId = req.body.evidencereviews_id;
   const user_id = req.session.userid;
   const evidence_id = req.body.evidence_id;
   const self_review = req.body.review;
+
   var date = new Date();
   const reviewDate = date
     .toISOString()
@@ -48,35 +49,69 @@ router.post("/", function (req, res, next) {
   console.log("self_review");
   console.log(reviewFormatted);
   const reviewPromises = [];
-  //   Object.keys(reviewFormatted).map((key) => {
-  //     const reviewId = Math.floor(Math.random() * 1000000000);
-  //     reviewPromises.push(
-  //       new Promise((resolve, reject) => {
-  //         db.query(
-  //           "INSERT INTO evidencereviews (review_id, idevidencereview, evidenceitems_id, reviewers_id, reviewdate, domains_id, standards_id, competencies_id, performancecriterias_id, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-  //           [
-  //             reviewId,
-  //             reviewEvidenceId,
-  //             evidence_id,
-  //             user_id,
-  //             reviewDate,
-  //             reviewFormatted[key].domain,
-  //             reviewFormatted[key].standard,
-  //             reviewFormatted[key].competency,
-  //             reviewFormatted[key].criteria,
-  //             reviewFormatted[key]?.comment,
-  //           ],
-  //           (err) => {
-  //             if (err) {
-  //               console.log(err);
-  //               return;
-  //             }
-  //             resolve();
-  //           }
-  //         );
-  //       })
-  //     );
-  //   });
+  Object.keys(reviewFormatted).map((key) => {
+    const reviewId = Math.floor(Math.random() * 1000000000);
+    reviewPromises.push(
+      new Promise((resolve, reject) => {
+        db.query(
+          "SELECT COUNT(*) FROM evidencereviews WHERE idevidencereview = ? AND competencies_id = ?",
+          [reviewEvidenceId, reviewFormatted[key].competency],
+          (err, result) => {
+            const response = result;
+            console.log("RESPONSE COUNT");
+            console.log(response.length);
+            console.log(response);
+            //IF COMP ID IN THERE WITH EVIDNECE ID
+            if (response.length > 0) {
+              db.query(
+                "UPDATE evidencereviews SET reviewDate = ?, domains_id = ?, standards_id = ?, competencies_id = ?, performancecriterias_id = ?, comments = ? WHERE idevidencereview = ? AND competencies_id = ?",
+                [
+                  reviewDate,
+                  reviewFormatted[key].domain,
+                  reviewFormatted[key].standard,
+                  reviewFormatted[key].competency,
+                  reviewFormatted[key].criteria,
+                  reviewFormatted[key]?.comment,
+                  reviewEvidenceId,
+                  reviewFormatted[key].competency,
+                ],
+                (err) => {
+                  if (err) {
+                    console.log(err);
+                    return;
+                  }
+                  resolve();
+                }
+              );
+            } else {
+              db.query(
+                "INSERT INTO evidencereviews (review_id, idevidencereview, evidenceitems_id, reviewers_id, reviewdate, domains_id, standards_id, competencies_id, performancecriterias_id, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                [
+                  reviewId,
+                  reviewEvidenceId,
+                  evidence_id,
+                  user_id,
+                  reviewDate,
+                  reviewFormatted[key].domain,
+                  reviewFormatted[key].standard,
+                  reviewFormatted[key].competency,
+                  reviewFormatted[key].criteria,
+                  reviewFormatted[key]?.comment,
+                ],
+                (err) => {
+                  if (err) {
+                    console.log(err);
+                    return;
+                  }
+                  resolve();
+                }
+              );
+            }
+          }
+        );
+      })
+    );
+  });
 
   Promise.all(reviewPromises).then(() => res.sendStatus(200));
 });
