@@ -37,12 +37,12 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
   const [reviewData, setReviewData] = useState([]);
   const [evidenceData, setEvidenceData] = useState([]);
   const [evidenceDataTitle, setEvidenceDataTitle] = useState([]);
-  const [reviewers, setReviewers] = useState(null);
   const [checkedItems, setCheckedItems] = useState([]);
   const [domainsDisplay, setDomainsDisplay] = useState(
     Array(evidenceCriteria.domains.length).fill(0)
   );
-  var competencyArray = [23, 2];
+  const [competencyArray, setCompetencyArray] = useState([]);
+  const [evidenceOwner, setEvidenceOwner] = useState([]);
   localStorage.removeItem("currentDomain");
   const id = searchParams.get("id");
   const evidencereviews_id = searchParams.get("reviewid");
@@ -56,8 +56,8 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
 
   const handleChange = (event, domain, standard, competency) => {
     const isCheckbox = event.target.type === "checkbox";
-    const isRadio = event.target.type === "radio";
-    // if (isRadio == true) {
+    // const isRadio = event.target.type === "radio";
+    // // if (isRadio == true) {
     //   console.log("is true radio button");
     //   var Name = event.target.name;
     //   if (checkedItems.some((item) => item[Name] === event.target.value)) {
@@ -91,7 +91,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
     //   });
     // }
     //}
-
     setFormData({
       name: event.target.name,
       // value: event.target.value,
@@ -128,48 +127,23 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((evidenceData) => {
+        setEvidenceOwner(evidenceData.evidence_data.users_id);
         setEvidenceData(evidenceData.evidence_data.description);
         setEvidenceDataTitle(evidenceData.evidence_data.title);
       });
-    const reviewerRequest = { users_id: auth.user_id };
-    fetch("/api/viewreviewers", {
+
+    const compRequest = { idevidenceitems: id };
+    fetch("/api/get-review-competencies", {
       method: "POST",
-      body: JSON.stringify(reviewerRequest),
+      body: JSON.stringify(compRequest),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((reviewerDetails) => {
-        if (reviewerDetails.length > 0) {
-          setReviewers(true);
-        } else {
-          setReviewers(false);
-        }
+      .then((data) => {
+        console.log("competency Data");
+        console.log(data);
+        setCompetencyArray(data);
       });
-    ///
-    ///
-    ///NEW API CALL GOES HERE TO GET AN ARRAY OF ALL OF THE COMPETENCIES THAT WERE IN THE INITIAL SELF REVIEW. IF THEY ARE FOUND THEN WE GET THE DATA AND MAP IT ACCORDINGLY
-    ///
-    ///
-    ///
-    ///
-    ///
-    // fetch("/api/get-all-peer-reviews", {
-    //   method: "POST",
-    //   body: JSON.stringify({ evidenceitems_id: id }),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("ALL REVIEWED ACCOUNS");
-    //     console.log(data);
-    //     for (let i = 0; i < data.length; i++) {
-    //       if (auth.user_id == data[i].reviewers_id) {
-    //         console.log("ALREADY DONE A REVIEW!");
-    //         navigate("/evidence?id=" + id);
-    //       }
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
   }, []);
 
   function handleSubmit(e) {
@@ -200,20 +174,21 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
         setIsSuccess(1);
       }
     });
-    // navigate("/evidence?id=" + id);
+    navigate("/evidence?id=" + id);
   }
-  // if (reviewers == false) {
-  //   console.log("Not authorised.");
-  //   return (
-  //     <div>
-  //       <label>You are unauthorised to access this page.</label>
-  //       <br />
-  //       <Link to={"/login"}>
-  //         <button>Login</button>
-  //       </Link>
-  //     </div>
-  //   );
-  // }
+
+  if (evidenceOwner != auth.user_id) {
+    console.log("Not authorised.");
+    return (
+      <div>
+        <label>You are unauthorised to access this page.</label>
+        <br />
+        <Link to={"/login"}>
+          <button>Login</button>
+        </Link>
+      </div>
+    );
+  }
 
   console.log(formData);
 
@@ -258,7 +233,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                           ) == true ? (
                             //
                             <div>
-                              <p>TESTING MY DUDE</p>
                               {reviewData.data?.map((data, index) => (
                                 <div>
                                   {data.standards.map((standard, index) => (
@@ -448,54 +422,4 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
       </div>
     </div>
   );
-}
-
-function getIndexOfCompetency(
-  evidenceCriteria,
-  domains_id,
-  standard_id,
-  competency_id
-) {
-  if (evidenceCriteria != null) {
-    var max =
-      evidenceCriteria.domains[domains_id].standards[standard_id].competencies
-        .length;
-
-    for (let i = 0; i < max; i++) {
-      if (
-        evidenceCriteria.domains[domains_id].standards[standard_id]
-          .competencies[i].idcompetencies == competency_id
-      ) {
-        return i;
-      }
-    }
-  }
-  return false;
-}
-
-function getIndexOfStandard(evidenceCriteria, domains_id, standard_id) {
-  if (evidenceCriteria != null) {
-    var max = evidenceCriteria.domains[domains_id].standards.length;
-    for (let i = 0; i < max; i++) {
-      if (
-        evidenceCriteria.domains[domains_id].standards[i].idstandards ==
-        standard_id
-      ) {
-        return i;
-      }
-    }
-  }
-  return false;
-}
-
-function getIndexOfDomain(evidenceCriteria, domains_id) {
-  if (evidenceCriteria != null) {
-    var max = evidenceCriteria.domains.length;
-    for (let i = 0; i < max; i++) {
-      if (evidenceCriteria.domains[i].iddomains == domains_id) {
-        return i;
-      }
-    }
-  }
-  return false;
 }
