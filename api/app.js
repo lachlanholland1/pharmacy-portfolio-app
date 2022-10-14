@@ -153,6 +153,9 @@ const editPerformancecriteriasRouter = require("./pharmacy_routes/editPerformanc
 //Edit Self Review
 const editSelfReviewRouter = require("./pharmacy_routes/editSelfReview");
 
+//Get All Competencies In Review
+const getReviewCompetenciesRouter = require("./pharmacy_routes/getReviewCompetencies");
+
 dotEnv.config();
 
 var app = express();
@@ -385,6 +388,13 @@ app.use(
 
 //Edit Self Review
 app.use("/api/edit-self-review", verifyOrigin, editSelfReviewRouter);
+
+//Get Review Competencies
+app.use(
+  "/api/get-review-competencies",
+  verifyOrigin,
+  getReviewCompetenciesRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

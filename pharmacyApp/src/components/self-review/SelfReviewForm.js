@@ -141,7 +141,9 @@ export default function SelfReviewForm({ evidenceCriteria }) {
                               "comment-d" +
                               domain.iddomains +
                               "-s" +
-                              standard.idstandards
+                              standard.idstandards +
+                              "-c" +
+                              competency.idcompetencies
                             }
                             onChange={(event) =>
                               handleChange(
