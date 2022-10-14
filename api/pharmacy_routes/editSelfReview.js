@@ -51,18 +51,21 @@ router.post("/", function (req, res, next) {
   const reviewPromises = [];
   Object.keys(reviewFormatted).map((key) => {
     const reviewId = Math.floor(Math.random() * 1000000000);
+    console.log("COMPETNCY ID");
+    console.log(reviewFormatted[key].competency);
     reviewPromises.push(
       new Promise((resolve, reject) => {
         db.query(
-          "SELECT COUNT(*) FROM evidencereviews WHERE idevidencereview = ? AND competencies_id = ?",
+          "SELECT COUNT(*) AS count FROM evidencereviews WHERE idevidencereview = ? AND competencies_id = ?",
           [reviewEvidenceId, reviewFormatted[key].competency],
           (err, result) => {
             const response = result;
             console.log("RESPONSE COUNT");
             console.log(response.length);
             console.log(response);
+            console.log(response[0].count);
             //IF COMP ID IN THERE WITH EVIDNECE ID
-            if (response.length > 0) {
+            if (response[0].count > 0) {
               db.query(
                 "UPDATE evidencereviews SET reviewDate = ?, domains_id = ?, standards_id = ?, competencies_id = ?, performancecriterias_id = ?, comments = ? WHERE idevidencereview = ? AND competencies_id = ?",
                 [
