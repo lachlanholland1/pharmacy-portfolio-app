@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import style from "./style.css";
 
 function Dashboard(props) {
   const params = useParams();
@@ -9,6 +10,7 @@ function Dashboard(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [profileLoaded, setProfileLoaded] = useState(false);
+
 
   useEffect(() => {
     const request = {
@@ -28,7 +30,7 @@ function Dashboard(props) {
       });
   }, []);
   return (
-    <div>
+    <div className={style.border}>
       <h1>DashBoard</h1>
       {/* {profileLoaded ? (
         <div>
