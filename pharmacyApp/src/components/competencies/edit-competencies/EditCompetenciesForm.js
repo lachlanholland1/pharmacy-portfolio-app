@@ -58,7 +58,7 @@ export default function EditCompetenciesForm({ competencyData }) {
   };
 
   function handleSubmit(e) {
-    if (!userChanged) return;
+    if (!userChanged) navigate("/view-competencies");
     // uploadFile(selectedFile);
     e.preventDefault();
     setFormIsVisible(false);
@@ -68,13 +68,14 @@ export default function EditCompetenciesForm({ competencyData }) {
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
-    }).then((response) => {
+    })
+    .then(navigate("/view-competencies"))
+    .then((response) => {
       setLoading(false);
       if (!response.ok) {
         setFormIsVisible(true);
         setIsSuccess(0);
       } else {
-        navigate("/view-competencies");
         setFormIsVisible(false);
         setIsSuccess(1);
       }
