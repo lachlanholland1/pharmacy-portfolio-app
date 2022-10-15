@@ -88,6 +88,7 @@ export default function ViewReviewForm({ evidenceCriteria }) {
 
           <p>Description</p>
           <p>{evidenceData}</p>
+
           {reviewers === true && auth.user_id != evidenceUser ? (
             <Link to={`/peer-review/?id=${id}&reviewid=${review_id}`}>
               <button className={style.myButton}>Create Peer Review</button>

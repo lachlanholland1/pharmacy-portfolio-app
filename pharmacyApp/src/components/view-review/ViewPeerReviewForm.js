@@ -251,6 +251,8 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                         {/* //////////////////////// */}
                         {ispeerReview === true ? (
                           <div>
+                            <h3>Peer Review</h3>
+
                             <input
                               type="hidden"
                               name="inputThree"
@@ -261,28 +263,39 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
                                 ))
                               }
                             />
-                            <h3>Peer Review</h3>
-
-                            <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
-                            {peerReviewInfo.agreeoncompetency === "No" ? (
-                              <div>
-                                <p>
-                                  Performance Criteria Met:{" "}
-                                  {
-                                    evidenceCriteria.performance_criteria[
-                                      peerReviewInfo.performancecriterias_id - 2
-                                    ].title
-                                  }
-                                </p>
-                              </div>
+                            {peerReviewInfo === null ? (
+                              <p>Not peer reviewed</p>
                             ) : (
                               <></>
                             )}
-                            {peerReviewInfo.comments != null ? (
+                            {peerReviewInfo != null ? (
                               <div>
-                                <p>
-                                  Reviewers Comments: {peerReviewInfo.comments}
-                                </p>
+                                <p>Agree: {peerReviewInfo.agreeoncompetency}</p>
+                                {peerReviewInfo.agreeoncompetency === "No" ? (
+                                  <div>
+                                    <p>
+                                      Performance Criteria Met:{" "}
+                                      {
+                                        evidenceCriteria.performance_criteria[
+                                          peerReviewInfo.performancecriterias_id -
+                                            2
+                                        ].title
+                                      }
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+                                {peerReviewInfo.comments != null ? (
+                                  <div>
+                                    <p>
+                                      Reviewers Comments:{" "}
+                                      {peerReviewInfo.comments}
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
                               </div>
                             ) : (
                               <></>
@@ -370,6 +383,10 @@ function getIndexOfDomain(evidenceCriteria, domains_id) {
 }
 
 function PeerReviewData(data, review_id) {
+  console.log("PEER REVIEW DATA");
+  console.log(data);
+  console.log(review_id);
+
   for (let i = 0; i < data.length; i++) {
     if (data[i].review_id == review_id) {
       return data[i];
