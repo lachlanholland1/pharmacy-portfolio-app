@@ -39,7 +39,7 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
   };
 
   function handleSubmit(e) {
-    if (!userChanged) return;
+    if (!userChanged) navigate("/view-performancecriterias");
     // uploadFile(selectedFile);
     e.preventDefault();
     setFormIsVisible(false);
@@ -49,7 +49,9 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
-    }).then((response) => {
+    })
+    .then(navigate("/view-performancecriterias"))
+    .then((response) => {
       setLoading(false);
       if (!response.ok) {
         setFormIsVisible(true);
@@ -58,7 +60,7 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
         setFormIsVisible(false);
         setIsSuccess(1);
       }
-      navigate("/view-performancecriterias");
+      
     });
   }
 

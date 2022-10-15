@@ -27,9 +27,10 @@ function Dashboard(props) {
         SetUserName(data.username);
       });
   }, []);
+  
   return (
     <div>
-      <h1>DashBoard</h1>
+      <h1> Administrator Dashboard</h1>
       {/* {profileLoaded ? (
         <div>
           <div>{firstName + " " + lastName}</div>
