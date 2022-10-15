@@ -56,41 +56,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
 
   const handleChange = (event, domain, standard, competency) => {
     const isCheckbox = event.target.type === "checkbox";
-    // const isRadio = event.target.type === "radio";
-    // // if (isRadio == true) {
-    //   console.log("is true radio button");
-    //   var Name = event.target.name;
-    //   if (checkedItems.some((item) => item[Name] === event.target.value)) {
-    //     console.log("includes in array");
-    //     var index = checkedItems.findIndex(
-    //       (x) => x[event.target.name] === event.target.value
-    //     );
-    //     console.log(index);
-    //     console.log(checkedItems[index]);
-    //     checkedItems.splice(index, 1);
-    //     console.log(checkedItems);
-    //   } else {
-    //     console.log("not included in array");
-    //     checkedItems.push({ [event.target.name]: event.target.value });
-    //     // setCheckedItems({
-    //     //   ...checkedItems,
-    //     //   [event.target.name]: event.target.value,
-    //     // });
-    //     console.log(checkedItems);
-    //   }
 
-    // if (
-    //   event.target.value == "1" ||
-    //   event.target.value == "2" ||
-    //   event.target.value == "3" ||
-    //   event.target.value == "4"
-    // ) {
-    //   setCheckedItems({
-    //     ...checkedItems,
-    //     [event.target.name]: event.target.value,
-    //   });
-    // }
-    //}
     setFormData({
       name: event.target.name,
       // value: event.target.value,
@@ -99,12 +65,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
       standard: standard,
       competency: competency,
     });
-    // setFormData({
-    //   name: event.target.name,
-    //   value: event.target.value,
-    //   reviewId: reviewId,
-    // });
-    // console.log(formData);
   };
 
   useEffect(() => {
@@ -213,13 +173,15 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
               <div>
                 <div className={style.domain_dropdown}>
                   <h2 onClick={() => handleDisplayDomain(index)}>
-                    {domain.description}
+                    {domain.title} {domain.description}
                   </h2>
                 </div>
                 {domainsDisplay[index] ? (
                   domain.standards.map((standard, index) => (
                     <div key={index}>
-                      <h4>{standard.description}</h4>
+                      <h4>
+                        {standard.title} {standard.description}
+                      </h4>
                       <input
                         type="hidden"
                         name="inputOne"
@@ -227,7 +189,9 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                       />
                       {standard.competencies.map((competency, index) => (
                         <div key={index}>
-                          <label>{competency.description}</label>
+                          <label>
+                            {competency.title} {competency.description}
+                          </label>
                           {competencyArray.includes(
                             competency.idcompetencies
                           ) == true ? (
@@ -409,7 +373,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
               </div>
             ))}
             <div className="">
-              <button className="" type="submit">
+              <button className={style.myButton} type="submit">
                 Submit
               </button>
             </div>
