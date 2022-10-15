@@ -42,7 +42,9 @@ function EvidenceReviewCard({ review }) {
         <br />
         <div>
           {auth.username == review.username ? (
-            <Link to={`/edit-self-review/?id=${evidence_id}`}>
+            <Link
+              to={`/edit-self-review/?id=${evidence_id}&reviewid=${review.idevidencereview}`}
+            >
               <button className={style.myButton2}>Edit</button>
             </Link>
           ) : (
