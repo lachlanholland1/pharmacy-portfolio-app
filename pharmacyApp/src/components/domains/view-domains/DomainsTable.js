@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import style from "./DomainsTableStyle.css";
 import { confirmAlert } from "react-confirm-alert";
 
-
 export default function DomainsTable(props) {
   const params = useParams();
   const { auth } = useAuth();
@@ -26,39 +25,35 @@ export default function DomainsTable(props) {
 
   return (
     <div>
-        <h2>Domains</h2>
-      <table className={style.table}>
-        <tr table className={style.tr}>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-        <tbody>
-          {domainData.length ? (
-            domainData.map((domain) => (
+      <h2>Domains</h2>
+      {domainData.length ? (
+        <table className={style.table}>
+          <tr table className={style.tr}>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tbody>
+            {domainData.map((domain) => (
               <tr table className={style.tr1}>
                 <td>{domain.title}</td>
+                <td>{domain.description}</td>
+                <td>{domain.status}</td>
                 <td>
-                  {domain.description}
-                </td>
-                <td>
-                  {domain.status}
-                </td>
-                <td >
-                    <Link to={`/edit-domains/?id=${domain.iddomains}`}>
-                      <button className={style.myButton}>Edit</button>
-                    </Link>
+                  <Link to={`/edit-domains/?id=${domain.iddomains}`}>
+                    <button className={style.myButton}>Edit</button>
+                  </Link>
                 </td>
               </tr>
-            ))
-          ) : (
-            <>
-              <div>No domains.</div>
-            </>
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <>
+          <div>No domains.</div>
+        </>
+      )}
     </div>
   );
 }
