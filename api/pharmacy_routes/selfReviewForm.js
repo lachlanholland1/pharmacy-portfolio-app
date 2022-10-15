@@ -9,7 +9,7 @@ router.post("/", function (req, res, next) {
   async function selectDomains() {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM domains WHERE status = 'Active';",
+        "SELECT * FROM domains WHERE status = 'Active' ORDER BY title;",
         (err, result) => {
           if (err) {
             throw err;
@@ -24,7 +24,7 @@ router.post("/", function (req, res, next) {
   async function selectStandards(domainId) {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM standards WHERE domains_id = ? AND status = 'Active';",
+        "SELECT * FROM standards WHERE domains_id = ? AND status = 'Active' ORDER BY title;",
         [domainId],
         (err, result) => {
           if (err) {
@@ -40,7 +40,7 @@ router.post("/", function (req, res, next) {
   async function selectCompetencies(standardsId) {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM competencies WHERE standards_id = ? AND status = 'Active';",
+        "SELECT * FROM competencies WHERE standards_id = ? AND status = 'Active' ORDER BY title;",
         [standardsId],
         (err, result) => {
           if (err) {
