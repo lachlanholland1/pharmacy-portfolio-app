@@ -66,26 +66,49 @@ router.post("/", function (req, res, next) {
             console.log(response[0].count);
             //IF COMP ID IN THERE WITH EVIDNECE ID
             if (response[0].count > 0) {
-              db.query(
-                "UPDATE evidencereviews SET reviewDate = ?, domains_id = ?, standards_id = ?, competencies_id = ?, performancecriterias_id = ?, comments = ? WHERE idevidencereview = ? AND competencies_id = ?",
-                [
-                  reviewDate,
-                  reviewFormatted[key].domain,
-                  reviewFormatted[key].standard,
-                  reviewFormatted[key].competency,
-                  reviewFormatted[key].criteria,
-                  reviewFormatted[key]?.comment,
-                  reviewEvidenceId,
-                  reviewFormatted[key].competency,
-                ],
-                (err) => {
-                  if (err) {
-                    console.log(err);
-                    return;
+              if (reviewFormatted[key].criteria == null) {
+                db.query(
+                  "UPDATE evidencereviews SET reviewDate = ?, domains_id = ?, standards_id = ?, competencies_id = ?, comments = ? WHERE idevidencereview = ? AND competencies_id = ?",
+                  [
+                    reviewDate,
+                    reviewFormatted[key].domain,
+                    reviewFormatted[key].standard,
+                    reviewFormatted[key].competency,
+
+                    reviewFormatted[key]?.comment,
+                    reviewEvidenceId,
+                    reviewFormatted[key].competency,
+                  ],
+                  (err) => {
+                    if (err) {
+                      console.log(err);
+                      return;
+                    }
+                    resolve();
                   }
-                  resolve();
-                }
-              );
+                );
+              } else {
+                db.query(
+                  "UPDATE evidencereviews SET reviewDate = ?, domains_id = ?, standards_id = ?, competencies_id = ?, performancecriterias_id = ?, comments = ? WHERE idevidencereview = ? AND competencies_id = ?",
+                  [
+                    reviewDate,
+                    reviewFormatted[key].domain,
+                    reviewFormatted[key].standard,
+                    reviewFormatted[key].competency,
+                    reviewFormatted[key].criteria,
+                    reviewFormatted[key]?.comment,
+                    reviewEvidenceId,
+                    reviewFormatted[key].competency,
+                  ],
+                  (err) => {
+                    if (err) {
+                      console.log(err);
+                      return;
+                    }
+                    resolve();
+                  }
+                );
+              }
             } else {
               db.query(
                 "INSERT INTO evidencereviews (review_id, idevidencereview, evidenceitems_id, reviewers_id, reviewdate, domains_id, standards_id, competencies_id, performancecriterias_id, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
