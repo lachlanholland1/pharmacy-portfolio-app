@@ -15,6 +15,26 @@
     width: 850px;
     word-wrap: break-word;
 }
+.myButton {
+	background-color:#000000;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	height: 40px;
+    width: 300px;
+	text-decoration:none;
+    border: none;
+}
+.myButton:hover {
+	background-color:#707070;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
 
 .myButton2 {
     background-color: #000000;
