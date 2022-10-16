@@ -1,7 +1,7 @@
 .container {
     display:flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
     height: 100%;
 }
 
@@ -42,3 +42,29 @@
     position:relative;
     top:1px;
   }
+
+.border{
+padding: 20px;
+}
+
+.myButton2 {
+  background-color: #000000;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  height: 30px;
+  width: 175px;
+  text-decoration: none;
+}
+
+.myButton2:hover {
+  background-color: #707070;
+}
+
+.myButton2:active {
+  position: relative;
+  top: 1px;
+}
