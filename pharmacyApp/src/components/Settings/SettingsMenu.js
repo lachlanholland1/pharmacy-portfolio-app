@@ -10,13 +10,14 @@ function SettingsMenu(props) {
     <div className={style.padding}>
       <div className={style.spacing}>
         <Link to={"/" + auth.username}>
-          <button className={style.myButton}>Back</button>
+          <button className={style.myButton2}>Back</button>
         </Link>
       </div>
       <div className={style.spacing}>{auth.username}</div>
       <Link to="/accounts/edit/">
         <button className={style.myButton2}>Edit profile</button>
       </Link>
+      <br />
       <br />
       <Link to="/accounts/password/change/">
         <button className={style.myButton2}>Change password</button>
