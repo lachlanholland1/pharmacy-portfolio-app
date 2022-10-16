@@ -38,6 +38,7 @@ import EditStandards from "./components/standards/edit-standards/EditStandards";
 import EditCompetencies from "./components/competencies/edit-competencies/EditCompetencies";
 import EditPerformancecriterias from "./components/performancecriterias/edit-performancecriterias/EditPerformancecriterias";
 import EditSelfReview from "./components/self-review/EditSelfReview";
+import DeleteEvidence from "./components/editEvidence/DeleteEvidence";
 
 function App(props) {
   return (
@@ -67,6 +68,7 @@ function App(props) {
           <Route path="/peer-review" element={<PeerReview />} />
           <Route path="/accounts/edit/" element={<EditAccount />} />
           <Route path="/edit-evidence" element={<EditEvidence />} />
+          <Route path="/delete-evidence" element={<DeleteEvidence />} />
         </Route>
       </Route>
       {/* Admin Only */}
