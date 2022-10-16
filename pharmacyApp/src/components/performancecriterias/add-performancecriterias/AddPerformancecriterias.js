@@ -13,7 +13,7 @@ function AddPerformancecriterias(props) {
   return (
     <div className={style.border}>
       <Link to={"/view-Performancecriterias"}>
-        <button className={style.myButton}>Back</button>
+        <button className={style.myButton2}>Back</button>
       </Link>
       <AddPerformancecriteriasForm />
     </div>

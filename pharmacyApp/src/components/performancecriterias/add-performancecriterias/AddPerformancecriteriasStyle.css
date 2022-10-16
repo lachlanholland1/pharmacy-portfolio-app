@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 84vh;
 }
 
 .sign {
@@ -68,9 +68,10 @@
     color: #ffffff;
     font-family: Arial;
     font-size: 17px;
-    height: 25px;
-    width: 75px;
+    height: 30px;
+    width: 175px;
     text-decoration: none;
+
 
 }
 
@@ -78,7 +79,7 @@
     background-color: #707070;
 }
 
-.myButton2:active {
+.myButto2:active {
     position: relative;
     top: 1px;
 }
@@ -93,3 +94,7 @@ select {
     height: 35px;
 
   }
+
+  .border{
+	padding: 20px;
+}
