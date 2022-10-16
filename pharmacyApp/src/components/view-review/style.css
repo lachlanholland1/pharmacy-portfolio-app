@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 98vh;
+    height: 86vh;
     word-wrap: break-word;
 }
 
@@ -12,6 +12,34 @@
     border-radius: 25px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     text-align: center;
-    width: 2000px;
+    width: 850px;
     word-wrap: break-word;
+}
+
+.myButton2 {
+    background-color: #000000;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    height: 30px;
+    width: 175px;
+    text-decoration: none;
+
+
+}
+
+.myButton2:hover {
+    background-color: #707070;
+}
+
+.myButton2:active {
+    position: relative;
+    top: 1px;
+}
+
+.border{
+	padding: 20px;
 }

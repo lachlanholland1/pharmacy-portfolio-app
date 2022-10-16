@@ -186,7 +186,6 @@ export default function ViewReviewForm({ evidenceCriteria }) {
                       ) : (
                         <></>
                       )}
-                      <br />
                       {/* <p>Users Comments: {competency.comments}</p> */}
                     </div>
                   ))}
@@ -194,9 +193,6 @@ export default function ViewReviewForm({ evidenceCriteria }) {
               ))}
             </div>
           ))}
-          <Link to={`/evidence?id=${id}`}>
-            <button className={style.myButton}>Back</button>
-          </Link>
         </div>
       </div>
     </div>
