@@ -30,9 +30,9 @@ function ViewPeerReview(props) {
   }, []);
 
   return (
-    <div>
+    <div className={style.border}>
       <Link to={`/evidence/?id=${id}`}>
-        <button>Back</button>
+      <button className={style.myButton2}>Back</button>
       </Link>
       {evidenceCriteria ? (
         <ViewPeerReviewForm evidenceCriteria={evidenceCriteria} />

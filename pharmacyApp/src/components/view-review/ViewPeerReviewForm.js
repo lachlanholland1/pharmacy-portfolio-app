@@ -323,10 +323,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
           ) : (
             <></>
           )}
-          <br />
-          <Link to={`/evidence?id=${id}`}>
-            <button className={style.myButton}>Back</button>
-          </Link>
         </div>
       </div>
     </div>

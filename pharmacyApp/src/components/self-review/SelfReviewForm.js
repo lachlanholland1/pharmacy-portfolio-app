@@ -138,6 +138,8 @@ export default function SelfReviewForm({ evidenceCriteria }) {
                           <br />
                           <textarea
                             className=""
+                            rows="6"
+                            cols="60"
                             maxLength={255}
                             type="text"
                             placeholder={"Enter comments"}
@@ -169,7 +171,8 @@ export default function SelfReviewForm({ evidenceCriteria }) {
                 )}
               </div>
             ))}
-            <div className="">
+            <br />
+            <div className={style.center}>
               <button className={style.myButton} type="submit">
                 Submit
               </button>
