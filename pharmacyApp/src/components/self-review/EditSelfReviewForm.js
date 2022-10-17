@@ -336,6 +336,8 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                               <br />
                               <textarea
                                 className=""
+                                rows="6"
+                                cols="60"
                                 maxLength={255}
                                 type="text"
                                 placeholder={"Enter comments"}
@@ -372,15 +374,14 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                 )}
               </div>
             ))}
-            <div className="">
-              <button className={style.myButton} type="submit">
+            <div className={style.buttonSpace}>
+            <Link to={`/evidence?id=${id}`}>
+              <button className={style.myButton2}>Back</button>
+            </Link>
+            <button className={style.myButton2} type="submit">
                 Submit
               </button>
             </div>
-            <br />
-            <Link to={`/evidence?id=${id}`}>
-              <button className={style.myButton}>Back</button>
-            </Link>
           </form>
         </div>
       </div>
