@@ -13,7 +13,7 @@ router.post("/", (req, res, next) => {
       console.log(response.length);
       console.log(response.standard_count);
       db.query(
-        "SELECT * FROM evidencereviews WHERE idevidencereview = ? ORDER BY domains_id ASC, standards_id ASC",
+        "SELECT * FROM evidencereviews WHERE idevidencereview = ? ORDER BY domains_id ASC, standards_id ASC, competencies_id ASC",
         [review_id],
         (err, result) => {
           console.log(result[1]);

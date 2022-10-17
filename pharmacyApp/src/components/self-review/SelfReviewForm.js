@@ -170,7 +170,7 @@ export default function SelfReviewForm({ evidenceCriteria }) {
               </div>
             ))}
             <div className="">
-              <button className="" type="submit">
+              <button className={style.myButton} type="submit">
                 Submit
               </button>
             </div>

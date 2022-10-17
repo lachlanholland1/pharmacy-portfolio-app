@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import style from "./style.css";
 
@@ -17,6 +18,8 @@ export default function EditAccountForm() {
   const [loading, setLoading] = useState(false);
   const { auth, setAuth } = useAuth();
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [flagged, setFlagged] = useState(false);
+  const navigate = useNavigate();
 
   const {
     watch,
@@ -31,6 +34,22 @@ export default function EditAccountForm() {
       name: event.target.name,
       value: event.target.value,
     });
+    if (event.target.name === "new_password") {
+      if (formData.confirm_password != event.target.value) {
+        setFlagged(true);
+        setPasswordChanged(false);
+      } else {
+        setFlagged(false);
+      }
+    }
+    if (event.target.name === "confirm_password") {
+      if (formData.new_password != event.target.value) {
+        setFlagged(true);
+        setPasswordChanged(false);
+      } else {
+        setFlagged(false);
+      }
+    }
   };
 
   function handleSubmit(e) {
@@ -59,54 +78,61 @@ export default function EditAccountForm() {
         setIsSuccess(1);
       }
     });
+    navigate("/" + auth.username);
   }
   return (
     <div className={style.container}>
       <div className={style.sign}>
         <h1 className={style.center}>Change Password</h1>
-      <form onSubmit={handleSubmit}>
-        <label className={style.padding}>Old Password</label>
-        <br />
-        <input
-          className={style.myForm}
-          maxLength={65}
-          type="password"
-          id="old_password"
-          name="old_password"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label className={style.padding}>New Password</label>
-        <br />
-        <input
-          className={style.myForm}
-          maxLength={255}
-          type="password"
-          id="new_password"
-          name="new_password"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label className={style.padding}>Confirm New Password</label>
-        <br />
-        <input
-          className={style.myForm}
-          maxLength={255}
-          type="password"
-          id="confirm_password"
-          name="confirm_password"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <div className={style.center}>
-          <button className={style.myButton} disabled={!passwordChanged} type="submit">
-            Change Password
-          </button>
-        </div>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <label className={style.padding}>Old Password</label>
+          <br />
+          <input
+            className={style.myForm}
+            maxLength={65}
+            type="password"
+            id="old_password"
+            name="old_password"
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <label className={style.padding}>New Password</label>
+          <br />
+          <input
+            className={style.myForm}
+            maxLength={255}
+            type="password"
+            id="new_password"
+            name="new_password"
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <label className={style.padding}>Confirm New Password</label>
+          <br />
+          <input
+            className={style.myForm}
+            maxLength={255}
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            onChange={handleChange}
+            required
+          />
+          <br />
+          {flagged === true ? <p>Passwords do not match</p> : <></>}
+          <br />
+          <div className={style.center}>
+            <button
+              className={style.myButton}
+              disabled={!passwordChanged}
+              type="submit"
+            >
+              Change Password
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
