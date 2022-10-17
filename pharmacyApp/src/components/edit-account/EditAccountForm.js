@@ -3,6 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import style from "./EditAccountStyle.css";
 import urlProducer from "../../urlProducer";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const formreducer = (state, event) => {
   return {
@@ -21,7 +22,9 @@ export default function EditAccountForm({ userData }) {
   const [userChangedFile, setUserChangedFile] = useState(false);
   const [attachmentData, setAttachmentData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [usernameChanged, setUsernameChanged] = useState(null);
   const [errors1, setErrors] = useState("");
+  const navigate = useNavigate();
 
   var attachment;
 
@@ -40,6 +43,10 @@ export default function EditAccountForm({ userData }) {
       value: isCheckbox ? event.target.checked : event.target.value,
     });
     console.log(formData);
+    if (event.target.name === "username") {
+      console.log("Username change");
+      setUsernameChanged(true);
+    }
   };
 
   const handleFileInput = (e) => {
@@ -113,6 +120,19 @@ export default function EditAccountForm({ userData }) {
         setIsSuccess(1);
       }
     });
+    if (usernameChanged === true) {
+      fetch("/api/logout", {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${auth.access_token}`,
+        },
+      }).then(() => {
+        navigate("/");
+        setAuth({ user: false, access_token: "" });
+      });
+    } else {
+      navigate("/" + auth.username);
+    }
   }
   return (
     <div>
@@ -121,8 +141,15 @@ export default function EditAccountForm({ userData }) {
           <h1 className={style.center}>Edit Profile</h1>
           <form onSubmit={handleSubmit}>
             <div className={style.center}>
-              <input type="checkbox" id="private_account" name="private_account" value="1" onClick={handleChange} defaultChecked ={userData.private_account}/>
-                <label for="private_account">Private Account</label>
+              <input
+                type="checkbox"
+                id="private_account"
+                name="private_account"
+                value="1"
+                onClick={handleChange}
+                defaultChecked={userData.private_account}
+              />
+              <label for="private_account">Private Account</label>
               <br />
             </div>
             <label className={style.padding}>First Name</label>

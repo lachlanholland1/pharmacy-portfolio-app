@@ -92,16 +92,20 @@ export default function SelfReviewForm({ evidenceCriteria }) {
               <div>
                 <div className={style.domain_dropdown}>
                   <h2 onClick={() => handleDisplayDomain(index)}>
-                    {domain.description}
+                    {domain.title} {domain.description}
                   </h2>
                 </div>
                 {domainsDisplay[index] ? (
                   domain.standards.map((standard, index) => (
                     <div key={index}>
-                      <h4>{standard.description}</h4>
+                      <h4>
+                        {standard.title} {standard.description}
+                      </h4>
                       {standard.competencies.map((competency, index) => (
                         <div key={index}>
-                          <label>{competency.description}</label>
+                          <label>
+                            {competency.title} {competency.description}
+                          </label>
                           {evidenceCriteria.performance_criteria.map(
                             (criteria, index) => (
                               <div className="" key={index}>
@@ -143,7 +147,9 @@ export default function SelfReviewForm({ evidenceCriteria }) {
                               "comment-d" +
                               domain.iddomains +
                               "-s" +
-                              standard.idstandards
+                              standard.idstandards +
+                              "-c" +
+                              competency.idcompetencies
                             }
                             onChange={(event) =>
                               handleChange(

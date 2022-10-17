@@ -7,11 +7,9 @@ const PrivateAdminRoute = () => {
   const location = useLocation();
   if (loading) return <div>....loading please wait</div>;
 
-  if (auth.user && auth.admin) {
-    console.log("1" + auth.admin);
+  if (auth.user && auth.admin == 1) {
     return <Outlet />;
   } else {
-    console.log("2" + auth.admin);
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 };
