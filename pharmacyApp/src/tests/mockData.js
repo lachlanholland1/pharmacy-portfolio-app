@@ -28,6 +28,34 @@ const domainsTable = {
 };
 
 // 1. ADD NEW MOCK DATA HERE LIKE ABOVE
+const standardsTable = {
+  standards_data: [
+    {
+      description: "Professionalism",
+      idstandards: 1,
+      status: "Active",
+      title: "Standard 1",
+    },
+    {
+      description: "Knowledge",
+      idstandards: 2,
+      status: "Active",
+      title: "Standard 2",
+    },
+    {
+      description: "Experience",
+      idstandards: 3,
+      status: "Active",
+      title: "Standard 3",
+    },
+    {
+      description: "Motivation",
+      idstandards: 1,
+      status: "Active",
+      title: "Standard 4",
+    },
+  ],
+};
 
-const mockData = { domains_table: domainsTable }; // 2. ADD HERE
+const mockData = { domains_table: domainsTable, standards_table: standardsTable }; // 2. ADD HERE
 export default mockData;
