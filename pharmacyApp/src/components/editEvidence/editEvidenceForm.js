@@ -4,8 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
+// import { confirmAlert } from "react-confirm-alert";
+// import "react-confirm-alert/src/react-confirm-alert.css";
 import style from "./style.css";
 
 const formreducer = (state, event) => {
@@ -82,33 +82,33 @@ export default function EditEvidenceForm({ evidenceData }) {
     navigate("/evidence?id=" + id);
   }
 
-  const submit = () => {
-    confirmAlert({
-      title: "Confirm Delete",
-      message: "Are you sure you want to do this?",
-      buttons: [
-        {
-          label: "Yes",
-          // onClick: () => alert("Click Yes")
-          onClick: () =>
-            fetch("/api/deleteevidence", {
-              method: "POST",
-              body: JSON.stringify({
-                idevidenceitems: evidenceData.idevidenceitems,
-              }),
-              headers: { "Content-Type": "application/json" },
-            })
-              .then((res) => res.json())
-              .then(navigate("/" + auth.username)),
-        },
-        {
-          label: "No",
-          onClick: () => navigate("/" + auth.username),
-          //onClick: () => alert("Click No")
-        },
-      ],
-    });
-  };
+  // const submit = () => {
+  //   confirmAlert({
+  //     title: "Confirm Delete",
+  //     message: "Are you sure you want to do this?",
+  //     buttons: [
+  //       {
+  //         label: "Yes",
+  //         // onClick: () => alert("Click Yes")
+  //         onClick: () =>
+  //           fetch("/api/deleteevidence", {
+  //             method: "POST",
+  //             body: JSON.stringify({
+  //               idevidenceitems: evidenceData.idevidenceitems,
+  //             }),
+  //             headers: { "Content-Type": "application/json" },
+  //           })
+  //             .then((res) => res.json())
+  //             .then(navigate("/" + auth.username)),
+  //       },
+  //       {
+  //         label: "No",
+  //         onClick: () => navigate("/" + auth.username),
+  //         //onClick: () => alert("Click No")
+  //       },
+  //     ],
+  //   });
+  // };
 
   console.log(auth.user_id, evidenceData.users_id);
   if (auth.user_id != evidenceData.users_id) {
@@ -192,10 +192,12 @@ export default function EditEvidenceForm({ evidenceData }) {
             <br />
             <br />
             <div className={style.buttonSpace}>
-              <button className={style.myButton2} onClick={submit}>
+              {/* <button className={style.myButton2} onClick={submit}>
                 Delete Evidence
-              </button>
-
+              </button> */}
+              <Link to={`/delete-evidence?id=${id}`}>
+                <button className={style.myButton2}>Delete Evidence</button>
+              </Link>
               <Link to={`/evidence?id=${id}`}>
                 <button className={style.myButton2}>Back</button>
               </Link>
