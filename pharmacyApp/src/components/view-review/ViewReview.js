@@ -33,9 +33,9 @@ function ViewReview(props) {
   }, []);
 
   return (
-    <div>
+    <div className={style.border}>
       <Link to={`/evidence/?id=${id}`}>
-        <button>Back</button>
+        <button className={style.myButton2}>Back</button>
       </Link>
       {evidenceCriteria ? (
         <ViewReviewForm evidenceCriteria={evidenceCriteria} />

@@ -23,9 +23,9 @@ function SelfReview(props) {
   }, []);
 
   return (
-    <div>
+    <div className={style.border}>
       <Link to={"/" + auth.username}>
-        <button className={style.myButtton}>Back</button>
+        <button className={style.myButton2}>Back</button>
       </Link>
       {evidenceCriteria ? (
         <SelfReviewForm evidenceCriteria={evidenceCriteria} />

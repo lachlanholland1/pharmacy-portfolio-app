@@ -5,9 +5,9 @@ import style from "./style.css";
 
 function CreateAdmin(props) {
   return (
-      <div>
+      <div className={style.border}>
         <Link to={"/view-admins"}>
-          <button className={style.myButton}>Back</button>
+          <button className={style.myButton2}>Back</button>
         </Link>
         <CreateAdminForm />
     </div>
@@ -15,5 +15,3 @@ function CreateAdmin(props) {
 }
 
 export default CreateAdmin;
-
-

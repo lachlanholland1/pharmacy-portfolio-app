@@ -25,7 +25,6 @@ function UserNavbar(props) {
           <></>
         )}
         {auth.user && auth.username === params.user ? <SignOutButton /> : <></>}
-      
       </div>
     </nav>
   );
