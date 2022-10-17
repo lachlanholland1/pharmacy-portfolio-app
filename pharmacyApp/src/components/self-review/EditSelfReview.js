@@ -23,10 +23,10 @@ function EditSelfReview(props) {
   }, []);
 
   return (
-    <div>
-      <Link to={"/" + auth.username}>
-        <button className={style.myButtton}>Back</button>
-      </Link>
+    <div className={style.border}>
+      {/* <Link to={"/" + auth.username}>
+      <button className={style.myButton2}>Back</button>
+      </Link> */}
       {evidenceCriteria ? (
         <EditSelfReviewForm evidenceCriteria={evidenceCriteria} />
       ) : (
