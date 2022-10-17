@@ -58,7 +58,7 @@ export default function EditStandardsForm({ standardData }) {
   };
 
   function handleSubmit(e) {
-    if (!userChanged) return;
+    if (!userChanged) navigate("/view-standards");
     // uploadFile(selectedFile);
     e.preventDefault();
     setFormIsVisible(false);
@@ -68,7 +68,9 @@ export default function EditStandardsForm({ standardData }) {
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
-    }).then((response) => {
+    })
+    .then(navigate("/view-standards"))
+    .then((response) => {
       setLoading(false);
       if (!response.ok) {
         setFormIsVisible(true);
