@@ -80,10 +80,10 @@ export default function ViewReviewForm({ evidenceCriteria }) {
 
   return (
     <div>
-      <div className={style.container}>
+      <div className={style.container2}>
         <div className={style.sign}>
           <h1>Self Review</h1>
-          <p>Evidence Title</p>
+          <h1>Evidence Title</h1>
           <h2>{evidenceDataTitle}</h2>
 
           <p>Description</p>
