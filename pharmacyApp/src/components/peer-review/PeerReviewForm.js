@@ -409,7 +409,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                           />
                           <label className="">{"Advanced"}</label>
                         </div> */}
-
+                        <br />
                         <label className="">Comments</label>
                         <br />
                         <textarea
@@ -432,8 +432,8 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                 ))}
               </div>
             ))}
-            <div className="">
-              <button className="" type="submit">
+            <div>
+              <button className={style.myButton} type="submit">
                 Submit
               </button>
             </div>

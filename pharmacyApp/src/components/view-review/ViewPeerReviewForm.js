@@ -103,33 +103,33 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       });
   }, []);
 
-  const DeletePeerReview = () => {
-    confirmAlert({
-      title: "Confirm Delete",
-      message: "Are you sure you want to do this?",
-      buttons: [
-        {
-          label: "Yes",
-          // onClick: () => alert("Click Yes")
-          onClick: () =>
-            fetch("/api/delete-peer-review", {
-              method: "POST",
-              body: JSON.stringify({
-                peerreview_id: peerid,
-              }),
-              headers: { "Content-Type": "application/json" },
-            })
-              .then((res) => res.json())
-              .then(navigate(`/evidence?id=${id}`)),
-        },
-        {
-          label: "No",
-          onClick: () => navigate(navigate(`/evidence?id=${id}`)),
-          //onClick: () => alert("Click No")
-        },
-      ],
-    });
-  };
+  // const DeletePeerReview = () => {
+  //   confirmAlert({
+  //     title: "Confirm Delete",
+  //     message: "Are you sure you want to do this?",
+  //     buttons: [
+  //       {
+  //         label: "Yes",
+  //         // onClick: () => alert("Click Yes")
+  //         onClick: () =>
+  //           fetch("/api/delete-peer-review", {
+  //             method: "POST",
+  //             body: JSON.stringify({
+  //               peerreview_id: peerid,
+  //             }),
+  //             headers: { "Content-Type": "application/json" },
+  //           })
+  //             .then((res) => res.json())
+  //             .then(navigate(`/evidence?id=${id}`)),
+  //       },
+  //       {
+  //         label: "No",
+  //         onClick: () => navigate(navigate(`/evidence?id=${id}`)),
+  //         //onClick: () => alert("Click No")
+  //       },
+  //     ],
+  //   });
+  // };
 
   var domainIndex = null;
   var standardIndex = null;
@@ -144,7 +144,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
 
   return (
     <div>
-      <div className={style.container}>
+      <div className={style.container2}>
         <div className={style.sign}>
           <h1>Peer Review</h1>
           <p>Evidence Title</p>
@@ -317,9 +317,9 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
             </div>
           ))}
           {reviewers === true ? (
-            <button className={style.myButton} onClick={DeletePeerReview}>
-              Delete Peer Review
-            </button>
+            <Link to={`/delete-peer-review?id=${id}&peerid=${peerid}`}>
+              <button className={style.myButton2}>Delete Evidence</button>
+            </Link>
           ) : (
             <></>
           )}
