@@ -2,7 +2,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 140vh;
+  word-wrap: break-word;
+}
+
+.container2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 86vh; */
+  word-wrap: break-word;
 }
 
 .sign {
@@ -11,7 +20,10 @@
   border-radius: 25px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
   text-align: center;
+  width: 850px;
+  word-wrap: break-word;
 }
+
 .myButton {
   background-color: #000000;
   border-radius: 42px;
@@ -25,10 +37,38 @@
   text-decoration: none;
   border: none;
 }
+
 .myButton:hover {
   background-color: #707070;
 }
+
 .myButton:active {
   position: relative;
   top: 1px;
+}
+
+.myButton2 {
+  background-color: #000000;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  height: 30px;
+  width: 175px;
+  text-decoration: none;
+}
+
+.myButton2:hover {
+  background-color: #707070;
+}
+
+.myButton2:active {
+  position: relative;
+  top: 1px;
+}
+
+.border {
+  padding: 20px;
 }

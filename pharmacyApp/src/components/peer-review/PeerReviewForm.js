@@ -414,6 +414,8 @@ export default function PeerReviewForm({ evidenceCriteria }) {
                         <br />
                         <textarea
                           className=""
+                          rows="6"
+                          cols="60"
                           maxLength={255}
                           type="text"
                           placeholder={"Enter your reasons for Yes/No"}
