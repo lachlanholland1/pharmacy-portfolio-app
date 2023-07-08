@@ -26,7 +26,7 @@ export default function EditAccountForm() {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setPasswordChanged(true);
@@ -63,7 +63,6 @@ export default function EditAccountForm() {
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
-    console.log(request);
     fetch("/api/accounts/password/change", {
       method: "POST",
       body: JSON.stringify(request),

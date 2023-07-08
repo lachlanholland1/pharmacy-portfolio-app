@@ -26,7 +26,7 @@ function EvidenceTable() {
       .then((data) => {
         setEvidenceData(data.evidence_data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => { });
   }, []);
 
   function handleOnClick(userid) {

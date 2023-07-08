@@ -36,7 +36,7 @@ export default function AdminsTable(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setAdminData(data.admins_data);
       });
 

@@ -21,7 +21,6 @@ function EvidenceReview(props) {
       .then((response) => response.json())
       .then((data) => setReviewData(data));
   }, []);
-  console.log(reviewData);
   return <div>{params.id}</div>;
 }
 

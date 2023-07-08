@@ -17,7 +17,6 @@ function Profile(props) {
   const [evidenceData, setEvidenceData] = useState({});
   const location = useLocation();
   const profileUrl = window.location.hostname + ":8080" + location.pathname;
-  console.log(auth);
   localStorage.setItem("profile", params.user);
 
   useEffect(() => {
@@ -43,11 +42,6 @@ function Profile(props) {
         return;
       }
       const file = userDetails.attachment;
-      console.log(Cookies.get("username"));
-      console.log(Cookies.get("username"));
-      console.log(Cookies.get("username"));
-      console.log(Cookies.get("username"));
-      console.log(Cookies.get("username"));
       const type = file.substr(file.length - 3);
       const requestObject = {
         fileName: file,
@@ -60,13 +54,10 @@ function Profile(props) {
       })
         .then((res) => res.json())
         .then((data1) => {
-          console.log(data1);
           setEvidenceData(data1);
         });
     }
   }, [userDetails]);
-
-  console.log(window.location.hostname);
 
   function copyProfileLink() {
     var profileLink = document.getElementById("profileLink");

@@ -1,18 +1,9 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { Controller, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import style from "./style.css";
 
-// const formreducer = (state, event) => {
-//   return {
-//     ...state,
-//     [event.name]: {
-//       reviewId: event.reviewId,
-//       value: event.value,
-//     },
-//   };
-// };
 const formreducer = (state, event) => {
   return {
     ...state,
@@ -21,10 +12,10 @@ const formreducer = (state, event) => {
       standard: event.standard,
       competency: event.competency,
       value: event.value,
-      // reviewId: event.reviewId,
     },
   };
 };
+
 export default function EditSelfReviewForm({ evidenceCriteria }) {
   const [formIsVisible, setFormIsVisible] = useState(true);
   const [isSuccess, setIsSuccess] = useState(-1);
@@ -52,7 +43,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event, domain, standard, competency) => {
     const isCheckbox = event.target.type === "checkbox";
@@ -76,7 +67,7 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setReviewData(data);
       });
     const evidenceRequest = { idevidenceitems: id };
@@ -100,8 +91,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("competency Data");
-        console.log(data);
         setCompetencyArray(data);
       });
   }, []);
@@ -115,8 +104,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
-    console.log("submitting");
-    console.log(request);
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
@@ -138,7 +125,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
   }
 
   if (evidenceOwner != auth.user_id) {
-    console.log("Not authorised.");
     return (
       <div>
         <label>You are unauthorised to access this page.</label>
@@ -149,8 +135,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
       </div>
     );
   }
-
-  console.log(formData);
 
   var domainIndex = null;
   var standardIndex = null;
@@ -227,17 +211,6 @@ export default function EditSelfReviewForm({ evidenceCriteria }) {
                                                           criteria.idperformancecriteria ==
                                                           competencies.performancecriterias_id
                                                         }
-                                                        // checked={
-                                                        //   checkedItems[
-                                                        //     "d" +
-                                                        //       domain.iddomains +
-                                                        //       "-s" +
-                                                        //       standard.standards_id +
-                                                        //       "-c" +
-                                                        //       competency.idcompetencies
-                                                        //   ] ==
-                                                        //   criteria.idperformancecriteria
-                                                        // }
                                                         value={
                                                           criteria.idperformancecriteria
                                                         }

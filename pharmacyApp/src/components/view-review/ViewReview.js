@@ -27,7 +27,7 @@ function ViewReview(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setEvidenceCriteria(data);
       });
   }, []);

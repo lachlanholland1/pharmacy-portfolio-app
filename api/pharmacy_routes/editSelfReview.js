@@ -18,8 +18,6 @@ router.post("/", function (req, res, next) {
     .replace("T", " ")
     .toString();
   const reviewFormatted = {};
-  console.log("req.body");
-  console.log(req.body);
   //if competency of an edited thing is already in databse then update query it
   //Have another field in the request that is an array of competencies
   try {
@@ -44,15 +42,11 @@ router.post("/", function (req, res, next) {
       }
     });
   } catch (err) {
-    console.log(err);
+    
   }
-  console.log("self_review");
-  console.log(reviewFormatted);
   const reviewPromises = [];
   Object.keys(reviewFormatted).map((key) => {
     const reviewId = Math.floor(Math.random() * 1000000000);
-    console.log("COMPETNCY ID");
-    console.log(reviewFormatted[key].competency);
     reviewPromises.push(
       new Promise((resolve, reject) => {
         db.query(
@@ -60,10 +54,6 @@ router.post("/", function (req, res, next) {
           [reviewEvidenceId, reviewFormatted[key].competency],
           (err, result) => {
             const response = result;
-            console.log("RESPONSE COUNT");
-            console.log(response.length);
-            console.log(response);
-            console.log(response[0].count);
             //IF COMP ID IN THERE WITH EVIDNECE ID
             if (response[0].count > 0) {
               if (reviewFormatted[key].criteria == null) {
@@ -81,7 +71,6 @@ router.post("/", function (req, res, next) {
                   ],
                   (err) => {
                     if (err) {
-                      console.log(err);
                       return;
                     }
                     resolve();
@@ -102,7 +91,6 @@ router.post("/", function (req, res, next) {
                   ],
                   (err) => {
                     if (err) {
-                      console.log(err);
                       return;
                     }
                     resolve();
@@ -126,7 +114,7 @@ router.post("/", function (req, res, next) {
                 ],
                 (err) => {
                   if (err) {
-                    console.log(err);
+                    
                     return;
                   }
                   resolve();

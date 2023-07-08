@@ -32,7 +32,7 @@ export default function EditEvidenceForm({ evidenceData }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setUserChanged(true);
@@ -44,8 +44,8 @@ export default function EditEvidenceForm({ evidenceData }) {
       name: "idevidenceitems",
       value: evidenceData.idevidenceitems,
     });
-    console.log(formData);
   };
+
   const handleChangeDate = (date) => {
     setUserChanged(true);
     setFormData({
@@ -110,9 +110,7 @@ export default function EditEvidenceForm({ evidenceData }) {
   //   });
   // };
 
-  console.log(auth.user_id, evidenceData.users_id);
   if (auth.user_id != evidenceData.users_id) {
-    console.log("Not authorised.");
     return (
       <div>
         <label>You are unauthorised to access this page.</label>

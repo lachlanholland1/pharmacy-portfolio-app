@@ -4,20 +4,16 @@ const db = require("../connection.js");
 
 router.post("/", (req, res, next) => {
   const review_id = req.body.review_id;
-  console.log(req.body);
+ 
   db.query(
     "SELECT domains_id, COUNT(*) AS standard_count FROM evidencereviews WHERE idevidencereview = ? GROUP BY domains_id",
     [review_id],
     (err, result) => {
       const response = result;
-      console.log(response.length);
-      console.log(response.standard_count);
       db.query(
         "SELECT * FROM evidencereviews WHERE idevidencereview = ? ORDER BY domains_id ASC, standards_id ASC, competencies_id ASC",
         [review_id],
         (err, result) => {
-          console.log(result[1]);
-          console.log(result.length);
 
           var obj = [];
           var doneDomains = [];
@@ -29,12 +25,10 @@ router.post("/", (req, res, next) => {
           for (let i = 0; i < result.length; i++) {
             if (doneDomains.includes(result[i].domains_id) === false) {
               obj.push({ domains_id: result[i].domains_id, standards: [] });
-              console.log(obj);
               obj[domainCount]["standards"] = [];
               prevdomainCount = domainCount;
               domainCount += 1;
               doneDomains.push(result[i].domains_id);
-              console.log("Added Domain");
               standCount = 0;
             }
             if (doneStandards.includes(result[i].standards_id) === false) {
@@ -47,7 +41,6 @@ router.post("/", (req, res, next) => {
               prevstandCount = standCount;
               standCount += 1;
               doneStandards.push(result[i].standards_id);
-              console.log("Added Standard");
             }
             var point = {};
             point = {
@@ -60,7 +53,6 @@ router.post("/", (req, res, next) => {
               "competencies"
             ].push(point);
           }
-          console.log(obj);
           res.send({ data: obj });
         }
       );

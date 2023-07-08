@@ -45,7 +45,7 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       .then((response) => response.json())
       .then((data) => {
         setReviewData(data);
-        console.log(data);
+        
       });
     const evidenceRequest = { idevidenceitems: id };
     fetch("/api/viewevidence", {
@@ -70,7 +70,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
         if (peerReviewData.length > 0) {
           setisPeerReview(true);
           setPeerReview(peerReviewData);
-          console.log(peerReviewData);
         } else {
           setisPeerReview(false);
         }
@@ -84,7 +83,6 @@ export default function ViewPeerReviewForm({ evidenceCriteria }) {
       .then((response) => response.json())
       .then((userData) => {
         setUsers(userData);
-        console.log(userData);
       });
 
     const reviewerRequest = { users_id: auth.user_id };
@@ -379,10 +377,6 @@ function getIndexOfDomain(evidenceCriteria, domains_id) {
 }
 
 function PeerReviewData(data, review_id) {
-  console.log("PEER REVIEW DATA");
-  console.log(data);
-  console.log(review_id);
-
   for (let i = 0; i < data.length; i++) {
     if (data[i].review_id == review_id) {
       return data[i];

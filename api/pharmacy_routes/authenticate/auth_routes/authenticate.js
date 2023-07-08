@@ -10,7 +10,6 @@ router.post("/", (req, res, next) => {
     username: cookies.username,
     admin: cookies.admin,
   };
-  console.log(response);
   return res.send(response);
 });
 

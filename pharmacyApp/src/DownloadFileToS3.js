@@ -10,8 +10,6 @@ export default function DownloadImageToS3(props) {
                 fileName: props,
                 fileType: type
         }
-       console.log(requestObject.fileName);
-       console.log(requestObject.fileType);
        
         fetch('/api/download',{
             method: "POST",

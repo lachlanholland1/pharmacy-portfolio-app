@@ -9,7 +9,6 @@ router.post("/", (req, res, next) => {
     [peerreview_id],
     (err, result) => {
       if (err) {
-        console.log(err);
         res.sendStatus(401);
         return;
       }

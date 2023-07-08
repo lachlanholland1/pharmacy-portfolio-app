@@ -30,7 +30,7 @@ export default function CreateReviewerForm(){
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          
           setUserData(data.users_data);
         });
     }, []);
@@ -43,7 +43,7 @@ export default function CreateReviewerForm(){
         control,
         formState: { errors }
       } = useForm();
-       const onSubmit = (data) => console.log(data);
+      
 
       const handleChange = (event) => {
         setFormData({

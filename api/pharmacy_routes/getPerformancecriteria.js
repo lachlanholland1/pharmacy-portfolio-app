@@ -7,12 +7,8 @@ router.post("/", (req, res, next) => {
   db.query(
     "SELECT * FROM performancecriterias WHERE idperformancecriteria="+idperformancecriteriaitems+";",
     (err, result) => {
-
       const response = { performancecriterias_data: result[0] };
       res.send(response);
-
-      // console.log("fsfds:"+result);
-      // res.send({ performancecriterias_data: result });
     }
   );
 });

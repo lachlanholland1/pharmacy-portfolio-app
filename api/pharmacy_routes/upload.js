@@ -19,15 +19,11 @@ const myBucket = new AWS.S3({
     region: REGION,
 });
 
-console.log(req.body.fileName);
-console.log(req.body.fileType);
-
   myBucket.getSignedUrl('putObject', {
       Key: req.body.fileName,
       ContentType: req.body.fileType,
       Expires: URL_EXPIRATION_TIME
   } , (err , url) => {
-    console.log(url);
       return res.send({signedUrl: url}); // API Response Here
   });
 

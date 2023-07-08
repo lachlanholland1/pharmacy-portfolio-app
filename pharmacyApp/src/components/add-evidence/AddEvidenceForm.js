@@ -31,13 +31,12 @@ export default function AddEvidenceForm() {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   var attachment;
 
   const handleFileInput = (e) => {
   if (e.target.files[0].size > 10000000){
-    console.log("Error: File size must be below 10mb!");
     setErrors('Error: File size must be below 10mb!')
   }
   else if (e.target.files[0].type != "application/pdf" && e.target.files[0].type != "image/jpeg" &&
@@ -49,7 +48,6 @@ export default function AddEvidenceForm() {
   e.target.files[0].type != "audio/wav" && e.target.files[0].type != "application/vnd.ms-excel" &&
   e.target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
     setErrors('Error: Invalid file format!');
-    console.log('Error: Invalid file format!');
   }
   else {
     setErrors('');
@@ -57,7 +55,6 @@ export default function AddEvidenceForm() {
     attachment = urlProducer(e.target.files[0].name);
     setAttachmentData(attachment);
     setFormData({name: "attachment", value: attachment});
-    console.log(e.target.files[0].type);
   }
 }
   const [errors1, setErrors] = useState("");
@@ -65,13 +62,10 @@ export default function AddEvidenceForm() {
 
 
 function uploadFile(file){
-  console.log(attachmentData);
   const requestObject = {
           fileName: attachmentData,
           fileType: file.type
   }
-//  console.log(requestObject.fileName);
-//  console.log(requestObject.fileType);
   fetch('/api/upload',{
       method: "POST",
       body: JSON.stringify(requestObject),
@@ -83,7 +77,6 @@ function uploadFile(file){
           method:'PUT',
           body :file
       }).then((res) => {
-          // DO WHATEVER
       })
   })
 };

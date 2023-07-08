@@ -61,7 +61,7 @@ export default function CreateAdminForm() {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setFormData({
@@ -93,7 +93,6 @@ export default function CreateAdminForm() {
   }
 
   if (admins == false) {
-    console.log("Not authorised.");
     return (
       <div>
         <label>You are unauthorised to access this page.</label>

@@ -26,7 +26,7 @@ export default function EditDomainsForm({ domainData }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setUserChanged(true);

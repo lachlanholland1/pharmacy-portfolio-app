@@ -9,8 +9,6 @@ router.post("/", (req, res, next) => {
     (err, result) => {
       const response = { competencies_data: result[0] };
       res.send(response);
-      // console.log("fsfds:"+result);
-      // res.send({ competencies_data: result });
     }
   );
 });

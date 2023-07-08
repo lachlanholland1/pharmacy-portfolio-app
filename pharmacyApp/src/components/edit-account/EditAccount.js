@@ -18,7 +18,7 @@ function EditAccount(props) {
     })
       .then((response) => response.json())
       .then((data) => setUserData(data))
-      .catch((err) => console.log("err"));
+      .catch((err) => {});
   }, []);
 
   return (

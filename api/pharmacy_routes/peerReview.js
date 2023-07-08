@@ -14,8 +14,7 @@ router.post("/", function (req, res, next) {
   const agreecompetenncy = req.body.review.agree;
   const performance = req.body.review.performancecriteria;
   const evidencereviews_id = req.body.evidencereviews_id;
-  console.log(req.body.review);
-  console.log(req.body);
+ 
   var date = new Date();
   const reviewDate = date
     .toISOString()
@@ -27,7 +26,6 @@ router.post("/", function (req, res, next) {
   const reviewFormatted = {};
   try {
     Object.keys(self_review).map((key) => {
-      console.log(key);
       //can be improved/combined?
       if (key.split("-")[0] === "comments") {
         reviewFormatted[self_review[key].reviewId] = {
@@ -61,9 +59,8 @@ router.post("/", function (req, res, next) {
       }
     });
   } catch (err) {
-    console.log(err);
+    
   }
-  console.log(reviewFormatted);
   const reviewPromises = [];
   Object.keys(reviewFormatted).map((key) => {
     const reviewId = Math.floor(Math.random() * 1000000000);
@@ -84,7 +81,7 @@ router.post("/", function (req, res, next) {
           ],
           (err) => {
             if (err) {
-              console.log(err);
+              
               return;
             }
             resolve();
