@@ -1,6 +1,6 @@
 # Pharmacy Portfolio Web App
 The project contains a frontend app located in the `pharmacyApp` folder and an API app located in the `api` folder. To run the project both apps must be run.
-### Frameworks/libraries
+## Frameworks/libraries
 pharmacyApp
 - React
 
