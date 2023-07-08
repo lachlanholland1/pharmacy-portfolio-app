@@ -35,7 +35,7 @@ npm run build
 npm start
 ``` 
 
-### api app setup
+### api setup
 1. Navigate to the `api` folder:
 ```
 cd api
