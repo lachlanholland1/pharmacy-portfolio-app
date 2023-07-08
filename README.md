@@ -13,7 +13,8 @@ api
 ## Getting Started
 
 ### Prequisites
-- The project's MySQL database is running.
+- Node is installed
+- Project's database is running on a MySQL Server
 
 ### pharmacyApp setup
 1. Navigate to the `pharmacyApp` folder:
