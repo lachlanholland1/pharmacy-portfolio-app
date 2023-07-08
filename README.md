@@ -30,7 +30,7 @@ npm install
 ```
 npm run build
 ```
-4. Start the app. The 
+4. Start the app:
 ```
 npm start
 ``` 
@@ -45,7 +45,7 @@ cd api
 ```
 npm install
 ```
-4. Run the app
+4. Run the app:
 ```
 npm start
 ``` 
