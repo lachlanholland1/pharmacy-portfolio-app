@@ -25,7 +25,6 @@ router.post("/", function (req, res, next) {
       const user = result[0];
       let isAdmin = 0;
       if (user.password === reqPassword) {
-        console.log(user.user_id);
         db.query(
           "select * from administrators where users_id = ?",
           [user.user_id],

@@ -7,12 +7,8 @@ router.post("/", (req, res, next) => {
   db.query(
     "SELECT * FROM domains WHERE iddomains="+iddomainitems+";",
     (err, result) => {
-
       const response = { domains_data: result[0] };
       res.send(response);
-
-      // console.log("fsfds:"+result);
-      // res.send({ domains_data: result });
     }
   );
 });

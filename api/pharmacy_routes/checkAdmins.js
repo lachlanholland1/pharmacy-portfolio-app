@@ -10,15 +10,10 @@ router.post("/", (req, res, next) => {
     [users_id],
     (err, result) => {
       if (err) {
-        console.log(err);
         res.sendStatus(401);
         return;
       }
-      console.log(result);
-      console.log(result.length);
       res.send(result);
-      console.log(result);
-      //res.sendStatus(200);
     }
   );
 });

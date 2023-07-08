@@ -5,14 +5,13 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
-  console.log(req.body);
+ 
   if (!req.body.idstandards) {
     res.sendStatus(401);
   }
   const idstandards = req.body.idstandards;
   if (req.body.title) {
-    console.log(req.body.title);
-    // console.log(user_id);
+   
     db.query(
       "UPDATE standards SET title = ? WHERE idstandards = ?;",
       [req.body.title, idstandards],

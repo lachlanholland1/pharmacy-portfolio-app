@@ -9,7 +9,7 @@ router.post("/", (req, res, next) => {
     [reviewer_id],
     (err, result) => {
       if (err) {
-        console.log(err);
+        
         res.sendStatus(401);
         return;}
       res.sendStatus(200);

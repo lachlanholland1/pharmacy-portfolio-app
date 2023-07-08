@@ -27,7 +27,7 @@ export default function EditPerformancecriteriasForm({ performancecriteriaData }
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setUserChanged(true);

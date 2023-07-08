@@ -15,7 +15,7 @@ router.post("/", (req, res, next) => {
     .toString();
   const procurementdate = req.body.date;
   const attachment = req.body.attachment;
-  console.log(req.body);
+ 
   db.query(
     "INSERT INTO evidenceitems (users_id, title, description, impactstatement, uploaddate, procurementdate, attachment) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [
@@ -29,7 +29,7 @@ router.post("/", (req, res, next) => {
     ],
     (err, result) => {
       if (err) {
-        console.log(err);
+        
         res.sendStatus(401);
         return;
       }

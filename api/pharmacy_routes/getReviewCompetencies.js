@@ -4,7 +4,7 @@ const db = require("../connection.js");
 
 router.post("/", (req, res, next) => {
   const evidenceid = req.body.idevidenceitems;
-  console.log(req.body);
+ 
   db.query(
     "SELECT competencies_id FROM evidencereviews WHERE evidenceitems_id =" +
       evidenceid +
@@ -16,7 +16,6 @@ router.post("/", (req, res, next) => {
         val = result[i].competencies_id;
         response.push(val);
       }
-      console.log(response);
       res.send(response);
     }
   );

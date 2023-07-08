@@ -33,7 +33,7 @@ export default function EditAccountForm({ userData }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setUserChanged(true);
@@ -42,16 +42,13 @@ export default function EditAccountForm({ userData }) {
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
-    console.log(formData);
     if (event.target.name === "username") {
-      console.log("Username change");
       setUsernameChanged(true);
     }
   };
 
   const handleFileInput = (e) => {
     if (e.target.files[0].size > 10000000) {
-      console.log("Error: File size must be below 1mb!");
       setErrors("Error: File size must be below 1mb!");
     } else if (
       e.target.files[0].type != "application/pdf" &&
@@ -59,7 +56,6 @@ export default function EditAccountForm({ userData }) {
       e.target.files[0].type != "image/png"
     ) {
       setErrors("Error: Invalid file format!");
-      console.log("Error: Invalid file format!");
     } else {
       setUserChanged(true);
       setUserChangedFile(true);
@@ -68,12 +64,10 @@ export default function EditAccountForm({ userData }) {
       attachment = urlProducer(e.target.files[0].name);
       setAttachmentData(attachment);
       setFormData({ name: "attachment", value: attachment });
-      console.log(e.target.files[0].type);
     }
   };
 
   function uploadFile(file) {
-    console.log(attachmentData);
     const requestObject = {
       fileName: attachmentData,
       fileType: file.type,

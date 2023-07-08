@@ -4,7 +4,6 @@ const db = require("../connection.js");
 
 router.post("/", (req, res, next) => {
   db.query("SELECT user_id, firstname, surname FROM Users", (err, result) => {
-    console.log(result);
     res.send(result);
   });
 });

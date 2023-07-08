@@ -36,7 +36,7 @@ export default function SelfReviewForm({ evidenceCriteria }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event, domain, standard, competency) => {
     const isCheckbox = event.target.type === "checkbox";

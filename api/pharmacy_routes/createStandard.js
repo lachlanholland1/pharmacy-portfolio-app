@@ -7,13 +7,11 @@ router.post("/", (req, res, next) => {
   const description = req.body.description;
   const domain = req.body.domains_id;
   const status = req.body.status;
-  console.log(req.body);
   db.query(
     "INSERT INTO standards (title, description, domains_id, status) VALUES (?, ?, ?, ?)",
     [title, description, domain, status],
     (err, result) => {
       if (err) {
-        console.log(err);
         res.sendStatus(401);
         return;}
       res.sendStatus(200);

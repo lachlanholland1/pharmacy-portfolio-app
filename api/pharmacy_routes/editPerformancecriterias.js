@@ -5,14 +5,11 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
-  console.log(req.body);
   if (!req.body.idperformancecriteria) {
     res.sendStatus(401);
   }
   const idperformancecriteria = req.body.idperformancecriteria;
   if (req.body.title) {
-    console.log(req.body.title);
-    // console.log(user_id);
     db.query(
       "UPDATE performancecriterias SET title = ? WHERE idperformancecriteria = ?;",
       [req.body.title, idperformancecriteria],

@@ -10,7 +10,7 @@ router.post("/", (req, res, next) => {
       res.send({ frameworks_data: result });
     }
   );
-    console.log();
+    
 });
 
 module.exports = router;

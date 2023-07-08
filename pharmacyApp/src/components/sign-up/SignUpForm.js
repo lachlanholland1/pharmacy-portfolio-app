@@ -22,7 +22,6 @@ const SignUpForm = () => {
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
-    console.log(formData);
     if (event.target.name === "password") {
       if (formData.confirm_password != event.target.value) {
         setFlagged(true);
@@ -41,7 +40,6 @@ const SignUpForm = () => {
 
   function handleSubmit(e) {
     if (formData.password != formData.confirm_password) {
-      console.log("Password does not match");
       setFormIsVisible(true);
       setFlagged(true);
     } else {

@@ -40,7 +40,7 @@ router.post("/", function (req, res, next) {
       }
     });
   } catch (err) {
-    console.log(err);
+    
   }
 
   const reviewPromises = [];
@@ -64,7 +64,7 @@ router.post("/", function (req, res, next) {
           ],
           (err) => {
             if (err) {
-              console.log(err);
+              
               return;
             }
             resolve();

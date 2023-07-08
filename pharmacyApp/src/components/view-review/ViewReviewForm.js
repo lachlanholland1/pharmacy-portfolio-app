@@ -42,7 +42,7 @@ export default function ViewReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setReviewData(data);
       });
     const evidenceRequest = { idevidenceitems: id };

@@ -35,7 +35,7 @@ export default function EditStandardsForm({ standardData }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setFrameworkData(data.frameworks_data);
       });
   }, []);
@@ -46,7 +46,7 @@ export default function EditStandardsForm({ standardData }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event) => {
     setUserChanged(true);

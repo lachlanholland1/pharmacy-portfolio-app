@@ -34,7 +34,7 @@ export default function AddStandardForm(){
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          
           setFrameworkData(data.frameworks_data);
         });
     }, []);
@@ -46,7 +46,7 @@ export default function AddStandardForm(){
         control,
         formState: { errors }
       } = useForm();
-       const onSubmit = (data) => console.log(data);
+      
 
       const handleChange = (event) => {
         setFormData({

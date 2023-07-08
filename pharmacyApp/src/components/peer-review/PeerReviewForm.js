@@ -40,7 +40,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+ 
 
   const handleChange = (event, reviewId) => {
     if (
@@ -54,13 +54,11 @@ export default function PeerReviewForm({ evidenceCriteria }) {
         [event.target.name]: event.target.value,
       });
     }
-    console.log(reviewId);
     setFormData({
       name: event.target.name,
       value: event.target.value,
       reviewId: reviewId,
     });
-    console.log(formData);
   };
 
   useEffect(() => {
@@ -72,7 +70,7 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        
         setReviewData(data);
       });
     const evidenceRequest = { idevidenceitems: id };
@@ -108,16 +106,13 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("ALL REVIEWED ACCOUNS");
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
           if (auth.user_id == data[i].reviewers_id) {
-            console.log("ALREADY DONE A REVIEW!");
             navigate("/evidence?id=" + id);
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, []);
 
   function handleSubmit(e) {
@@ -129,8 +124,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
       access_token: auth.access_token,
       user_id: auth.user_id,
     };
-    console.log("submitting");
-    console.log(request);
     setFormIsVisible(false);
     setLoading(true);
     setSubmitting(true);
@@ -151,7 +144,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
     navigate("/evidence?id=" + id);
   }
   if (reviewers == false) {
-    console.log("Not authorised.");
     return (
       <div>
         <label>You are unauthorised to access this page.</label>
@@ -220,7 +212,6 @@ export default function PeerReviewForm({ evidenceCriteria }) {
 
     //   </div>
   }
-  console.log(formData);
 
   var domainIndex = null;
   var standardIndex = null;

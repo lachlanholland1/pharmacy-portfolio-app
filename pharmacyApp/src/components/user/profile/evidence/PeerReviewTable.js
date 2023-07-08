@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import {
   useParams,
-  Navigate,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { Link } from "react-router-dom";
 import style from "./EvidenceTableStyle.css";
 import Moment from "moment";
 
@@ -26,9 +24,9 @@ function PeerReviewTable() {
       .then((response) => response.json())
       .then((data) => {
         setEvidenceData(data);
-        console.log(data);
+        
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, []);
 
   function handleOnClick(reviewid, peerid) {

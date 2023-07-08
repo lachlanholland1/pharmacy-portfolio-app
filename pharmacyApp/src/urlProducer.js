@@ -9,7 +9,6 @@ export default function urlProducer(props) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     let final = text.concat("", type);
-    console.log(final);
   return final;
 }
 

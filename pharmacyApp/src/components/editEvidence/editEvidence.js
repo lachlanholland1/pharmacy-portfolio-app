@@ -11,9 +11,6 @@ function EditEvidence(props) {
     const [evidenceData, setEvidenceData] = useState({}); //changed from ([]);
     const { auth, setAuth } = useAuth();
 
-//   const [userData, setUserData] = useState({});
-
-
   useEffect(() => {
     const request = {idevidenceitems: id};
     fetch("/api/viewevidence", { 
@@ -23,7 +20,6 @@ function EditEvidence(props) {
     })
       .then((response) => response.json())
         .then((details) => {
-          console.log(details);
             setEvidenceData(details.evidence_data);
           });
   }, []);

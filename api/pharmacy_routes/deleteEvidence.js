@@ -9,7 +9,7 @@ router.post("/", (req, res, next) => {
     [idevidenceitems],
     (err, result) => {
       if (err) {
-        console.log(err);
+        
         res.sendStatus(401);
         return;
       }

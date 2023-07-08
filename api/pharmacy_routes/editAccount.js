@@ -5,9 +5,6 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
-  console.log(req.body);
-  console.log(req.body);
-  console.log(req.body);
   if (!req.session.userid) {
     res.sendStatus(401);
   }
@@ -27,8 +24,6 @@ router.post("/", function (req, res, next) {
   }
 
   if (req.body.edit_account.first_name) {
-    console.log(req.body.edit_account.first_name);
-    console.log(user_id);
     db.query(
       "UPDATE Users SET firstname = ? WHERE user_id = ?;",
       [req.body.edit_account.first_name, user_id],
@@ -89,7 +84,6 @@ router.post("/", function (req, res, next) {
   }
 
   if (req.body.edit_account.username) {
-    console.log("there is");
     db.query(
       "UPDATE Users SET username = ? WHERE user_id = ?;",
       [req.body.edit_account.username, user_id],

@@ -5,9 +5,8 @@ const router = express.Router();
 dotEnv.config();
 
 router.post("/", function (req, res, next) {
-  console.log(req.body);
+ 
   if (!req.session.userid) {
-    console.log("hi");
     return res.sendStatus(401);
   }
 
@@ -55,10 +54,8 @@ router.post("/", function (req, res, next) {
         [newPassword, user_id],
         (err, result) => {
           if (err) {
-            throw err;
             return res.sendStatus(401);
           }
-          console.log("password changed!");
         }
       );
     }
